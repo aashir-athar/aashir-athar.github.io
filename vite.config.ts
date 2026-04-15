@@ -12,9 +12,9 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          motion: ['framer-motion'],
+        manualChunks: (id) => {
+          if (id.includes('react-dom') || id.includes('react/')) return 'vendor'
+          if (id.includes('framer-motion')) return 'motion'
         },
       },
     },
