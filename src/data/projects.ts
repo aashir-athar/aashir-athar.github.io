@@ -76,4 +76,29 @@ export const projects: Project[] = [
       { label: 'Backend', value: 'Node.js' },
     ],
   },
+  {
+    id: 'fuelio',
+    name: 'Fuelio',
+    tagline: 'Drive smarter · Spend less · Maintain better.',
+    description:
+      'A 100% offline, privacy-first vehicle management app built with React Native & Expo. Track fuel fills with a statistically correct full-tank-window efficiency algorithm, log service history across 9 service types, and visualise spending with line and bar charts — all on-device with zero cloud, zero ads, and zero tracking.',
+    features: [
+      'Full-tank-window fuel algorithm — the only statistically correct efficiency method, matching professional fleet software',
+      '9 service types with auto-calculated next-due mileage and home-screen reminder cards',
+      'Analytics dashboard: avg/best/worst efficiency, cost-per-km, monthly spend bar chart, efficiency line chart with time filters',
+      '100% offline — all data in AsyncStorage, zero network requests, one-tap full data wipe',
+      'Multi-unit support: km/mi, L/gal, 7 currencies (USD, EUR, GBP, PKR, AED, SAR, INR), system/light/dark theme',
+    ],
+    tech: ['React Native', 'Expo SDK 54', 'TypeScript', 'Expo Router', 'Reanimated 4', 'Zustand', 'AsyncStorage', 'Expo Haptics'],
+    github: 'https://github.com/aashir-athar/fuelio',
+    accent: '#B6F24D',
+    accentGlow: 'rgba(182,242,77,0.2)',
+    category: 'Utility App',
+    highlights: [
+      { label: 'Storage', value: '100% Offline' },
+      { label: 'Service Types', value: '9' },
+      { label: 'Fuel Types', value: '5' },
+      { label: 'Architecture', value: 'New Arch' },
+    ],
+  },
 ]
