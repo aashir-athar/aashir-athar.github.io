@@ -29,6 +29,14 @@ const appScreens = [
     items: ['📦 12 listings', '💬 3 messages', '⭐ 4.9 rating'],
     bar: 88,
   },
+  {
+    bg: 'linear-gradient(160deg, #1a2a0a 0%, #060910 100%)',
+    accent: '#B6F24D',
+    label: 'Fuelio',
+    sublabel: 'Vehicle Stats',
+    items: ['⛽ 14.2 km/L', '🔧 Oil due 500km', '💰 Rs 4,200 spent'],
+    bar: 64,
+  },
 ]
 
 export default function PhoneMockup({ accentColor = '#06b6d4' }: PhoneMockupProps) {
