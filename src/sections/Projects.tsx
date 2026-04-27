@@ -158,25 +158,29 @@ function ProjectCard({
 
         {/* Actions */}
         <div className="mt-6 flex items-center justify-between">
-          <span
-            className="link-underline inline-flex items-center gap-2 font-display text-sm font-semibold text-[color:var(--ink)] sm:text-[0.95rem]"
-          >
-            Read case study
-            <ArrowUpRight
-              size={16}
-              aria-hidden="true"
-              className="transition-transform duration-500 [transition-timing-function:var(--ease-signature)] group-hover:-translate-y-1 group-hover:translate-x-1"
-            />
+          <span className="link-underline inline-block">
+            <span className="inline-flex items-center gap-2 whitespace-nowrap font-semibold">
+              Read&nbsp;case&nbsp;study
+              <ArrowUpRight
+                size={16}
+                aria-hidden="true"
+                className="transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"
+              />
+            </span>
           </span>
+
           {project.demo && (
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
               onClick={e => e.stopPropagation()}
-              className="link-underline inline-flex items-center gap-1.5 text-[0.82rem] text-[color:var(--ink-muted)]"
+              className="link-underline inline-block"
             >
-              <ExternalLink size={13} aria-hidden="true" /> Live
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[0.82rem] text-[color:var(--ink-muted)]">
+                <ExternalLink size={13} aria-hidden="true" />
+                Live
+              </span>
             </a>
           )}
         </div>
