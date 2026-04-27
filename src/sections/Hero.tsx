@@ -1,158 +1,227 @@
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowDown, Mail, Download } from 'lucide-react'
+import { ArrowRight, Mail, Download } from 'lucide-react'
 import PhoneMockup from '../components/PhoneMockup'
 import { GithubIcon, LinkedinIcon } from '../components/SocialIcons'
+import LocalTime from '../components/LocalTime'
+import Marquee from '../components/Marquee'
+import { Container } from '../components/ui'
 
-const ROLES = ['React Native Developer', 'Expo Specialist', 'Mobile Architect', 'TypeScript Engineer']
+const ease = [0.16, 1, 0.3, 1] as const
+
+const stats = [
+  { value: '50K+', label: 'Users in production' },
+  { value: '4', label: 'Apps shipped' },
+  { value: '0', label: 'Post-launch crashes' },
+  { value: '↓ 35%', label: 'Cold-start time' },
+]
+
+const socials = [
+  { href: 'https://github.com/aashir-athar', icon: <GithubIcon size={16} />, label: 'GitHub' },
+  { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={16} />, label: 'LinkedIn' },
+  { href: 'mailto:aashirathar@gmail.com', icon: <Mail size={16} />, label: 'Email' },
+]
+
+const marqueeItems = [
+  'React Native', 'Expo SDK 54', 'TypeScript', 'Reanimated 3',
+  'Firebase', 'Supabase', 'Clerk Auth', 'Node · Express',
+  'MongoDB', 'Fastlane CI/CD', 'GitHub Actions', 'Figma',
+]
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0)
-  const [displayed, setDisplayed] = useState('')
-  const [deleting, setDeleting] = useState(false)
-
-  useEffect(() => {
-    const current = ROLES[roleIndex]
-    let timeout: ReturnType<typeof setTimeout>
-    if (!deleting && displayed.length < current.length) {
-      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 60)
-    } else if (!deleting && displayed.length === current.length) {
-      timeout = setTimeout(() => setDeleting(true), 2200)
-    } else if (deleting && displayed.length > 0) {
-      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 30)
-    } else if (deleting && displayed.length === 0) {
-      setDeleting(false)
-      setRoleIndex((roleIndex + 1) % ROLES.length)
-    }
-    return () => clearTimeout(timeout)
-  }, [displayed, deleting, roleIndex])
-
-  const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } }
-  const item = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' as const } } }
+  const handleScrollTo = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
-    <section id="hero" style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
-      {/* Grid bg */}
-      <div className="grid-bg" style={{ position: 'absolute', inset: 0, zIndex: 0, maskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent)', WebkitMaskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent)' }} />
-      {/* Ambient blobs — hidden on small mobile via CSS */}
-      <div style={{ position: 'absolute', top: '20%', left: '10%', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', top: '30%', right: '10%', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%)', filter: 'blur(60px)', zIndex: 0, pointerEvents: 'none' }} />
+    <section
+      id="hero"
+      aria-label="Introduction"
+      className="relative flex min-h-[100dvh] items-center overflow-hidden pt-24 pb-10 sm:pt-28 md:pt-32 md:pb-16"
+    >
+      {/* Background atmosphere */}
+      <div
+        aria-hidden="true"
+        className="ambient-glow top-[-180px] left-1/2 h-[640px] w-[640px] -translate-x-1/2 bg-[radial-gradient(circle,rgba(6,182,212,0.14),transparent_65%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="ambient-glow bottom-[-120px] right-[-80px] hidden h-[420px] w-[420px] bg-[radial-gradient(circle,rgba(139,92,246,0.18),transparent_70%)] md:block"
+      />
+      <div
+        aria-hidden="true"
+        className="grid-bg pointer-events-none absolute inset-0 opacity-[0.18] [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)]"
+      />
 
-      <div className="hero-grid" style={{ position: 'relative', zIndex: 1 }}>
-        {/* Left content */}
-        <motion.div variants={container} initial="hidden" animate="show" style={{ paddingTop: '80px' }}>
-
-          {/* Status badge */}
-          <motion.div variants={item} className="hero-badge" style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            padding: '6px 16px', borderRadius: '100px',
-            background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)',
-            marginBottom: '24px',
-          }}>
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981', animation: 'pulse-ring 2s ease-out infinite', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'DM Mono, monospace', color: '#10b981', whiteSpace: 'nowrap' }}>Open to remote opportunities</span>
-          </motion.div>
-
-          {/* Name */}
-          <motion.h1 variants={item} className="hero-name" style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, lineHeight: 1.05, marginBottom: '16px', color: 'var(--text-primary)' }}>
-            Aashir{' '}
-            <span style={{ background: 'linear-gradient(135deg, #06b6d4 0%, #8b5cf6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Athar</span>
-          </motion.h1>
-
-          {/* Typewriter */}
-          <motion.div variants={item} style={{ fontFamily: 'DM Mono, monospace', fontSize: 'clamp(0.8rem, 2.5vw, 1.25rem)', color: 'var(--text-secondary)', marginBottom: '16px', minHeight: '2em', display: 'flex', alignItems: 'center', gap: '2px' }}>
-            <span style={{ color: '#06b6d4' }}>&gt;</span>
-            <span style={{ marginLeft: '8px' }}>{displayed}</span>
-            <span className="animate-blink" style={{ width: '2px', height: '1.2em', background: '#06b6d4', display: 'inline-block', marginLeft: '2px' }} />
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p variants={item} className="hero-tagline" style={{ fontSize: 'clamp(0.85rem, 2vw, 1.05rem)', color: 'var(--text-secondary)', lineHeight: 1.8, maxWidth: '520px', marginBottom: '28px' }}>
-            3+ years building production-grade mobile apps serving{' '}
-            <span style={{ color: 'var(--cyan)', fontWeight: 600 }}>50,000+ active users</span>.
-            Specializing in React Native, Expo, and scalable mobile architecture across the US and Pakistan.
-          </motion.p>
-
-          {/* CTA buttons */}
-          <motion.div variants={item} className="hero-ctas">
-            <motion.a
-              href="#projects"
-              onClick={e => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-              whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 28px', borderRadius: '12px', background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)', color: 'white', textDecoration: 'none', fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem', boxShadow: '0 8px 32px rgba(6,182,212,0.25)' }}
-            >
-              Explore Projects <ArrowDown size={16} />
-            </motion.a>
-            <motion.a
-              href="/resume.pdf" target="_blank" rel="noopener noreferrer"
-              whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 28px', borderRadius: '12px', background: 'var(--surface)', border: '1px solid var(--border-bright)', color: 'var(--text-primary)', textDecoration: 'none', fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem' }}
-            >
-              <Download size={16} /> Download Resume
-            </motion.a>
-            <motion.a
-              href="#contact"
-              onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-              whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}
-              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 28px', borderRadius: '12px', background: 'transparent', border: '1px solid var(--border)', color: 'var(--text-secondary)', textDecoration: 'none', fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: '0.9rem' }}
-            >
-              <Mail size={16} /> Get in Touch
-            </motion.a>
-          </motion.div>
-
-          {/* Social + stats row */}
-          <motion.div variants={item} className="hero-social-row" style={{ display: 'flex', alignItems: 'center' }}>
-            {/* Social icons */}
-            <div style={{ display: 'flex', gap: '8px' }}>
-              {[
-                { href: 'https://github.com/aashir-athar', icon: <GithubIcon size={18} />, label: 'GitHub' },
-                { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={18} />, label: 'LinkedIn' },
-                { href: 'mailto:aashirathar@gmail.com', icon: <Mail size={18} />, label: 'Email' },
-              ].map(s => (
-                <motion.a
-                  key={s.label} href={s.href}
-                  target={s.href.startsWith('http') ? '_blank' : undefined}
-                  rel="noopener noreferrer" aria-label={s.label}
-                  whileHover={{ scale: 1.12, y: -2, color: 'var(--cyan)' }} whileTap={{ scale: 0.9 }}
-                  style={{ width: '44px', height: '44px', borderRadius: '10px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', transition: 'color 0.2s', flexShrink: 0 }}
-                >
-                  {s.icon}
-                </motion.a>
-              ))}
-            </div>
-
-            {/* Divider — hidden on Galaxy Z Fold via CSS */}
-            <div className="hero-stat-divider" style={{ width: '1px', height: '24px', background: 'var(--border)', flexShrink: 0 }} />
-
-            {/* Stats */}
-            {[{ value: '3+', label: 'Years' }, { value: '50K+', label: 'Users' }, { value: '5+', label: 'Apps Shipped' }].map(stat => (
-              <div key={stat.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.05rem', color: 'var(--cyan)' }}>{stat.value}</span>
-                <span style={{ fontFamily: 'DM Mono, monospace', fontSize: '0.6rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{stat.label}</span>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Phone mockup — only visible lg+ via CSS */}
+      <Container className="relative z-[1]">
+        {/* Top thin meta row — local time + status */}
         <motion.div
-          initial={{ opacity: 0, x: 40, scale: 0.95 }} animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="hero-phone"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease }}
+          className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-[color:var(--line)] pb-5 sm:mb-10"
         >
-          <PhoneMockup accentColor="#06b6d4" />
+          <LocalTime />
+          <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] tracking-[0.16em] text-[color:var(--ink-faint)] uppercase">
+            <span
+              aria-hidden="true"
+              className="relative h-1.5 w-1.5 rounded-full bg-[color:var(--emerald)] shadow-[0_0_10px_var(--emerald)] before:absolute before:inset-0 before:animate-pulse-ring before:rounded-full before:bg-[color:var(--emerald)]"
+            />
+            Available · senior &amp; lead roles
+          </span>
         </motion.div>
-      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}
-        className="hero-scroll-indicator"
-        style={{ position: 'absolute', bottom: '24px', left: '50%', transform: 'translateX(-50%)', flexDirection: 'column', alignItems: 'center', gap: '6px', color: 'var(--text-muted)', zIndex: 1 }}
-      >
-        <span style={{ fontFamily: 'DM Mono, monospace', fontSize: '0.65rem', letterSpacing: '0.1em' }}>SCROLL</span>
-        <ArrowDown size={14} />
-      </motion.div>
+        {/* Main lockup */}
+        <div className="grid items-center gap-10 md:grid-cols-12 md:gap-10 lg:gap-16">
+          {/* LEFT — content. NOTE: H1 + lede render at full opacity from first
+              paint (CSS-driven mask reveal animates transform only) so LCP
+              fires immediately. Framer is used only for orchestrated UI bits. */}
+          <div className="md:col-span-7">
+            {/* Eyebrow — problem-aware hook */}
+            <p className="font-mono text-[0.72rem] tracking-[0.18em] text-[color:var(--ink-faint)] uppercase">
+              <span aria-hidden="true" className="text-[color:var(--cyan)]">[</span> Senior React
+              Native engineer · est. 2022{' '}
+              <span aria-hidden="true" className="text-[color:var(--cyan)]">]</span>
+            </p>
+
+            {/* Name — editorial mega type. NO opacity-from-0 — LCP-safe.
+                leading-[1.02] gives the two lines actual breathing room and
+                stops the descender on "Athar." from kissing the line above.
+                `text-reveal-block` is the modifier that forces stacking. */}
+            <h1
+              className="mt-5 font-display font-bold leading-[1.02] tracking-[-0.045em] text-[color:var(--ink)]"
+              style={{ fontSize: 'clamp(7.6rem, 9vw, 6.5rem)' }}
+            >
+              <span className="text-reveal text-reveal-block text-reveal-delay-1">
+                Aashir{' '}
+                <span className="gradient-text">
+                  Athar<span className="serif-italic">.</span>
+                </span>
+              </span>
+            </h1>
+
+            {/* Lede — full opacity from first paint, transforms only via CSS. */}
+            <p
+              className="text-reveal text-reveal-block text-reveal-delay-3 mt-7 max-w-[38rem] text-[1.04rem] leading-[1.78] text-[color:var(--ink-muted)] sm:text-[1.14rem] sm:leading-[1.82]"
+            >
+              <span>
+                I architect and ship cross-platform mobile apps that hold up at scale.
+                Production React Native serving{' '}
+                <strong className="text-[color:var(--ink)]">50,000+ users</strong>,{' '}
+                <strong className="text-[color:var(--ink)]">zero post-launch crashes</strong>,
+                and <strong className="text-[color:var(--ink)]">35% faster cold starts</strong>{' '}
+                across the apps I've led.
+              </span>
+            </p>
+
+            {/* CTAs — risk-reversal in microcopy */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, delay: 0.55, ease }}
+              className="mt-8 flex flex-wrap items-center gap-3"
+            >
+              <a href="#projects" onClick={handleScrollTo('projects')} className="btn-primary group">
+                View selected work
+                <ArrowRight
+                  size={18}
+                  aria-hidden="true"
+                  className="transition-transform duration-500 [transition-timing-function:var(--ease-signature)] group-hover:translate-x-1"
+                />
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost"
+              >
+                <Download size={16} aria-hidden="true" />
+                Resume
+              </a>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.7, ease }}
+              className="mt-4 font-mono text-[0.72rem] tracking-[0.06em] text-[color:var(--ink-faint)] pt-6"
+            >
+              Replies within 24h · Remote-friendly · Lahore + US time overlap
+            </motion.p>
+
+            {/* Socials */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.85, ease }}
+              className="mt-6 flex items-center gap-3"
+            >
+              <span className="hidden font-mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)] sm:inline">
+                Reach out
+              </span>
+              <span aria-hidden="true" className="hidden h-px w-8 bg-[color:var(--line-strong)] sm:inline-block" />
+              <ul className="flex items-center gap-2">
+                {socials.map(s => (
+                  <li key={s.label}>
+                    <motion.a
+                      href={s.href}
+                      target={s.href.startsWith('http') ? '_blank' : undefined}
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      whileHover={{ y: -2 }}
+                      className="grid h-11 w-11 place-items-center rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)] text-[color:var(--ink-muted)] transition-colors hover:border-[color:var(--cyan)] hover:text-[color:var(--cyan)]"
+                    >
+                      {s.icon}
+                    </motion.a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+
+          {/* RIGHT — phone mockup (decorative) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.3, ease }}
+            className="hidden md:col-span-5 md:flex md:justify-center"
+          >
+            <div className="md:scale-[0.78] lg:scale-[0.95] xl:scale-[1.02]">
+              <PhoneMockup />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Tech marquee */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.6, ease }}
+          className="mt-10 border-y border-[color:var(--line)] py-4 sm:mt-12"
+          aria-label="Tech stack ticker"
+        >
+          <Marquee items={marqueeItems} speed={42} ariaLabel="Tech stack" />
+        </motion.div>
+
+        {/* Stats */}
+        <motion.dl
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7, ease }}
+          className="mt-7 grid grid-cols-2 gap-x-6 gap-y-7 sm:mt-9 sm:grid-cols-4 sm:gap-8"
+        >
+          {stats.map(s => (
+            <div key={s.label} className="flex flex-col">
+              <dt className="order-2 mt-2 text-[0.78rem] text-[color:var(--ink-faint)]">
+                {s.label}
+              </dt>
+              <dd className="order-1 font-display text-[2rem] font-bold leading-none tracking-[-0.03em] text-[color:var(--ink)] sm:text-[2.5rem]">
+                {s.value}
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
+      </Container>
     </section>
   )
 }

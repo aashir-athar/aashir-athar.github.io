@@ -1,154 +1,187 @@
 import { motion } from 'framer-motion'
+import { ArrowRight, Layers, Gauge, Users, Server } from 'lucide-react'
 import { useInView } from '../hooks/useInView'
-import { Smartphone, Zap, Users, Code } from "lucide-react"
+import { Container, Section, SectionHeader } from '../components/ui'
 
-const pillars = [
-  { icon: <Smartphone size={20} />, title: 'Mobile-First', body: 'Every line of code written with the mobile UX in mind — smooth, responsive, and intuitive on both iOS and Android.', accent: '#06b6d4' },
-  { icon: <Zap size={20} />, title: 'Performance Obsessed', body: '35% faster load times, 60fps animations, and zero post-launch crashes — performance is a feature, not an afterthought.', accent: '#f59e0b' },
-  { icon: <Users size={20} />, title: 'Team Leader', body: 'Mentored 4 junior developers and led cross-functional teams to ship MVPs within 6–8 weeks at AppGlide Technologies.', accent: '#8b5cf6' },
-  { icon: <Code size={20} />, title: 'Full-Stack Capable', body: 'Backend in Node.js/Express, databases in MongoDB, Supabase & Firebase — I own the full stack when needed.', accent: '#10b981' },
+const ease = [0.16, 1, 0.3, 1] as const
+
+const principles = [
+  {
+    icon: <Layers size={18} aria-hidden="true" />,
+    title: 'Architecture-first',
+    body: 'Mobile codebases that hold up past their second year. Modular, typed, predictable — the next engineer can read it without a Slack thread.',
+    accent: '#06b6d4',
+  },
+  {
+    icon: <Gauge size={18} aria-hidden="true" />,
+    title: 'Performance is design',
+    body: '60fps interactions, 35% faster cold starts, and zero post-launch crashes across the apps I\'ve led. Speed is the feature users feel first.',
+    accent: '#f59e0b',
+  },
+  {
+    icon: <Users size={18} aria-hidden="true" />,
+    title: 'Cross-functional lead',
+    body: 'Mentored 4 engineers and shipped MVPs in 6–8 weeks by working directly with product and design — not around them.',
+    accent: '#8b5cf6',
+  },
+  {
+    icon: <Server size={18} aria-hidden="true" />,
+    title: 'Full-stack range',
+    body: 'Node, Express, MongoDB, Supabase, Firebase, Clerk Auth. I own the stack when the team needs me to.',
+    accent: '#10b981',
+  },
 ]
 
-function PillarCard({ p, i, inView }: { p: typeof pillars[0]; i: number; inView: boolean }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
-      whileHover={{ y: -4 }}
-      className="pillar-card"
-      style={{
-        borderRadius: '16px',
-        background: 'var(--surface)',
-        border: '1px solid var(--border)',
-        transition: 'border-color 0.3s',
-        display: 'flex',
-        flexDirection: 'column',
-        // Height is controlled by the row wrapper via CSS, not here
-      }}
-    >
-      <div style={{
-        width: '40px', height: '40px', borderRadius: '10px',
-        background: `${p.accent}18`, border: `1px solid ${p.accent}30`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: p.accent, marginBottom: '12px', flexShrink: 0,
-      }}>
-        {p.icon}
-      </div>
-      <h3 style={{
-        fontFamily: 'Syne, sans-serif', fontWeight: 700,
-        fontSize: '0.9rem', color: 'var(--text-primary)',
-        marginBottom: '8px', flexShrink: 0,
-      }}>{p.title}</h3>
-      <p style={{
-        fontSize: '0.78rem', color: 'var(--text-muted)',
-        lineHeight: 1.7, flex: 1,
-      }}>{p.body}</p>
-    </motion.div>
-  )
-}
+const proofStats = [
+  { value: '50K+', label: 'Active users served' },
+  { value: '0', label: 'Post-launch crashes' },
+  { value: '↓ 35%', label: 'Cold-start time' },
+  { value: '↓ 90%', label: 'Deployment errors' },
+]
 
 export default function About() {
   const { ref, inView } = useInView()
 
   return (
-    <section id="about" style={{ position: 'relative' }}>
-      <div style={{
-        position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
-        width: '1px', height: '80px',
-        background: 'linear-gradient(to bottom, transparent, var(--cyan), transparent)',
-      }} />
+    <Section id="about" aria-labelledby="about-heading">
+      <Container>
+        <SectionHeader
+          index="01"
+          eyebrow="About"
+          accent="cyan"
+          id="about-heading"
+          title={
+            <>
+              Most mobile apps don't break on day one — they break in{' '}
+              <span className="serif-italic text-[color:var(--cyan)]">month six.</span>{' '}
+              <span className="gradient-text">That's where I work.</span>
+            </>
+          }
+          description="Senior React Native engineer based in Lahore, Pakistan. Working with US and Pakistan teams since 2022 — architecture, performance budgets, and release pipelines that decide whether a product survives its second quarter."
+        />
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div className="about-grid" ref={ref}>
-
-          {/* Left: Bio */}
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7 }}
-            >
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '4px 14px', borderRadius: '20px',
-                background: 'var(--cyan-glow)', border: '1px solid var(--border-bright)',
-                fontSize: '0.72rem', fontFamily: 'DM Mono, monospace',
-                color: 'var(--cyan)', marginBottom: '20px',
-              }}>
-                01 / About Me
-              </div>
-              <h2 style={{
-                fontFamily: 'Syne, sans-serif',
-                fontSize: 'clamp(1.75rem, 4vw, 3rem)',
-                fontWeight: 800, lineHeight: 1.1, marginBottom: '24px',
-              }}>
-                Building apps that{' '}
-                <span style={{
-                  background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
-                  WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}>people actually use.</span>
-              </h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: 'clamp(0.875rem, 1.5vw, 1rem)' }}>
-                  I'm a Senior React Native developer based in Lahore, Pakistan, with over 3 years of experience
-                  architecting and shipping cross-platform mobile applications. I've led development across teams
-                  serving <strong style={{ color: 'var(--text-primary)' }}>50,000+ active users</strong> in the US and Pakistan.
-                </p>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: 'clamp(0.875rem, 1.5vw, 1rem)' }}>
-                  My craft sits at the intersection of mobile engineering and product thinking — I care as much about
-                  the smoothness of an animation as I do about the architecture that makes it possible. I've reduced
-                  app load times by <strong style={{ color: 'var(--text-primary)' }}>35%</strong>, built CI/CD pipelines
-                  that cut deployment errors by <strong style={{ color: 'var(--text-primary)' }}>90%</strong>, and
-                  mentored junior developers into confident engineers.
-                </p>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: 'clamp(0.875rem, 1.5vw, 1rem)' }}>
-                  When I'm not deep in Expo or wiring up Supabase, I'm building open-source tools that solve
-                  real problems — from mindful social networking to real-time blood donor matching.
-                </p>
-              </div>
-              <motion.a
+        <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">
+          {/* Bio */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease }}
+            className="md:col-span-7 space-y-5 text-[color:var(--ink-muted)]"
+          >
+            <p className="text-[1.05rem] leading-[1.78] sm:text-[1.14rem] sm:leading-[1.85]">
+              Three years. Four production apps.{' '}
+              <strong className="text-[color:var(--ink)]">50,000+ users</strong> on App Store
+              and Google Play — under real load, real reviews, and real 3G in markets you
+              don't get to opt out of.
+            </p>
+            <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
+              My focus is the part of mobile that doesn't make it into the demo:{' '}
+              <span className="serif-italic text-[color:var(--ink)]">architecture decisions
+                made on day one, performance budgets enforced before launch, release pipelines
+                that don't break at 2 a.m.</span> I've cut cold-start times by{' '}
+              <strong className="text-[color:var(--ink)]">35%</strong>, dropped manual
+              deployment errors{' '}
+              <strong className="text-[color:var(--ink)]">90%</strong> with Fastlane CI/CD,
+              and shipped four production apps with zero post-launch crashes.
+            </p>
+            <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
+              Outside client work, I open-source the tools I wish I'd had — a mindful social
+              network, a real-time blood-donor matching app, and an offline-first vehicle
+              tracker. The fastest way to stay sharp is to keep shipping.
+            </p>
+            <div className="pt-4">
+              <a
                 href="#contact"
-                onClick={e => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
+                onClick={e => {
+                  e.preventDefault()
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="link-underline group inline-block"
+              >
+                <span className="inline-flex items-center gap-2 font-display text-base font-semibold text-[color:var(--ink)] sm:text-lg">
+                  Start&nbsp;a&nbsp;conversation
+                  <ArrowRight
+                    size={18}
+                    aria-hidden="true"
+                    className="transition-transform duration-500 group-hover:translate-x-1"
+                  />
+                </span>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Proof stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease }}
+            className="md:col-span-5"
+          >
+            <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 shadow-[var(--shadow-card)] sm:p-7">
+              <div className="flex items-center justify-between">
+                <p className="eyebrow">In production</p>
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-[color:var(--emerald)] shadow-[0_0_10px_var(--emerald)]"
+                />
+              </div>
+              <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-7">
+                {proofStats.map(s => (
+                  <div key={s.label} className="flex flex-col">
+                    <dt className="order-2 mt-1.5 text-[0.78rem] text-[color:var(--ink-faint)]">
+                      {s.label}
+                    </dt>
+                    <dd className="order-1 font-display text-[1.85rem] font-bold leading-none tracking-[-0.02em] text-[color:var(--ink)] sm:text-[2rem]">
+                      {s.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="mt-6 border-t border-[color:var(--line)] pt-5 text-[0.82rem] leading-[1.65] text-[color:var(--ink-faint)]">
+                Numbers from production releases — App Store + Google Play, multi-quarter.
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Principles */}
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+          {principles.map((p, i) => (
+            <motion.article
+              key={p.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.6, delay: i * 0.06, ease }}
+              className="group relative h-full overflow-hidden rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-7 shadow-[var(--shadow-card)] transition-[transform,border-color] duration-500 [transition-timing-function:var(--ease-signature)] hover:-translate-y-1 sm:p-8 gap-3 flex flex-col"
+              style={{ ['--accent' as string]: p.accent } as React.CSSProperties}
+            >
+              {/* Accent rule */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 transition-transform duration-700 [transition-timing-function:var(--ease-signature)] group-hover:scale-x-100"
+                style={{ background: `linear-gradient(90deg, transparent, ${p.accent}, transparent)` }}
+              />
+              <div
+                className="grid h-10 w-10 place-items-center rounded-lg border"
                 style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '8px',
-                  marginTop: '28px', padding: '12px 24px', borderRadius: '10px',
-                  border: '1px solid var(--border-bright)', color: 'var(--cyan)',
-                  textDecoration: 'none', fontFamily: 'Syne, sans-serif',
-                  fontWeight: 700, fontSize: '0.875rem', background: 'var(--cyan-glow)',
+                  background: `${p.accent}15`,
+                  borderColor: `${p.accent}30`,
+                  color: p.accent,
                 }}
               >
-                Let's work together →
-              </motion.a>
-            </motion.div>
-          </div>
-
-          {/* Right: Pillars — 2 rows × 2 cols, perfectly equal */}
-          {/*
-            Layout strategy:
-            - Outer = flex column (2 rows)
-            - Each row = flex row with 2 children, each exactly 50% - half-gap
-            - No grid, no framer wrappers interfering with width calculation
-            - Both cards in a row are same height via alignItems: stretch on the row
-          */}
-          <div className="pillars-outer">
-            {/* Row 1 */}
-            <div className="pillars-row">
-              <PillarCard p={pillars[0]} i={0} inView={inView} />
-              <PillarCard p={pillars[1]} i={1} inView={inView} />
-            </div>
-            {/* Row 2 */}
-            <div className="pillars-row">
-              <PillarCard p={pillars[2]} i={2} inView={inView} />
-              <PillarCard p={pillars[3]} i={3} inView={inView} />
-            </div>
-          </div>
-
+                {p.icon}
+              </div>
+              <h3 className="mt-6 font-display text-[1.1rem] font-semibold leading-[1.3] tracking-[-0.012em] text-[color:var(--ink)] sm:text-[1.15rem]">
+                {p.title}
+              </h3>
+              <p className="mt-3.5 text-[0.95rem] leading-[1.78] text-[color:var(--ink-muted)] sm:text-[0.97rem]">
+                {p.body}
+              </p>
+            </motion.article>
+          ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }

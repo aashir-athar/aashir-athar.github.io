@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface PhoneMockupProps {
   accentColor?: string
@@ -10,7 +10,7 @@ const appScreens = [
     accent: '#06b6d4',
     label: 'xMind',
     sublabel: 'Social Feed',
-    items: ['🔥 Trending', '💬 Replies', '✨ For You'],
+    items: ['Trending', 'Replies', 'For You'],
     bar: 72,
   },
   {
@@ -18,7 +18,7 @@ const appScreens = [
     accent: '#f43f5e',
     label: 'BludStack',
     sublabel: 'Donor Map',
-    items: ['🩸 2 donors nearby', '📍 0.8 km away', '🔔 Urgent: O+'],
+    items: ['2 donors nearby', '0.8 km away', 'Urgent: O+'],
     bar: 55,
   },
   {
@@ -26,7 +26,7 @@ const appScreens = [
     accent: '#10b981',
     label: 'Trade Ease',
     sublabel: 'Marketplace',
-    items: ['📦 12 listings', '💬 3 messages', '⭐ 4.9 rating'],
+    items: ['12 listings', '3 messages', '4.9 rating'],
     bar: 88,
   },
   {
@@ -34,187 +34,157 @@ const appScreens = [
     accent: '#B6F24D',
     label: 'Fuelio',
     sublabel: 'Vehicle Stats',
-    items: ['⛽ 14.2 km/L', '🔧 Oil due 500km', '💰 Rs 4,200 spent'],
+    items: ['14.2 km/L', 'Oil due 500km', 'Rs 4,200 spent'],
     bar: 64,
   },
-]
+] as const
+
+const SCREEN_HEIGHT = 140
+const TOTAL_OFFSETS = appScreens.map((_, i) => -SCREEN_HEIGHT * i)
 
 export default function PhoneMockup({ accentColor = '#06b6d4' }: PhoneMockupProps) {
-  return (
-    <div style={{ position: 'relative', width: '260px', height: '520px' }}>
-      {/* Glow blob */}
-      <div style={{
-        position: 'absolute',
-        top: '50%', left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '200px', height: '200px',
-        borderRadius: '50%',
-        background: `radial-gradient(circle, ${accentColor}33, transparent 70%)`,
-        filter: 'blur(40px)',
-        zIndex: 0,
-      }} />
+  const reduceMotion = useReducedMotion()
 
-      {/* Main phone */}
-      <motion.div
-        className="animate-float"
+  return (
+    <div className="relative h-[520px] w-[260px]">
+      {/* Glow blob */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
         style={{
-          position: 'relative',
-          zIndex: 2,
-          width: '220px',
-          height: '460px',
-          borderRadius: '40px',
-          background: 'linear-gradient(160deg, #1a2640 0%, #0c1120 100%)',
-          border: '1.5px solid rgba(255,255,255,0.12)',
-          boxShadow: `0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.08)`,
-          overflow: 'hidden',
-          display: 'flex',
-          flexDirection: 'column',
-          margin: '0 auto',
+          width: 200,
+          height: 200,
+          background: `radial-gradient(circle, ${accentColor}33, transparent 70%)`,
         }}
+      />
+
+      {/* Phone body */}
+      <motion.div
+        className={`relative z-[2] mx-auto flex h-[460px] w-[220px] flex-col overflow-hidden rounded-[40px] border-[1.5px] border-white/10 bg-[linear-gradient(160deg,#1a2640_0%,#0c1120_100%)] shadow-[0_32px_80px_rgba(0,0,0,0.55),inset_0_1px_0_rgba(255,255,255,0.08)] ${
+          reduceMotion ? '' : 'animate-float'
+        }`}
       >
         {/* Notch */}
-        <div style={{
-          position: 'absolute', top: '12px', left: '50%',
-          transform: 'translateX(-50%)',
-          width: '70px', height: '22px',
-          borderRadius: '11px',
-          background: '#060910',
-          zIndex: 10,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px',
-        }}>
-          <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#1a2640' }} />
-          <div style={{ width: '40px', height: '6px', borderRadius: '3px', background: '#1a2640' }} />
+        <div className="absolute top-3 left-1/2 z-10 flex h-[22px] w-[70px] -translate-x-1/2 items-center justify-center gap-1.5 rounded-[11px] bg-[#060910]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#1a2640]" />
+          <span className="h-1.5 w-10 rounded-[3px] bg-[#1a2640]" />
         </div>
 
         {/* Status bar */}
-        <div style={{
-          padding: '48px 18px 0',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          fontSize: '9px', color: 'rgba(255,255,255,0.5)',
-          fontFamily: 'DM Mono, monospace',
-        }}>
+        <div className="flex items-center justify-between px-[18px] pt-12 font-mono text-[9px] text-white/50">
           <span>9:41</span>
           <span>●●● 5G 100%</span>
         </div>
 
         {/* Cycling app screens */}
         <motion.div
-          animate={{ y: [0, -140, -280, -280, -140, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', times: [0, 0.2, 0.4, 0.6, 0.8, 1] }}
-          style={{ display: 'flex', flexDirection: 'column' }}
+          animate={
+            reduceMotion
+              ? {}
+              : { y: [TOTAL_OFFSETS[0], TOTAL_OFFSETS[1], TOTAL_OFFSETS[2], TOTAL_OFFSETS[3], TOTAL_OFFSETS[2], TOTAL_OFFSETS[1], TOTAL_OFFSETS[0]] }
+          }
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col"
         >
           {appScreens.map((screen, i) => (
-            <div key={i} style={{
-              minHeight: '140px', padding: '12px 18px',
-              background: screen.bg,
-            }}>
+            <div
+              key={i}
+              className="px-[18px] py-3"
+              style={{ minHeight: SCREEN_HEIGHT, background: screen.bg }}
+            >
               {/* App header */}
-              <div style={{
-                display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px',
-              }}>
-                <div style={{
-                  width: '28px', height: '28px', borderRadius: '8px',
-                  background: `linear-gradient(135deg, ${screen.accent}, ${screen.accent}88)`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '12px', fontWeight: 700, color: 'white',
-                  fontFamily: 'Syne, sans-serif',
-                }}>
+              <div className="mb-2.5 flex items-center gap-2">
+                <div
+                  className="grid h-7 w-7 place-items-center rounded-lg font-display text-xs font-bold text-white"
+                  style={{ background: `linear-gradient(135deg, ${screen.accent}, ${screen.accent}88)` }}
+                >
                   {screen.label[0]}
                 </div>
                 <div>
-                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'white', fontFamily: 'Syne, sans-serif', lineHeight: 1.2 }}>{screen.label}</div>
-                  <div style={{ fontSize: '8px', color: screen.accent, fontFamily: 'DM Mono, monospace' }}>{screen.sublabel}</div>
+                  <div className="font-display text-[11px] font-bold leading-tight text-white">
+                    {screen.label}
+                  </div>
+                  <div className="font-mono text-[8px]" style={{ color: screen.accent }}>
+                    {screen.sublabel}
+                  </div>
                 </div>
               </div>
 
               {/* Stats bar */}
-              <div style={{ marginBottom: '8px' }}>
-                <div style={{
-                  height: '3px', borderRadius: '2px',
-                  background: 'rgba(255,255,255,0.08)',
-                }}>
-                  <motion.div
-                    initial={{ width: '0%' }}
-                    animate={{ width: `${screen.bar}%` }}
-                    transition={{ delay: 0.5 + i * 0.2, duration: 1 }}
-                    style={{
-                      height: '100%', borderRadius: '2px',
-                      background: `linear-gradient(90deg, ${screen.accent}, ${screen.accent}88)`,
-                    }}
-                  />
-                </div>
+              <div className="mb-2 h-[3px] rounded-[2px] bg-white/10">
+                <motion.div
+                  initial={{ width: '0%' }}
+                  animate={{ width: `${screen.bar}%` }}
+                  transition={{ delay: 0.5 + i * 0.2, duration: 1 }}
+                  className="h-full rounded-[2px]"
+                  style={{ background: `linear-gradient(90deg, ${screen.accent}, ${screen.accent}88)` }}
+                />
               </div>
 
-              {/* List items */}
+              {/* List */}
               {screen.items.map((item, j) => (
-                <div key={j} style={{
-                  fontSize: '9px', color: 'rgba(255,255,255,0.6)',
-                  padding: '3px 0',
-                  borderBottom: j < screen.items.length - 1 ? '1px solid rgba(255,255,255,0.05)' : 'none',
-                  fontFamily: 'DM Sans, sans-serif',
-                }}>{item}</div>
+                <div
+                  key={j}
+                  className="border-b border-white/[0.06] py-1 font-body text-[9px] text-white/60 last:border-b-0"
+                >
+                  {item}
+                </div>
               ))}
             </div>
           ))}
         </motion.div>
 
         {/* Home indicator */}
-        <div style={{
-          position: 'absolute', bottom: '8px', left: '50%',
-          transform: 'translateX(-50%)',
-          width: '60px', height: '4px', borderRadius: '2px',
-          background: 'rgba(255,255,255,0.2)',
-        }} />
+        <div className="absolute bottom-2 left-1/2 h-1 w-[60px] -translate-x-1/2 rounded-[2px] bg-white/20" />
       </motion.div>
 
       {/* Floating pills */}
-      <motion.div
-        animate={{ y: [-6, 6, -6], x: [3, -3, 3] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute', top: '80px', right: '-20px', zIndex: 5,
-          background: 'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(139,92,246,0.15))',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(6,182,212,0.3)',
-          borderRadius: '20px', padding: '6px 12px',
-          fontSize: '10px', fontFamily: 'DM Mono, monospace',
-          color: '#06b6d4', whiteSpace: 'nowrap',
-        }}
-      >
-        ⚡ 60fps Animations
-      </motion.div>
-
-      <motion.div
-        animate={{ y: [5, -5, 5], x: [-4, 4, -4] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        style={{
-          position: 'absolute', bottom: '100px', left: '-30px', zIndex: 5,
-          background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(6,182,212,0.15))',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(16,185,129,0.3)',
-          borderRadius: '20px', padding: '6px 12px',
-          fontSize: '10px', fontFamily: 'DM Mono, monospace',
-          color: '#10b981', whiteSpace: 'nowrap',
-        }}
-      >
-        🛡️ Enterprise Auth
-      </motion.div>
-
-      <motion.div
-        animate={{ y: [-8, 4, -8] }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-        style={{
-          position: 'absolute', bottom: '160px', right: '-24px', zIndex: 5,
-          background: 'linear-gradient(135deg, rgba(244,63,94,0.15), rgba(139,92,246,0.15))',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(244,63,94,0.3)',
-          borderRadius: '20px', padding: '6px 12px',
-          fontSize: '10px', fontFamily: 'DM Mono, monospace',
-          color: '#f43f5e', whiteSpace: 'nowrap',
-        }}
-      >
-        📍 50K+ Users
-      </motion.div>
+      {[
+        {
+          text: '60fps Animations',
+          color: '#06b6d4',
+          gradient: 'rgba(6,182,212,0.18), rgba(139,92,246,0.18)',
+          y: [-6, 6, -6] as const,
+          x: [3, -3, 3] as const,
+          duration: 4,
+          delay: 0,
+          position: 'top-[80px] right-[-20px]',
+        },
+        {
+          text: 'Enterprise Auth',
+          color: '#10b981',
+          gradient: 'rgba(16,185,129,0.18), rgba(6,182,212,0.18)',
+          y: [5, -5, 5] as const,
+          x: [-4, 4, -4] as const,
+          duration: 5,
+          delay: 1,
+          position: 'bottom-[100px] left-[-30px]',
+        },
+        {
+          text: '50K+ Users',
+          color: '#f43f5e',
+          gradient: 'rgba(244,63,94,0.18), rgba(139,92,246,0.18)',
+          y: [-8, 4, -8] as const,
+          x: [0, 0, 0] as const,
+          duration: 3.5,
+          delay: 0.5,
+          position: 'bottom-[160px] right-[-24px]',
+        },
+      ].map(p => (
+        <motion.div
+          key={p.text}
+          animate={reduceMotion ? {} : { y: [...p.y], x: [...p.x] }}
+          transition={{ duration: p.duration, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}
+          className={`absolute z-[5] rounded-full border px-3 py-1.5 font-mono text-[10px] whitespace-nowrap backdrop-blur-md ${p.position}`}
+          style={{
+            background: `linear-gradient(135deg, ${p.gradient})`,
+            borderColor: `${p.color}55`,
+            color: p.color,
+          }}
+        >
+          {p.text}
+        </motion.div>
+      ))}
     </div>
   )
 }

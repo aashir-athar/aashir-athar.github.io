@@ -1,97 +1,250 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, ChevronRight, Layers } from 'lucide-react'
+import { ArrowUpRight, ExternalLink } from 'lucide-react'
 import { GithubIcon } from '../components/SocialIcons'
 import { projects } from '../data/projects'
 import ProjectModal from '../components/ProjectModal'
 import type { Project } from '../types'
+import { Container, Section, SectionHeader } from '../components/ui'
 
-function ProjectCard({ project, index, onOpen }: { project: Project; index: number; onOpen: () => void }) {
-  const [hovered, setHovered] = useState(false)
+const ease = [0.16, 1, 0.3, 1] as const
+
+function ProjectCard({
+  project,
+  index,
+  onOpen,
+}: {
+  project: Project
+  index: number
+  onOpen: () => void
+}) {
+  const number = String(index + 1).padStart(2, '0')
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ borderRadius: '20px', background: 'var(--surface)', border: `1px solid ${hovered ? project.accent + '55' : 'var(--border)'}`, overflow: 'hidden', transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.3s', transform: hovered ? 'translateY(-6px)' : 'translateY(0)', boxShadow: hovered ? `0 24px 60px ${project.accentGlow}, 0 0 0 1px ${project.accent}22` : '0 4px 20px rgba(0,0,0,0.2)', display: 'flex', flexDirection: 'column' }}
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.7, delay: index * 0.07, ease }}
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onOpen()
+        }
+      }}
+      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-[color:var(--line)] bg-[color:var(--surface)] shadow-[var(--shadow-card)] transition-[transform,border-color,box-shadow] duration-500 [transition-timing-function:var(--ease-signature)] hover:-translate-y-2 hover:border-[color:var(--line-strong)] hover:shadow-[var(--shadow-elev)] focus-visible:-translate-y-2 focus-visible:border-[color:var(--cyan)]"
+      aria-label={`${project.name} — open case study`}
     >
-      <div className="project-card-header" style={{ background: `linear-gradient(160deg, ${project.accentGlow} 0%, var(--bg2) 100%)`, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: `linear-gradient(90deg, transparent, ${project.accent}, transparent)` }} />
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          {[0.85, 1, 0.85].map((scale, i) => (
-            <motion.div key={i} animate={hovered ? { y: [0, -4, 0] } : { y: 0 }} transition={{ duration: 2, delay: i * 0.15, repeat: hovered ? Infinity : 0 }} style={{ width: '52px', height: '100px', borderRadius: '12px', background: 'linear-gradient(160deg, #1a2640, #060910)', border: `1px solid ${project.accent}33`, transform: `scale(${scale})`, boxShadow: i === 1 ? `0 8px 24px ${project.accentGlow}` : 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '8px 4px 6px', overflow: 'hidden' }}>
-              <div style={{ width: '18px', height: '5px', borderRadius: '3px', background: '#060910', marginBottom: '6px' }} />
-              {[100, 60, 80, 50, 70].map((w, j) => (<div key={j} style={{ width: `${w}%`, height: '4px', borderRadius: '2px', background: j === 0 ? project.accent : `${project.accent}33`, marginBottom: '4px' }} />))}
-              <div style={{ marginTop: 'auto', width: '20px', height: '3px', borderRadius: '2px', background: `${project.accent}55` }} />
-            </motion.div>
-          ))}
+      {/* Visual header */}
+      <div
+        className="relative h-52 overflow-hidden sm:h-56"
+        style={{
+          background: `linear-gradient(155deg, ${project.accentGlow} 0%, var(--bg-elev) 100%)`,
+        }}
+      >
+        {/* Top accent rule */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${project.accent}, transparent)`,
+          }}
+        />
+
+        {/* Faint number behind logo */}
+        <div
+          aria-hidden="true"
+          className="absolute right-5 bottom-2 font-display text-[6.5rem] font-bold leading-none tracking-[-0.05em] opacity-[0.07] sm:text-[8rem]"
+          style={{ color: project.accent }}
+        >
+          {number}
         </div>
-        <div style={{ position: 'absolute', top: '14px', left: '14px', padding: '4px 10px', borderRadius: '20px', background: `${project.accentGlow}`, border: `1px solid ${project.accent}33`, fontSize: '0.68rem', fontFamily: 'DM Mono, monospace', color: project.accent }}>{project.category}</div>
-        <motion.a href={project.github} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.1 }} onClick={e => e.stopPropagation()} style={{ position: 'absolute', top: '14px', right: '14px', width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(6,9,16,0.7)', border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
+
+        {/* Logo monogram */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div
+            className="grid h-20 w-20 place-items-center rounded-2xl border-2 font-display text-[1.85rem] font-bold text-white shadow-[0_12px_36px_rgba(0,0,0,0.25)] transition-transform duration-700 [transition-timing-function:var(--ease-signature)] group-hover:scale-105 sm:h-24 sm:w-24"
+            style={{
+              background: `linear-gradient(135deg, ${project.accent}, ${project.accent}aa)`,
+              borderColor: `${project.accent}55`,
+            }}
+          >
+            {project.name[0]}
+          </div>
+        </div>
+
+        {/* Top-left index */}
+        <span
+          className="absolute top-4 left-4 font-mono text-[0.7rem] tracking-[0.18em] text-[color:var(--ink-faint)]"
+          aria-hidden="true"
+        >
+          PROJECT / {number}
+        </span>
+
+        {/* Top-right GitHub */}
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={e => e.stopPropagation()}
+          aria-label={`${project.name} on GitHub`}
+          className="absolute top-3.5 right-3.5 grid h-9 w-9 place-items-center rounded-lg border border-[color:var(--line)] bg-[rgba(6,8,15,0.55)] text-[color:var(--ink-muted)] backdrop-blur-md transition-colors hover:text-[color:var(--ink)]"
+        >
           <GithubIcon size={14} />
-        </motion.a>
+        </a>
+
+        {/* Category pill */}
+        <span
+          className="absolute bottom-3.5 left-4 inline-flex items-center gap-1.5 rounded-full border bg-[rgba(6,8,15,0.55)] px-2.5 py-1 font-mono text-[0.66rem] backdrop-blur-md"
+          style={{
+            color: project.accent,
+            borderColor: `${project.accent}40`,
+          }}
+        >
+          <span
+            aria-hidden="true"
+            className="h-1 w-1 rounded-full"
+            style={{ background: project.accent }}
+          />
+          {project.category}
+        </span>
       </div>
 
-      <div className="project-card-body" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.1rem, 3vw, 1.4rem)', color: 'var(--text-primary)', marginBottom: '6px' }}>{project.name}</h3>
-        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '16px', lineHeight: 1.6 }}>{project.tagline}</p>
-        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '7px', marginBottom: '20px' }}>
-          {project.features.slice(0, 3).map((f, i) => (
-            <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', fontSize: '0.78rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
-              <span style={{ marginTop: '5px', flexShrink: 0, width: '5px', height: '5px', borderRadius: '50%', background: project.accent }} />{f}
-            </li>
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <h3 className="font-display text-2xl font-bold leading-[1.15] tracking-[-0.02em] text-[color:var(--ink)] sm:text-[1.55rem]">
+          {project.name}
+        </h3>
+        <p className="mt-4 text-[0.97rem] leading-[1.78] text-[color:var(--ink-muted)]">
+          {project.tagline}
+        </p>
+
+        {/* Highlights — quick stats row */}
+        <dl className="mt-5 grid grid-cols-2 gap-3 border-y border-[color:var(--line)] py-4 sm:grid-cols-4 sm:gap-2">
+          {project.highlights.map(h => (
+            <div key={h.label} className="flex flex-col">
+              <dd
+                className="font-display text-[0.95rem] font-bold leading-tight"
+                style={{ color: project.accent }}
+              >
+                {h.value}
+              </dd>
+              <dt className="mt-1 font-mono text-[0.62rem] uppercase tracking-[0.10em] text-[color:var(--ink-faint)]">
+                {h.label}
+              </dt>
+            </div>
           ))}
-        </ul>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px', flex: 1 }}>
-          {project.tech.slice(0, 5).map(t => (<span key={t} style={{ padding: '3px 8px', borderRadius: '5px', background: 'var(--bg2)', border: '1px solid var(--border)', fontSize: '0.68rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)' }}>{t}</span>))}
-          {project.tech.length > 5 && (<span style={{ padding: '3px 8px', borderRadius: '5px', background: 'var(--bg2)', border: '1px solid var(--border)', fontSize: '0.68rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)' }}>+{project.tech.length - 5}</span>)}
+        </dl>
+
+        {/* Tech */}
+        <div className="mt-5 flex flex-1 flex-wrap items-end gap-1.5">
+          {project.tech.slice(0, 6).map(t => (
+            <span
+              key={t}
+              className="rounded-md border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-2 py-0.5 font-mono text-[0.7rem] text-[color:var(--ink-faint)]"
+            >
+              {t}
+            </span>
+          ))}
+          {project.tech.length > 6 && (
+            <span className="rounded-md border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-2 py-0.5 font-mono text-[0.7rem] text-[color:var(--ink-faint)]">
+              +{project.tech.length - 6}
+            </span>
+          )}
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <motion.button onClick={onOpen} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '11px', borderRadius: '10px', background: `linear-gradient(135deg, ${project.accent}, #8b5cf6)`, border: 'none', color: 'white', cursor: 'pointer', fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.8rem' }}>
-            <Layers size={14} /> View Case Study
-          </motion.button>
-          <motion.a href={project.github} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.07 }} style={{ width: '42px', height: '42px', borderRadius: '10px', background: 'var(--surface2)', border: `1px solid ${project.accent}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
-            <GithubIcon size={16} />
-          </motion.a>
+
+        {/* Actions */}
+        <div className="mt-6 flex items-center justify-between">
+          <span
+            className="link-underline inline-flex items-center gap-2 font-display text-sm font-semibold text-[color:var(--ink)] sm:text-[0.95rem]"
+          >
+            Read case study
+            <ArrowUpRight
+              size={16}
+              aria-hidden="true"
+              className="transition-transform duration-500 [transition-timing-function:var(--ease-signature)] group-hover:-translate-y-1 group-hover:translate-x-1"
+            />
+          </span>
           {project.demo && (
-            <motion.a href={project.demo} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.07 }} style={{ width: '42px', height: '42px', borderRadius: '10px', background: 'var(--surface2)', border: `1px solid ${project.accent}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', textDecoration: 'none' }}>
-              <ExternalLink size={16} />
-            </motion.a>
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={e => e.stopPropagation()}
+              className="link-underline inline-flex items-center gap-1.5 text-[0.82rem] text-[color:var(--ink-muted)]"
+            >
+              <ExternalLink size={13} aria-hidden="true" /> Live
+            </a>
           )}
         </div>
       </div>
-    </motion.div>
+
+      {/* Hover rule at bottom */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 transition-transform duration-700 [transition-timing-function:var(--ease-signature)] group-hover:scale-x-100"
+        style={{ background: `linear-gradient(90deg, transparent, ${project.accent}, transparent)` }}
+      />
+    </motion.article>
   )
 }
 
 export default function Projects() {
   const [activeModal, setActiveModal] = useState<Project | null>(null)
-  return (
-    <section id="projects" style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute', bottom: '10%', left: '-100px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="section-header" style={{ textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 14px', borderRadius: '20px', background: 'var(--emerald-glow)', border: '1px solid rgba(16,185,129,0.3)', fontSize: '0.72rem', fontFamily: 'DM Mono, monospace', color: 'var(--emerald)', marginBottom: '20px' }}>
-            03 / Featured Projects
-          </div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.1 }}>
-            Apps that ship.{' '}
-            <span style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Problems solved.</span>
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '12px', maxWidth: '500px', margin: '12px auto 0', fontSize: 'clamp(0.875rem, 1.5vw, 1rem)' }}>Production-grade React Native apps — open source, real users, real impact.</p>
-        </motion.div>
 
-        <div className="projects-grid">
-          {projects.map((project, i) => (<ProjectCard key={project.id} project={project} index={i} onOpen={() => setActiveModal(project)} />))}
+  return (
+    <Section id="projects" aria-labelledby="projects-heading">
+      <Container>
+        <SectionHeader
+          index="03"
+          eyebrow="Selected work"
+          accent="emerald"
+          id="projects-heading"
+          title={
+            <>
+              Apps in{' '}
+              <span className="text-[color:var(--cyan)]">production.</span>{' '}
+              <span className="serif-italic text-[color:var(--ink-muted)]">Not</span> portfolio briefs.
+            </>
+          }
+          description="Four open-sourced React Native apps — architected, built, and shipped end-to-end. Each one solves a real problem under real constraints, not a folder filler engineered to look good in screenshots."
+        />
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {projects.map((p, i) => (
+            <ProjectCard key={p.id} project={p} index={i} onOpen={() => setActiveModal(p)} />
+          ))}
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.3 }} style={{ textAlign: 'center', marginTop: '48px' }}>
-          <motion.a href="https://github.com/aashir-athar" target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', borderRadius: '12px', background: 'var(--surface)', border: '1px solid var(--border)', color: 'var(--text-secondary)', textDecoration: 'none', fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.875rem' }}>
-            <GithubIcon size={16} /> See all projects on GitHub <ChevronRight size={16} />
-          </motion.a>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.65, delay: 0.2 }}
+          className="mt-14 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+        >
+          <a
+            href="https://github.com/aashir-athar"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline group inline-block items-center gap-2 font-display text-base font-semibold text-[color:var(--ink)]"
+          >
+            <span className="inline-flex items-center gap-2 whitespace-nowrap">
+              See&nbsp;all&nbsp;repositories&nbsp;on&nbsp;GitHub
+              <ArrowUpRight
+                size={18}
+                aria-hidden="true"
+                className="transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1"
+              />
+            </span>
+          </a>
         </motion.div>
-      </div>
+      </Container>
+
       <ProjectModal project={activeModal} onClose={() => setActiveModal(null)} />
-    </section>
+    </Section>
   )
 }

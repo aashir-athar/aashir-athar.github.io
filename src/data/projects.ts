@@ -4,9 +4,9 @@ export const projects: Project[] = [
   {
     id: 'xmind',
     name: 'xMind',
-    tagline: 'Open-source social platform built for mindful networking.',
+    tagline: 'Open-source social platform — weighted feed ranking, enterprise auth, 50+ component design system.',
     description:
-      'A full-stack, Twitter-like social media platform architected from the ground up as an open-source project. Features AI-powered feed ranking, enterprise-grade auth via Clerk, a 50+ component design system with 60fps animations, and GDPR-compliant data handling across iOS and Android.',
+      'A full-stack, open-source social network architected from the ground up. Weighted-signal feed ranking instead of pure engagement farming, multi-provider OAuth with Clerk, a 50+ component design system at a stable 60fps, and GDPR-compliant data handling across iOS and Android.',
     features: [
       'AI feed ranking: engagement (40%) + recency decay (25%) + social strength (20%) + quality score (15%)',
       'Enterprise auth via Clerk — multi-provider OAuth (Google, Apple, GitHub), MFA, JWT-secured endpoints',
@@ -29,9 +29,9 @@ export const projects: Project[] = [
   {
     id: 'bludstack',
     name: 'BludStack',
-    tagline: 'Real-time blood donation — Uber, but for saving lives.',
+    tagline: 'Geo-fenced blood-donor matching with ring-by-ring notifications and urgency-based expiry.',
     description:
-      'A life-saving civic-impact mobile platform that connects blood donors with recipients using geo-fenced matching, ring-by-ring push notifications, and urgency-based expiry logic. Built with Expo SDK 54 and Supabase, featuring live maps, in-app chat, and a 90-day donation cooldown system.',
+      'A civic-impact mobile platform that connects blood donors with recipients in real time. Donor matching expands ring-by-ring across geographic distance, requests carry urgency-based expiry, and donations enforce a 90-day cooldown. Built on Expo SDK 54 with Supabase as the realtime backend, plus live maps and in-app chat.',
     features: [
       'Geo-fenced donor matching with ring-by-ring notification propagation based on proximity',
       'Urgency-based request expiry system with real-time Supabase backend',
@@ -54,9 +54,9 @@ export const projects: Project[] = [
   {
     id: 'tradeease',
     name: 'Trade Ease',
-    tagline: 'P2P marketplace — list, trade, and transact in real time.',
+    tagline: 'Peer-to-peer marketplace with real-time chat, secure auth, and the full listing-to-deal flow.',
     description:
-      'A full-featured peer-to-peer marketplace app where users can list products, browse listings, manage inventory, and chat with buyers/sellers — all in real time. Backed by Firebase and Node.js with secure auth, image uploads, and seamless trading flows.',
+      'A peer-to-peer marketplace covering the full transactional loop — listing creation, inventory management, search, and real-time buyer-seller chat. Backed by Firebase Firestore for sync and Node.js services for the heavy lifting, with secure session management and image uploads built in.',
     features: [
       'Full P2P marketplace flow: listing creation, browsing, product management',
       'Real-time Firebase database sync across all listings and transactions',
@@ -79,9 +79,9 @@ export const projects: Project[] = [
   {
     id: 'fuelio',
     name: 'Fuelio',
-    tagline: 'Drive smarter · Spend less · Maintain better.',
+    tagline: 'Offline-first vehicle tracker — statistically correct fuel-economy algorithm, zero cloud, zero ads.',
     description:
-      'A 100% offline, privacy-first vehicle management app built with React Native & Expo. Track fuel fills with a statistically correct full-tank-window efficiency algorithm, log service history across 9 service types, and visualise spending with line and bar charts — all on-device with zero cloud, zero ads, and zero tracking.',
+      'A 100% offline, privacy-first vehicle management app. Fuel efficiency is computed using the full-tank-window method — the only statistically correct approach, and the same one used by professional fleet software. Service history across 9 categories, analytics for cost-per-km and monthly spend, multi-currency and multi-unit support. All on-device, no network requests, one-tap data wipe.',
     features: [
       'Full-tank-window fuel algorithm — the only statistically correct efficiency method, matching professional fleet software',
       '9 service types with auto-calculated next-due mileage and home-screen reminder cards',

@@ -1,114 +1,183 @@
 import { motion } from 'framer-motion'
 import { useInView } from '../hooks/useInView'
 import { experience, education, certifications } from '../data/resume'
-import { MapPin, ExternalLink, GraduationCap, Award } from 'lucide-react'
+import { MapPin, GraduationCap, Award } from 'lucide-react'
+import { Container, Section, SectionHeader } from '../components/ui'
+
+const ease = [0.16, 1, 0.3, 1] as const
 
 const companyColors: Record<string, string> = {
-  '3STechLabs': '#06b6d4', 'AppGlide Technologies': '#8b5cf6',
-  'TechNova Solutions Inc.': '#10b981', 'W3 Technologies': '#f59e0b',
+  '3STechLabs': '#06b6d4',
+  'AppGlide Technologies': '#8b5cf6',
+  'TechNova Solutions Inc.': '#10b981',
+  'W3 Technologies': '#f59e0b',
 }
 
 export default function Experience() {
   const { ref, inView } = useInView()
-  return (
-    <section id="experience" style={{ position: 'relative' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="section-header" style={{ textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 14px', borderRadius: '20px', background: 'var(--cyan-glow)', border: '1px solid var(--border-bright)', fontSize: '0.72rem', fontFamily: 'DM Mono, monospace', color: 'var(--cyan)', marginBottom: '20px' }}>04 / Experience & Education</div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.1 }}>
-            3 years.{' '}
-            <span style={{ background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Shipped. Scaled. Led.</span>
-          </h2>
-        </motion.div>
 
-        <div className="experience-grid" ref={ref}>
-          {/* Left: Timeline */}
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '28px' }}>
-              <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'var(--cyan-glow)', border: '1px solid var(--border-bright)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <ExternalLink size={13} color="var(--cyan)" />
-              </div>
-              <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Work Experience</h3>
-            </div>
-            <div style={{ position: 'relative', paddingLeft: '20px' }}>
-              <div style={{ position: 'absolute', left: '0', top: '10px', width: '1px', height: 'calc(100% - 20px)', background: 'linear-gradient(to bottom, var(--cyan), var(--violet), transparent)', opacity: 0.3 }} />
+  return (
+    <Section id="experience" aria-labelledby="experience-heading">
+      <Container>
+        <SectionHeader
+          index="05"
+          eyebrow="Experience"
+          accent="cyan"
+          id="experience-heading"
+          title={
+            <>
+              Three years —{' '}
+              <span className="serif-italic text-[color:var(--cyan)]">architected,</span>{' '}
+              <span className="gradient-text">shipped, led.</span>
+            </>
+          }
+          description="Junior to senior in three years — production React Native apps across US and Pakistan teams since 2022. The summary above; the receipts, in order, below."
+        />
+
+        <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">
+          {/* Timeline */}
+          <div className="md:col-span-8">
+            <ol className="relative space-y-7 pl-7">
+              <span
+                aria-hidden="true"
+                className="absolute top-2 bottom-2 left-0 w-px bg-[linear-gradient(to_bottom,var(--cyan),var(--violet),transparent)] opacity-50"
+              />
               {experience.map((exp, i) => {
                 const color = companyColors[exp.company] ?? '#06b6d4'
                 return (
-                  <motion.div key={`${exp.company}-${i}`} initial={{ opacity: 0, x: -20 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: i * 0.1 }} style={{ position: 'relative', paddingBottom: i < experience.length - 1 ? '32px' : '0' }}>
-                    <div style={{ position: 'absolute', left: '-24px', top: '4px', width: '8px', height: '8px', borderRadius: '50%', background: color, boxShadow: `0 0 8px ${color}` }} />
-                    <div style={{ padding: '18px 20px', borderRadius: '14px', background: 'var(--surface)', border: '1px solid var(--border)', transition: 'border-color 0.3s' }} onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = `${color}44`} onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'}>
-                      <div className="exp-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                        <div style={{ minWidth: 0, flex: 1 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                            <h4 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>{exp.role}</h4>
-                            {exp.current && (<span style={{ padding: '2px 8px', borderRadius: '10px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)', fontSize: '0.65rem', fontFamily: 'DM Mono, monospace', color: '#10b981', flexShrink: 0 }}>Current</span>)}
+                  <motion.li
+                    key={`${exp.company}-${i}`}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={inView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ duration: 0.6, delay: i * 0.08, ease }}
+                    className="relative"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute -left-[30px] top-3 h-2.5 w-2.5 rounded-full ring-4 ring-[color:var(--bg)]"
+                      style={{ background: color, boxShadow: `0 0 12px ${color}` }}
+                    />
+                    <article className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-card)] transition-[border-color] duration-300 hover:border-[color:var(--line-strong)] sm:p-6 md:p-7">
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h3 className="font-display text-[1.1rem] font-bold tracking-[-0.015em] text-[color:var(--ink)] sm:text-[1.2rem]">
+                              {exp.role}
+                            </h3>
+                            {exp.current && (
+                              <span className="inline-flex items-center gap-1 rounded-full border border-[rgba(16,185,129,0.30)] bg-[rgba(16,185,129,0.10)] px-2 py-0.5 text-[0.65rem] font-medium text-[color:var(--emerald)]">
+                                <span
+                                  aria-hidden="true"
+                                  className="h-1 w-1 rounded-full bg-[color:var(--emerald)] shadow-[0_0_6px_var(--emerald)]"
+                                />
+                                Current
+                              </span>
+                            )}
                           </div>
-                          <div style={{ fontSize: '0.85rem', color, fontWeight: 600, fontFamily: 'DM Sans, sans-serif' }}>{exp.company}</div>
+                          <div
+                            className="mt-1.5 font-display text-[0.95rem] font-medium"
+                            style={{ color }}
+                          >
+                            {exp.company}
+                          </div>
                         </div>
-                        <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: '12px' }}>
-                          <div style={{ fontSize: '0.72rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{exp.period}</div>
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', justifyContent: 'flex-end', marginTop: '2px' }}>
-                            <MapPin size={10} />{exp.location}
-                          </div>
+                        <div className="flex flex-shrink-0 flex-col items-end text-right">
+                          <span className="whitespace-nowrap font-mono text-[0.72rem] tracking-[0.05em] text-[color:var(--ink-faint)]">
+                            {exp.period}
+                          </span>
+                          <span className="mt-0.5 flex items-center gap-1 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
+                            <MapPin size={11} aria-hidden="true" />
+                            {exp.location}
+                          </span>
                         </div>
                       </div>
-                      <ul style={{ listStyle: 'none', marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+
+                      <ul className="mt-6 space-y-3.5">
                         {exp.bullets.map((b, bi) => (
-                          <li key={bi} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                            <span style={{ marginTop: '6px', flexShrink: 0, width: '4px', height: '4px', borderRadius: '50%', background: color }} />{b}
+                          <li
+                            key={bi}
+                            className="flex items-start gap-3 text-[0.95rem] leading-[1.8] text-[color:var(--ink-muted)]"
+                          >
+                            <span
+                              aria-hidden="true"
+                              className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full"
+                              style={{ background: color }}
+                            />
+                            {b}
                           </li>
                         ))}
                       </ul>
-                    </div>
-                  </motion.div>
+                    </article>
+                  </motion.li>
                 )
               })}
-            </div>
+            </ol>
           </div>
 
-          {/* Right: Education + Certs */}
-          <div className="exp-sidebar" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {/* Sidebar — education + certs */}
+          <aside className="md:col-span-4 space-y-8">
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'var(--violet-glow)', border: '1px solid rgba(139,92,246,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><GraduationCap size={13} color="var(--violet)" /></div>
-                <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Education</h3>
-              </div>
-              {education.map((edu, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.4 + i * 0.08 }} style={{ padding: '18px 20px', borderRadius: '12px', background: 'var(--surface)', border: '1px solid var(--border)', marginBottom: i < education.length - 1 ? '12px' : '0' }}>
-                  <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)', marginBottom: '4px' }}>{edu.degree}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--violet)', fontWeight: 600, marginBottom: '4px' }}>{edu.institution}</div>
-                  <div style={{ fontSize: '0.72rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)' }}>{edu.period}</div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
-                <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Award size={13} color="#f59e0b" /></div>
-                <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Certifications</h3>
-              </div>
-              {certifications.map((cert, i) => (
-                <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.5 + i * 0.08 }} style={{ padding: '16px 20px', borderRadius: '12px', background: 'var(--surface)', border: '1px solid var(--border)', marginBottom: i < certifications.length - 1 ? '12px' : '0' }}>
-                  <div style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: 600, fontSize: '0.82rem', color: 'var(--text-primary)', marginBottom: '4px' }}>{cert.name}</div>
-                  <div style={{ fontSize: '0.75rem', color: '#f59e0b', marginBottom: '4px' }}>{cert.issuer}</div>
-                  <div style={{ fontSize: '0.7rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)' }}>{cert.year}</div>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.6 }} style={{ padding: '20px', borderRadius: '14px', background: 'linear-gradient(135deg, var(--cyan-glow), var(--violet-glow))', border: '1px solid var(--border-bright)' }}>
-              <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.75rem', color: 'var(--cyan)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Career Highlights</div>
-              {[{ label: 'Users Served', value: '50K+' }, { label: 'Crash Rate', value: '0 post-launch' }, { label: 'Load Time ↓', value: '35%' }, { label: 'Deployment errors ↓', value: '90%' }].map(s => (
-                <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px solid var(--border)' }}>
-                  <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{s.label}</span>
-                  <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-primary)' }}>{s.value}</span>
+              <div className="mb-4 flex items-center gap-2.5">
+                <div className="grid h-7 w-7 place-items-center rounded-lg border border-[rgba(139,92,246,0.30)] bg-[color:var(--violet-glow)]">
+                  <GraduationCap size={13} className="text-[color:var(--violet)]" />
                 </div>
-              ))}
-            </motion.div>
-          </div>
+                <h3 className="font-display text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--ink)]">
+                  Education
+                </h3>
+              </div>
+              <div className="space-y-3">
+                {education.map((edu, i) => (
+                  <motion.article
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.4 + i * 0.08 }}
+                    className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-card)]"
+                  >
+                    <div className="font-display text-[0.95rem] font-semibold text-[color:var(--ink)]">
+                      {edu.degree}
+                    </div>
+                    <div className="mt-1 text-[0.85rem] text-[color:var(--violet)]">
+                      {edu.institution}
+                    </div>
+                    <div className="mt-1 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
+                      {edu.period}
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-4 flex items-center gap-2.5">
+                <div className="grid h-7 w-7 place-items-center rounded-lg border border-[rgba(245,158,11,0.30)] bg-[rgba(245,158,11,0.10)]">
+                  <Award size={13} className="text-[color:var(--amber)]" />
+                </div>
+                <h3 className="font-display text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--ink)]">
+                  Certifications
+                </h3>
+              </div>
+              <div className="space-y-3">
+                {certifications.map((cert, i) => (
+                  <motion.article
+                    key={i}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.5 + i * 0.08 }}
+                    className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-card)]"
+                  >
+                    <div className="font-display text-[0.95rem] font-semibold text-[color:var(--ink)]">
+                      {cert.name}
+                    </div>
+                    <div className="mt-1 text-[0.85rem] text-[color:var(--amber)]">{cert.issuer}</div>
+                    <div className="mt-1 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">{cert.year}</div>
+                  </motion.article>
+                ))}
+              </div>
+            </div>
+          </aside>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }

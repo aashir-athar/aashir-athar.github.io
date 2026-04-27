@@ -2,15 +2,15 @@ import type { Experience, Education, Certification, Skill } from '../types'
 
 export const experience: Experience[] = [
   {
-    role: 'React Native Developer',
+    role: 'React Native Engineer',
     company: '3STechLabs',
     location: 'Remote — United States',
     period: 'May 2024 – Present',
     current: true,
     bullets: [
-      'Delivering production-ready features including biometric authentication and real-time data syncing across cross-platform apps using Firebase and RESTful APIs.',
-      'Spearheaded UI/UX enhancements that directly increased user engagement by 20% within two months of release.',
-      'Diagnosed and resolved critical production bugs using Flipper and Sentry, reducing crash rates across both Android and iOS.',
+      'Shipping production features across cross-platform apps — biometric auth, real-time data sync over Firebase and REST.',
+      'Led the UX pass that lifted user engagement 20% within two months of release.',
+      'Drove crash rates down on iOS and Android by instrumenting Flipper and Sentry into the standard debugging loop.',
     ],
   },
   {
@@ -19,11 +19,11 @@ export const experience: Experience[] = [
     location: 'Remote',
     period: 'June 2023 – April 2024',
     bullets: [
-      'Architected and led development of 3 production-grade React Native (Expo) apps collectively serving 50,000+ active users.',
-      'Mentored 4 junior developers through code reviews and modular standards, cutting onboarding time by 40%.',
-      'Designed CI/CD pipelines using Fastlane, reducing manual deployment errors by 90%.',
-      'Shipped MVPs within 6–8 weeks by collaborating cross-functionally with product and design stakeholders.',
-      'Achieved 35% reduction in app load time through lazy loading, image compression, and navigation refactoring.',
+      'Architected and led delivery of 3 production Expo apps now serving 50,000+ active users combined.',
+      'Mentored 4 junior engineers; cut team onboarding time 40% by codifying modular standards into a working playbook.',
+      'Built the Fastlane CI/CD pipelines that took manual deployment errors down by 90%.',
+      'Shipped MVPs in 6–8 weeks by working directly with product and design instead of around them.',
+      'Cut cold-start time 35% through lazy loading, image-pipeline tuning, and a navigation refactor.',
     ],
   },
   {
@@ -32,9 +32,9 @@ export const experience: Experience[] = [
     location: 'Remote — United States',
     period: 'February 2022 – April 2023',
     bullets: [
-      'Improved overall app performance by 25% by reworking data-fetching and implementing async caching strategies with Firebase.',
-      'Deployed multiple consumer-facing apps to the Apple App Store and Google Play with zero post-launch crashes.',
-      'Contributed to Agile sprint planning, consistently delivering features ahead of schedule.',
+      'Rewrote the data-fetching layer with async Firebase caching, lifting overall app performance 25%.',
+      'Released multiple consumer apps to the App Store and Google Play with zero post-launch crashes.',
+      'Pulled my weight in Agile ceremonies and shipped features ahead of sprint commitments.',
     ],
   },
   {
@@ -43,8 +43,8 @@ export const experience: Experience[] = [
     location: 'Remote',
     period: 'October 2021 – March 2023',
     bullets: [
-      'Translated business requirements into polished, responsive UI/UX mockups using Figma and Adobe XD.',
-      'Maintained visual consistency across all mobile components in collaboration with React Native dev teams.',
+      'Turned product requirements into responsive Figma and Adobe XD mockups for mobile-first surfaces.',
+      'Held visual consistency across the mobile component library in lockstep with the React Native team.',
     ],
   },
 ]

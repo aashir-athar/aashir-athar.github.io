@@ -42,7 +42,8 @@ export interface Certification {
 
 export interface Skill {
   name: string
-  level: number
   category: string
+  /** Optional self-rating, no longer rendered. Kept for back-compat. */
+  level?: number
   icon?: string
 }

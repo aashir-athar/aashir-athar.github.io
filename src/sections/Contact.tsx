@@ -1,103 +1,244 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CircleCheck } from 'lucide-react'
+import { Mail, Phone, MapPin, ArrowUpRight, CircleCheck, Copy, Send } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../components/SocialIcons'
+import { Container, Section, SectionHeader } from '../components/ui'
+import LocalTime from '../components/LocalTime'
 
-const socials = [
-  { icon: <GithubIcon size={18} />, label: 'GitHub', handle: 'aashir-athar', href: 'https://github.com/aashir-athar', color: '#f0f4ff' },
-  { icon: <LinkedinIcon size={18} />, label: 'LinkedIn', handle: 'aashirathar', href: 'https://linkedin.com/in/aashirathar', color: '#0a66c2' },
-  { icon: <Mail size={18} />, label: 'Email', handle: 'aashirathar@gmail.com', href: 'mailto:aashirathar@gmail.com', color: '#06b6d4' },
-  { icon: <Phone size={18} />, label: 'Phone', handle: '+92 307 477 8889', href: 'tel:+923074778889', color: '#10b981' },
+const ease = [0.16, 1, 0.3, 1] as const
+const EMAIL = 'aashirathar@gmail.com'
+
+const channels = [
+  { icon: <GithubIcon size={16} />,    label: 'GitHub',   handle: 'aashir-athar',          href: 'https://github.com/aashir-athar',          color: '#f0f4ff' },
+  { icon: <LinkedinIcon size={16} />,  label: 'LinkedIn', handle: 'aashirathar',           href: 'https://linkedin.com/in/aashirathar',      color: '#0a66c2' },
+  { icon: <Mail size={16} />,          label: 'Email',    handle: EMAIL,                   href: `mailto:${EMAIL}`,                          color: '#06b6d4' },
+  { icon: <Phone size={16} />,         label: 'Phone',    handle: '+92 307 477 8889',      href: 'tel:+923074778889',                        color: '#10b981' },
 ]
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [sent, setSent] = useState(false)
-  const [sending, setSending] = useState(false)
+  const [opened, setOpened] = useState(false)
+  const [copied, setCopied] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSending(true)
-    await new Promise(r => setTimeout(r, 1400))
-    setSending(false); setSent(true)
-    setFormData({ name: '', email: '', message: '' })
-    setTimeout(() => setSent(false), 5000)
+    const subject = encodeURIComponent(`Project inquiry from ${formData.name || 'a visitor'}`)
+    const body = encodeURIComponent(
+      `Hi Aashir,\n\n${formData.message}\n\n— ${formData.name}\n${formData.email}`,
+    )
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
+    setOpened(true)
+    setTimeout(() => setOpened(false), 6000)
+  }
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      /* noop */
+    }
   }
 
   return (
-    <section id="contact" style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute', top: '30%', right: '-100px', width: '400px', height: '400px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="section-header" style={{ textAlign: 'center' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 14px', borderRadius: '20px', background: 'var(--cyan-glow)', border: '1px solid var(--border-bright)', fontSize: '0.72rem', fontFamily: 'DM Mono, monospace', color: 'var(--cyan)', marginBottom: '20px' }}>05 / Let's Talk</div>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(1.75rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.1 }}>
-            Ready to build{' '}
-            <span style={{ background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>something great?</span>
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', marginTop: '12px', maxWidth: '440px', margin: '12px auto 0', fontSize: 'clamp(0.875rem, 1.5vw, 1rem)' }}>Open to remote roles, freelance projects, and consulting. Let's talk.</p>
-        </motion.div>
+    <Section id="contact" aria-labelledby="contact-heading">
+      <Container>
+        <SectionHeader
+          index="06"
+          eyebrow="Contact"
+          accent="cyan"
+          id="contact-heading"
+          title={
+            <>
+              Got something to build?{' '}
+              <span className="serif-italic text-[color:var(--cyan)]">Let's</span>{' '}
+              <span className="gradient-text">make it move.</span>
+            </>
+          }
+          description="Open to senior and lead React Native roles, freelance engagements, and consulting on mobile architecture. Replies within 24 hours — usually faster."
+        />
 
-        <div className="contact-grid">
-          {/* Left: info */}
-          <motion.div initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="contact-left">
-            <div style={{ padding: '24px', borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--border)', marginBottom: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
-                <span style={{ fontFamily: 'DM Mono, monospace', fontSize: '0.72rem', color: '#10b981' }}>Available for work</span>
+        <div className="grid gap-6 md:grid-cols-12 md:gap-8">
+          {/* LEFT — channels */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease }}
+            className="md:col-span-5 flex flex-col gap-4"
+          >
+            <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 shadow-[var(--shadow-card)] sm:p-7 gap-3 flex flex-col">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(16,185,129,0.30)] bg-[rgba(16,185,129,0.10)] px-3 py-1 font-mono text-[0.72rem] text-[color:var(--emerald)]">
+                  <span
+                    aria-hidden="true"
+                    className="relative h-1.5 w-1.5 rounded-full bg-[color:var(--emerald)] shadow-[0_0_8px_var(--emerald)]"
+                  />
+                  Currently available
+                </span>
+                <LocalTime />
               </div>
-              <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', alignItems: 'center' }}>
-                <MapPin size={14} color="var(--text-muted)" />
-                <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Lahore, Pakistan · Remote worldwide</span>
-              </div>
-              <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.7 }}>
-                I'm particularly interested in startups building meaningful mobile experiences, senior/lead roles in React Native, and challenging technical problems in mobile architecture.
+              <p className="mt-6 flex items-center gap-2.5 text-[0.95rem] text-[color:var(--ink-muted)]">
+                <MapPin size={14} aria-hidden="true" className="text-[color:var(--ink-faint)]" />
+                Lahore, Pakistan · Remote worldwide
+              </p>
+              <p className="mt-5 text-[0.97rem] leading-[1.8] text-[color:var(--ink-muted)]">
+                I'm a strong fit for teams building consumer mobile products at scale, where
+                architecture and performance decide the outcome.
               </p>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {socials.map((s, i) => (
-                <motion.a key={s.label} href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 + i * 0.07 }} whileHover={{ x: 4 }} style={{ display: 'flex', alignItems: 'center', gap: '14px', padding: '14px 18px', borderRadius: '12px', background: 'var(--surface)', border: '1px solid var(--border)', textDecoration: 'none', transition: 'border-color 0.2s, box-shadow 0.2s', color: 'var(--text-secondary)' }} onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = `${s.color}44`; el.style.boxShadow = `0 4px 20px ${s.color}15` }} onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = 'var(--border)'; el.style.boxShadow = 'none' }}>
-                  <div style={{ color: s.color }}>{s.icon}</div>
-                  <div>
-                    <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.8rem', color: 'var(--text-primary)' }}>{s.label}</div>
-                    <div style={{ fontFamily: 'DM Mono, monospace', fontSize: '0.72rem', color: 'var(--text-muted)', wordBreak: 'break-all' }}>{s.handle}</div>
-                  </div>
-                </motion.a>
+
+            {/* Quick-copy email */}
+            <button
+              type="button"
+              onClick={copyEmail}
+              aria-label="Copy email address to clipboard"
+              className="group flex items-center justify-between rounded-xl border border-[color:var(--line-bright)] bg-[color:var(--surface-2)] px-4 py-4 text-left text-[0.95rem] text-[color:var(--ink)] transition-colors hover:border-[color:var(--cyan)]"
+            >
+              <span className="flex items-center gap-2.5">
+                <Mail size={15} className="text-[color:var(--cyan)]" aria-hidden="true" />
+                <span className="break-all">{EMAIL}</span>
+              </span>
+              <span
+                className={`flex flex-shrink-0 items-center gap-1.5 font-mono text-[0.72rem] ${
+                  copied ? 'text-[color:var(--emerald)]' : 'text-[color:var(--ink-faint)]'
+                }`}
+              >
+                {copied ? <CircleCheck size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />}
+                {copied ? 'Copied' : 'Copy'}
+              </span>
+            </button>
+
+            <ul className="space-y-2">
+              {channels.map((c, i) => (
+                <motion.li
+                  key={c.label}
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.05 * i, duration: 0.5, ease }}
+                >
+                  <motion.a
+                    href={c.href}
+                    target={c.href.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    whileHover={{ x: 3 }}
+                    className="group flex items-center justify-between rounded-xl border border-[color:var(--line)] bg-[color:var(--surface)] px-4 py-3.5 text-[color:var(--ink-muted)] no-underline transition-[border-color]"
+                    onMouseEnter={e => {
+                      ;(e.currentTarget as HTMLElement).style.borderColor = `${c.color}55`
+                    }}
+                    onMouseLeave={e => {
+                      ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--line)'
+                    }}
+                  >
+                    <span className="flex items-center gap-3.5">
+                      <span style={{ color: c.color }}>{c.icon}</span>
+                      <span>
+                        <span className="block font-display text-[0.85rem] font-semibold text-[color:var(--ink)]">
+                          {c.label}
+                        </span>
+                        <span className="block break-all font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
+                          {c.handle}
+                        </span>
+                      </span>
+                    </span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      size={16}
+                      className="text-[color:var(--ink-faint)] transition-transform duration-500 [transition-timing-function:var(--ease-signature)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
+                  </motion.a>
+                </motion.li>
               ))}
-            </div>
+            </ul>
           </motion.div>
 
-          {/* Right: Form */}
-          <motion.div initial={{ opacity: 0, x: 24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.1 }}>
-            <div style={{ padding: '28px', borderRadius: '20px', background: 'var(--surface)', border: '1px solid var(--border)' }}>
-              <h3 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '24px' }}>Send a message</h3>
-              {sent ? (
-                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', textAlign: 'center', gap: '16px' }}>
-                  <CircleCheck size={40} color="#10b981" />
-                  <p style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Message sent!</p>
-                  <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>I'll get back to you within 24 hours.</p>
+          {/* RIGHT — form */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, delay: 0.1, ease }}
+            className="md:col-span-7"
+          >
+            <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 shadow-[var(--shadow-card)] sm:p-7 md:p-8">
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="font-display text-[1.4rem] font-bold tracking-[-0.02em] text-[color:var(--ink)] sm:text-[1.55rem]">
+                  Send a message
+                </h3>
+                <span className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)]">
+                  No backend · No tracking
+                </span>
+              </div>
+              <p className="mt-2.5 text-[0.88rem] text-[color:var(--ink-muted)]">
+                Submitting opens a draft in your email app. If your client is unusual, copy the
+                address above and email me directly.
+              </p>
+
+              {opened ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="mt-7 flex flex-col items-start gap-3 rounded-xl border border-[rgba(16,185,129,0.30)] bg-[rgba(16,185,129,0.06)] p-5"
+                >
+                  <CircleCheck size={26} className="text-[color:var(--emerald)]" aria-hidden="true" />
+                  <p className="font-display text-base font-semibold text-[color:var(--ink)]">
+                    Email draft opened.
+                  </p>
+                  <p className="text-[0.88rem] text-[color:var(--ink-muted)]">
+                    If nothing happened, copy {EMAIL} above and email me directly.
+                  </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                  {[{ id: 'name', label: 'Your Name', type: 'text', placeholder: 'John Doe' }, { id: 'email', label: 'Email Address', type: 'email', placeholder: 'john@company.com' }].map(field => (
-                    <div key={field.id}>
-                      <label htmlFor={field.id} style={{ display: 'block', marginBottom: '6px', fontSize: '0.78rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{field.label}</label>
-                      <input id={field.id} type={field.type} placeholder={field.placeholder} required value={formData[field.id as 'name' | 'email']} onChange={e => setFormData(prev => ({ ...prev, [field.id]: e.target.value }))} style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--text-primary)', fontSize: '0.9rem', fontFamily: 'DM Sans, sans-serif', outline: 'none', transition: 'border-color 0.2s' }} onFocus={e => (e.target as HTMLElement).style.borderColor = 'var(--border-bright)'} onBlur={e => (e.target as HTMLElement).style.borderColor = 'var(--border)'} />
-                    </div>
+                <form onSubmit={handleSubmit} className="mt-7 space-y-5">
+                  {(['name', 'email'] as const).map(id => (
+                    <label key={id} className="block">
+                      <span className="font-mono text-[0.72rem] uppercase tracking-[0.10em] text-[color:var(--ink-muted)]">
+                        {id === 'name' ? 'Your name' : 'Email address'}
+                      </span>
+                      <input
+                        id={id}
+                        type={id === 'email' ? 'email' : 'text'}
+                        required
+                        autoComplete={id === 'name' ? 'name' : 'email'}
+                        placeholder={id === 'name' ? 'Jane Doe' : 'jane@company.com'}
+                        value={formData[id]}
+                        onChange={e => setFormData(prev => ({ ...prev, [id]: e.target.value }))}
+                        className="mt-2 w-full rounded-lg border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-4 py-3 text-base text-[color:var(--ink)] outline-none transition-colors placeholder:text-[color:var(--ink-faint)] focus:border-[color:var(--cyan)]"
+                      />
+                    </label>
                   ))}
-                  <div>
-                    <label htmlFor="message" style={{ display: 'block', marginBottom: '6px', fontSize: '0.78rem', fontFamily: 'DM Mono, monospace', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Message</label>
-                    <textarea id="message" placeholder="Tell me about your project, role, or just say hi..." required rows={5} value={formData.message} onChange={e => setFormData(prev => ({ ...prev, message: e.target.value }))} style={{ width: '100%', padding: '12px 16px', borderRadius: '10px', background: 'var(--bg2)', border: '1px solid var(--border)', color: 'var(--text-primary)', fontSize: '0.9rem', fontFamily: 'DM Sans, sans-serif', outline: 'none', resize: 'vertical', transition: 'border-color 0.2s' }} onFocus={e => (e.target as HTMLElement).style.borderColor = 'var(--border-bright)'} onBlur={e => (e.target as HTMLElement).style.borderColor = 'var(--border)'} />
-                  </div>
-                  <motion.button type="submit" disabled={sending} whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '14px', borderRadius: '12px', background: sending ? 'var(--surface2)' : 'linear-gradient(135deg, #06b6d4, #8b5cf6)', border: 'none', color: 'white', cursor: sending ? 'not-allowed' : 'pointer', fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '0.9rem', boxShadow: sending ? 'none' : '0 8px 24px rgba(6,182,212,0.25)', transition: 'box-shadow 0.3s' }}>
-                    {sending ? <span style={{ opacity: 0.7 }}>Sending...</span> : <><Send size={16} /> Send Message</>}
-                  </motion.button>
-                  <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textAlign: 'center', fontFamily: 'DM Mono, monospace' }}>Or email directly: aashirathar@gmail.com</p>
+
+                  <label className="block">
+                    <span className="font-mono text-[0.72rem] uppercase tracking-[0.10em] text-[color:var(--ink-muted)]">
+                      Tell me about it
+                    </span>
+                    <textarea
+                      id="message"
+                      required
+                      rows={5}
+                      placeholder="What you're building, the role, or just hello."
+                      value={formData.message}
+                      onChange={e => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      className="mt-2 w-full resize-y rounded-lg border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-4 py-3 text-base text-[color:var(--ink)] outline-none transition-colors placeholder:text-[color:var(--ink-faint)] focus:border-[color:var(--cyan)]"
+                    />
+                  </label>
+
+                  <button type="submit" className="btn-primary group w-full sm:w-auto">
+                    <Send size={16} aria-hidden="true" />
+                    Open email draft
+                  </button>
+
+                  <p className="font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
+                    Replies typically within 24 hours.
+                  </p>
                 </form>
               )}
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   )
 }
