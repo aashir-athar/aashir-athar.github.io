@@ -186,7 +186,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                       color: project.accent,
                     }}
                   >
-                    <ExternalLink size={16} aria-hidden="true" /> Live demo
+                    <ExternalLink size={16} aria-hidden="true" />{' '}
+                    {project.demo.includes('npmjs.com') ? 'View on npm' : 'Live demo'}
                   </motion.a>
                 )}
               </div>

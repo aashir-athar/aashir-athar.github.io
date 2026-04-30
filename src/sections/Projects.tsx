@@ -179,7 +179,7 @@ function ProjectCard({
             >
               <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[0.82rem] text-[color:var(--ink-muted)]">
                 <ExternalLink size={13} aria-hidden="true" />
-                Live
+                {project.demo.includes('npmjs.com') ? 'npm' : 'Live'}
               </span>
             </a>
           )}
