@@ -40,8 +40,8 @@ export default function Footer() {
             Aashir <span className="gradient-text">Athar.</span>
           </a>
           <p className="mt-4 max-w-xl text-[0.95rem] leading-[1.65] text-[color:var(--ink-muted)]">
-            Senior React Native engineer architecting and shipping production mobile apps for
-            cross-platform teams.
+            Senior React Native engineer. Production mobile apps that hold up six months past
+            launch — for cross-platform teams that ship to real users.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-2 border-t border-[color:var(--line)] pt-6 font-mono text-[0.72rem] text-[color:var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Aashir Athar. All rights reserved.</p>
-          <p>Designed &amp; built in Lahore · React 19 · TypeScript · Tailwind v4</p>
+          <p>Designed &amp; built by Aashir Athar</p>
         </div>
       </Container>
     </footer>

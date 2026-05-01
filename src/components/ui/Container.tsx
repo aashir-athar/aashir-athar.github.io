@@ -7,7 +7,10 @@ interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 const sizes = {
   sm: 'max-w-3xl',
   md: 'max-w-5xl',
-  lg: 'max-w-[1200px]',
+  /* Default content track. Caps at 1200px through XL; widens at 4K/ultra-wide
+     via the `bp-xxl` overrides in index.css so content doesn't look stranded
+     in the middle of a 1920+ monitor. */
+  lg: 'max-w-[1200px] bp-xxl-container',
 } as const
 
 export function Container({ size = 'lg', className = '', ...rest }: ContainerProps) {

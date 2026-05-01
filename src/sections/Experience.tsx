@@ -6,11 +6,12 @@ import { Container, Section, SectionHeader } from '../components/ui'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
+/* Company accents are CSS var refs so they auto-theme across modes. */
 const companyColors: Record<string, string> = {
-  '3STechLabs': '#06b6d4',
-  'AppGlide Technologies': '#8b5cf6',
-  'TechNova Solutions Inc.': '#10b981',
-  'W3 Technologies': '#f59e0b',
+  '3STechLabs': 'var(--cyan)',
+  'AppGlide Technologies': 'var(--violet)',
+  'TechNova Solutions Inc.': 'var(--emerald)',
+  'W3 Technologies': 'var(--amber)',
 }
 
 export default function Experience() {
@@ -26,12 +27,12 @@ export default function Experience() {
           id="experience-heading"
           title={
             <>
-              Three years —{' '}
+              Four years —{' '}
               <span className="serif-italic text-[color:var(--cyan)]">architected,</span>{' '}
               <span className="gradient-text">shipped, led.</span>
             </>
           }
-          description="Junior to senior in three years — production React Native apps across US and Pakistan teams since 2022. The summary above; the receipts, in order, below."
+          description="Junior to senior in three years, lead in the fourth — production React Native across US and Pakistan teams since 2022. The summary above; the receipts, in order, below."
         />
 
         <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">
@@ -43,7 +44,7 @@ export default function Experience() {
                 className="absolute top-2 bottom-2 left-0 w-px bg-[linear-gradient(to_bottom,var(--cyan),var(--violet),transparent)] opacity-50"
               />
               {experience.map((exp, i) => {
-                const color = companyColors[exp.company] ?? '#06b6d4'
+                const color = companyColors[exp.company] ?? 'var(--cyan)'
                 return (
                   <motion.li
                     key={`${exp.company}-${i}`}
@@ -118,7 +119,7 @@ export default function Experience() {
           <aside className="md:col-span-4 space-y-8">
             <div>
               <div className="mb-4 flex items-center gap-2.5">
-                <div className="grid h-7 w-7 place-items-center rounded-lg border border-[rgba(139,92,246,0.30)] bg-[color:var(--violet-glow)]">
+                <div className="grid h-7 w-7 place-items-center rounded-lg border border-[rgba(167,139,250,0.30)] bg-[color:var(--violet-glow)]">
                   <GraduationCap size={13} className="text-[color:var(--violet)]" />
                 </div>
                 <h3 className="font-display text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--ink)]">

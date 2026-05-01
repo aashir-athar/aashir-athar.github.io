@@ -77,7 +77,7 @@ export const skills: Skill[] = [
   { name: 'TypeScript', level: 92, category: 'Core' },
   { name: 'JavaScript (ES6+)', level: 95, category: 'Core' },
   // Mobile
-  { name: 'Reanimated 3', level: 88, category: 'Mobile' },
+  { name: 'Reanimated 4', level: 88, category: 'Mobile' },
   { name: 'Push Notifications', level: 90, category: 'Mobile' },
   { name: 'Deep Linking', level: 85, category: 'Mobile' },
   { name: 'Biometric Auth', level: 87, category: 'Mobile' },

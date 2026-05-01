@@ -5,30 +5,34 @@ import { Container, Section, SectionHeader } from '../components/ui'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
+/* Accents are CSS var refs so they auto-theme. Inline alpha-blending uses
+ * color-mix() in srgb instead of hex alpha (which CSS-var values can't
+ * carry). Keeps the four-color rhythm (cyan/amber/violet/emerald) but
+ * each shade is theme-correct. */
 const principles = [
   {
     icon: <Layers size={18} aria-hidden="true" />,
     title: 'Architecture-first',
     body: 'Mobile codebases that hold up past their second year. Modular, typed, predictable — the next engineer can read it without a Slack thread.',
-    accent: '#06b6d4',
+    accent: 'var(--cyan)',
   },
   {
     icon: <Gauge size={18} aria-hidden="true" />,
     title: 'Performance is design',
     body: '60fps interactions, 35% faster cold starts, and zero post-launch crashes across the apps I\'ve led. Speed is the feature users feel first.',
-    accent: '#f59e0b',
+    accent: 'var(--amber)',
   },
   {
     icon: <Users size={18} aria-hidden="true" />,
     title: 'Cross-functional lead',
     body: 'Mentored 4 engineers and shipped MVPs in 6–8 weeks by working directly with product and design — not around them.',
-    accent: '#8b5cf6',
+    accent: 'var(--violet)',
   },
   {
     icon: <Server size={18} aria-hidden="true" />,
     title: 'Full-stack range',
     body: 'Node, Express, MongoDB, Supabase, Firebase, Clerk Auth. I own the stack when the team needs me to.',
-    accent: '#10b981',
+    accent: 'var(--emerald)',
   },
 ]
 
@@ -57,7 +61,7 @@ export default function About() {
               <span className="gradient-text">That's where I work.</span>
             </>
           }
-          description="Senior React Native engineer based in Lahore, Pakistan. Working with US and Pakistan teams since 2022 — architecture, performance budgets, and release pipelines that decide whether a product survives its second quarter."
+          description="Senior React Native engineer based in Lahore, Pakistan. Four years working with US and Pakistan teams — architecture, performance budgets, and release pipelines that decide whether a product survives its second quarter."
         />
 
         <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">
@@ -69,7 +73,7 @@ export default function About() {
             className="md:col-span-7 space-y-5 text-[color:var(--ink-muted)]"
           >
             <p className="text-[1.05rem] leading-[1.78] sm:text-[1.14rem] sm:leading-[1.85]">
-              Three years. Four production apps.{' '}
+              Four years. Production apps shipped to{' '}
               <strong className="text-[color:var(--ink)]">50,000+ users</strong> on App Store
               and Google Play — under real load, real reviews, and real 3G in markets you
               don't get to opt out of.
@@ -82,12 +86,13 @@ export default function About() {
               <strong className="text-[color:var(--ink)]">35%</strong>, dropped manual
               deployment errors{' '}
               <strong className="text-[color:var(--ink)]">90%</strong> with Fastlane CI/CD,
-              and shipped four production apps with zero post-launch crashes.
+              and shipped to production with zero post-launch crashes.
             </p>
             <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
-              Outside client work, I open-source the tools I wish I'd had — a mindful social
-              network, a real-time blood-donor matching app, and an offline-first vehicle
-              tracker. The fastest way to stay sharp is to keep shipping.
+              Outside client work, I open-source the tools I wish I'd had — six and counting.
+              A privacy-first Pakistani fintech, a real-time blood-donor matching app, an
+              offline-first vehicle tracker, and an Expo native module published to npm.
+              Staying sharp means staying shipping.
             </p>
             <div className="pt-4">
               <a
@@ -131,7 +136,10 @@ export default function About() {
                     <dt className="order-2 mt-1.5 text-[0.78rem] text-[color:var(--ink-faint)]">
                       {s.label}
                     </dt>
-                    <dd className="order-1 font-display text-[1.85rem] font-bold leading-none tracking-[-0.02em] text-[color:var(--ink)] sm:text-[2rem]">
+                    <dd
+                      className="order-1 font-display text-[1.85rem] font-bold leading-none tracking-[-0.02em] sm:text-[2rem]"
+                      style={{ color: 'var(--gold)' }}
+                    >
                       {s.value}
                     </dd>
                   </div>
@@ -165,8 +173,8 @@ export default function About() {
               <div
                 className="grid h-10 w-10 place-items-center rounded-lg border"
                 style={{
-                  background: `${p.accent}15`,
-                  borderColor: `${p.accent}30`,
+                  background: `color-mix(in srgb, ${p.accent} 8%, transparent)`,
+                  borderColor: `color-mix(in srgb, ${p.accent} 20%, transparent)`,
                   color: p.accent,
                 }}
               >

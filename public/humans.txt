@@ -1,0 +1,30 @@
+/* TEAM */
+  Senior React Native Engineer: Aashir Athar
+  Contact:                       aashirathar [at] gmail.com
+  GitHub:                        @aashir-athar
+  LinkedIn:                      /in/aashirathar
+  From:                          Lahore, Pakistan
+  Working with:                  US + Pakistan teams since 2022
+
+/* SITE */
+  Last update:    2026/05
+  Language:       English
+  Standards:      HTML5, CSS3, ES2026, WCAG 2.2 AA, View Transitions API
+  Components:     React 19 (Compiler), TypeScript 6, Tailwind v4
+  Build:          Vite 8 + Rolldown
+  Hosting:        GitHub Pages
+  Doctype:        HTML5
+  IDE:            VS Code, Cursor
+
+/* THANKS */
+  Open source — Vite, React, Framer Motion, Three.js, Lucide.
+  Editorial type — Bricolage Grotesque, Inter Tight, JetBrains Mono,
+                   Instrument Serif. All Google Fonts.
+
+   _____   _____  ____ _______ ___ _______
+  |  ___| / ___|| __ )_   _|_ _|_   _|
+  | |_   | |    |  _ \ | |  | |  | |
+  |  _|  | |___ | |_) || |  | |  | |
+  |_|     \____|____/ |_| |___| |_|
+
+  Built with restraint, in Lahore.

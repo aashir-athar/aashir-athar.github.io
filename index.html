@@ -1,57 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
+    <!-- =====================================================================
+         CHARSET + VIEWPORT + RENDERING
+         ===================================================================== -->
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
-    <meta name="theme-color" content="#06b6d4" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#06b6d4" media="(prefers-color-scheme: light)" />
-    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#22d3ee" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#22d3ee" media="(prefers-color-scheme: light)" />
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="rating" content="general" />
 
+    <!-- =====================================================================
+         ICONS + FAVICONS — single SVG, scaled by every UA
+         ===================================================================== -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
-    <link rel="mask-icon" href="/favicon.svg" color="#06b6d4" />
+    <link rel="mask-icon" href="/favicon.svg" color="#22d3ee" />
+    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Primary SEO -->
+    <!-- =====================================================================
+         PRIMARY SEO — title + description + canonical + robots
+         ===================================================================== -->
     <title>Aashir Athar — Senior React Native Engineer | Mobile Apps for 50,000+ Users</title>
-    <meta name="description" content="Senior React Native engineer architecting and shipping production mobile apps to 50,000+ users. Cross-platform iOS/Android, Expo, TypeScript, performance-tuned. Open to senior and lead roles, remote." />
+    <meta name="description" content="Senior React Native engineer architecting and shipping cross-platform mobile apps to 50,000+ users — production apps that hold up six months past launch, with zero post-launch crashes and 35% faster cold starts. Open to senior &amp; lead roles, remote." />
     <meta name="author" content="Aashir Athar" />
-    <meta name="keywords" content="React Native engineer, senior mobile developer, Expo developer, cross-platform mobile, iOS Android engineer, TypeScript mobile, hire React Native developer, mobile app architect" />
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <link rel="canonical" href="https://aashir-athar.github.io/" />
+    <meta name="creator" content="Aashir Athar" />
+    <meta name="publisher" content="Aashir Athar" />
+    <meta name="copyright" content="© 2026 Aashir Athar. All rights reserved." />
+    <meta name="generator" content="Vite + React + TypeScript" />
+    <meta name="application-name" content="Aashir Athar" />
 
-    <!-- Open Graph -->
+    <!-- Geographic + language signals -->
+    <meta name="language" content="English" />
+    <meta name="content-language" content="en" />
+    <meta name="geo.region" content="PK-PB" />
+    <meta name="geo.placename" content="Lahore, Pakistan" />
+    <meta name="geo.position" content="31.5204;74.3587" />
+    <meta name="ICBM" content="31.5204, 74.3587" />
+    <meta name="distribution" content="global" />
+    <meta name="audience" content="all" />
+    <meta name="coverage" content="Worldwide" />
+
+    <!-- Keywords (still parsed by Bing, some smaller engines, AEO) -->
+    <meta name="keywords" content="Aashir Athar, React Native engineer, senior React Native developer, lead mobile engineer, hire React Native developer, Expo SDK 54, TypeScript mobile, cross-platform mobile, iOS engineer, Android engineer, Lahore React Native, Pakistan mobile developer, mobile architecture, performance optimization, Reanimated 4, Fastlane CI/CD, Firebase, Supabase, Clerk Auth, mobile app architect, freelance React Native, remote mobile developer" />
+
+    <!-- Crawler directives -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+    <!-- Canonical + alternates -->
+    <link rel="canonical" href="https://aashir-athar.github.io/" />
+    <link rel="alternate" hreflang="en" href="https://aashir-athar.github.io/" />
+    <link rel="alternate" hreflang="x-default" href="https://aashir-athar.github.io/" />
+
+    <!-- Sitemap discovery (in addition to robots.txt) -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- =====================================================================
+         OPEN GRAPH — LinkedIn, Facebook, Slack, Discord, Telegram
+         ===================================================================== -->
     <meta property="og:site_name" content="Aashir Athar" />
     <meta property="og:title" content="Aashir Athar — Senior React Native Engineer" />
-    <meta property="og:description" content="Production React Native apps for 50,000+ users. Cross-platform mobile architecture, Expo, TypeScript. Available for senior and lead roles." />
+    <meta property="og:description" content="Production React Native apps for 50,000+ users — zero post-launch crashes, 35% faster cold starts, four years senior in cross-platform mobile. Available for senior &amp; lead roles, remote." />
     <meta property="og:image" content="https://aashir-athar.github.io/og-preview.svg" />
+    <meta property="og:image:secure_url" content="https://aashir-athar.github.io/og-preview.svg" />
     <meta property="og:image:type" content="image/svg+xml" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Aashir Athar — Senior React Native Engineer" />
+    <meta property="og:image:alt" content="Aashir Athar — Senior React Native Engineer. Production mobile apps that hold up six months past launch. 0 post-launch crashes, 50K+ users in production, ↓ 35% cold-start time, 6 open-sourced apps." />
     <meta property="og:url" content="https://aashir-athar.github.io/" />
     <meta property="og:type" content="profile" />
     <meta property="og:locale" content="en_US" />
     <meta property="profile:first_name" content="Aashir" />
     <meta property="profile:last_name" content="Athar" />
     <meta property="profile:username" content="aashir-athar" />
+    <meta property="profile:gender" content="male" />
 
-    <!-- Twitter -->
+    <!-- =====================================================================
+         TWITTER / X CARD
+         ===================================================================== -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Aashir Athar — Senior React Native Engineer" />
-    <meta name="twitter:description" content="Production React Native apps for 50,000+ users. Open to senior and lead roles, remote." />
+    <meta name="twitter:description" content="Production React Native apps for 50,000+ users — 0 post-launch crashes, 35% faster cold starts. Open to senior &amp; lead roles, remote." />
     <meta name="twitter:image" content="https://aashir-athar.github.io/og-preview.svg" />
     <meta name="twitter:image:alt" content="Aashir Athar — Senior React Native Engineer" />
+    <meta name="twitter:url" content="https://aashir-athar.github.io/" />
+    <meta name="twitter:domain" content="aashir-athar.github.io" />
+    <meta name="twitter:label1" content="Based in" />
+    <meta name="twitter:data1" content="Lahore, Pakistan · Remote" />
+    <meta name="twitter:label2" content="Reply time" />
+    <meta name="twitter:data2" content="Within 24 hours" />
 
-    <!-- Performance hints -->
+    <!-- =====================================================================
+         APPLE — installable iOS web-app behavior
+         ===================================================================== -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Aashir Athar" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+
+    <!-- =====================================================================
+         MICROSOFT — Windows tile + PWA hints
+         ===================================================================== -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#22d3ee" />
+    <meta name="msapplication-TileImage" content="/favicon.svg" />
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- =====================================================================
+         PERFORMANCE HINTS — preconnect / dns-prefetch / preload
+         ===================================================================== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="dns-prefetch" href="https://linkedin.com" />
+    <link rel="dns-prefetch" href="https://www.npmjs.com" />
 
-    <!-- Fonts: Bricolage Grotesque (display, optical-sized variable) +
-         Inter Tight (editorial body) + JetBrains Mono +
-         Instrument Serif italic (accents). All variable, all preloaded. -->
+    <!-- Hint browsers to fetch the OG image so social-share scrapers
+         that respect prefetching warm their cache. -->
+    <link rel="prefetch" href="/og-preview.svg" as="image" type="image/svg+xml" />
+
+    <!-- =====================================================================
+         FONTS — Bricolage Grotesque (display, opsz variable) + Inter Tight
+         + JetBrains Mono + Instrument Serif italic. All variable, all swap.
+         ===================================================================== -->
     <link
       rel="preload"
       as="style"
@@ -62,67 +141,144 @@
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
     />
 
-    <!-- Structured data: Person -->
+    <!-- =====================================================================
+         STRUCTURED DATA — JSON-LD for Google rich-result eligibility.
+         The graph below covers Person, WebSite, WebPage, ItemList of all
+         six projects, ProfessionalService offering, BreadcrumbList, and a
+         FAQPage. All entities cross-link via @id.
+         ===================================================================== -->
+
+    <!-- Person — the canonical identity. @id is the URL hash anchor so
+         the entity is referenceable across the rest of the graph. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": "https://aashir-athar.github.io/#person",
       "name": "Aashir Athar",
-      "url": "https://aashir-athar.github.io",
-      "image": "https://aashir-athar.github.io/og-preview.svg",
+      "givenName": "Aashir",
+      "familyName": "Athar",
+      "url": "https://aashir-athar.github.io/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://aashir-athar.github.io/og-preview.svg",
+        "width": 1200,
+        "height": 630
+      },
       "jobTitle": "Senior React Native Engineer",
-      "description": "Senior React Native engineer specializing in cross-platform mobile apps. 3+ years shipping production apps to 50,000+ users.",
-      "email": "aashirathar@gmail.com",
-      "telephone": "+92 307 477 8889",
+      "description": "Senior React Native engineer architecting and shipping production mobile apps to 50,000+ users. Four years building cross-platform mobile across US and Pakistan teams since 2022.",
+      "email": "mailto:aashirathar@gmail.com",
+      "telephone": "+92-307-477-8889",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Lahore",
         "addressRegion": "Punjab",
         "addressCountry": "PK"
       },
-      "knowsAbout": [
-        "React Native", "Expo", "TypeScript", "Mobile Architecture",
-        "iOS Development", "Android Development", "Firebase", "Supabase",
-        "Node.js", "MongoDB", "CI/CD", "Fastlane", "Reanimated", "Performance Optimization"
+      "nationality": { "@type": "Country", "name": "Pakistan" },
+      "knowsLanguage": [
+        { "@type": "Language", "name": "English", "alternateName": "en" },
+        { "@type": "Language", "name": "Urdu", "alternateName": "ur" }
       ],
+      "knowsAbout": [
+        "React Native", "Expo SDK", "TypeScript", "JavaScript",
+        "Mobile Architecture", "iOS Development", "Android Development",
+        "Reanimated 4", "Push Notifications", "Deep Linking", "Biometric Auth",
+        "Firebase", "Supabase", "Node.js", "Express", "MongoDB",
+        "Clerk Auth", "JWT", "OAuth",
+        "Fastlane", "GitHub Actions", "CI/CD",
+        "Performance Optimization", "Pixel-Perfect UI", "Figma",
+        "Three.js", "GLSL Shaders", "WebGL"
+      ],
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Senior React Native Engineer",
+        "occupationLocation": { "@type": "City", "name": "Lahore, Pakistan" },
+        "skills": "React Native, Expo, TypeScript, Mobile Architecture, Performance Optimization",
+        "responsibilities": "Architecting and shipping cross-platform mobile applications for production scale; mentoring engineering teams; running release pipelines."
+      },
       "alumniOf": {
         "@type": "CollegeOrUniversity",
-        "name": "Riphah International University"
+        "name": "Riphah International University",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "PK"
+        }
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "3STechLabs"
       },
       "sameAs": [
         "https://github.com/aashir-athar",
-        "https://linkedin.com/in/aashirathar"
+        "https://linkedin.com/in/aashirathar",
+        "https://www.npmjs.com/~aashir-athar"
       ]
     }
     </script>
 
-    <!-- Structured data: WebSite -->
+    <!-- WebSite — site-level schema with SearchAction (sitelinks search). -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": "https://aashir-athar.github.io/#website",
       "name": "Aashir Athar — Senior React Native Engineer",
+      "alternateName": "Aashir Athar Portfolio",
       "url": "https://aashir-athar.github.io/",
+      "description": "Senior React Native engineer's portfolio — case studies, open-source projects, process, and contact.",
       "inLanguage": "en",
-      "author": { "@type": "Person", "name": "Aashir Athar" }
+      "publisher": { "@id": "https://aashir-athar.github.io/#person" },
+      "author": { "@id": "https://aashir-athar.github.io/#person" },
+      "copyrightHolder": { "@id": "https://aashir-athar.github.io/#person" },
+      "copyrightYear": 2026
     }
     </script>
 
-    <!-- Structured data: Featured projects -->
+    <!-- WebPage — root page schema, primary entity is the Person. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://aashir-athar.github.io/#webpage",
+      "url": "https://aashir-athar.github.io/",
+      "name": "Aashir Athar — Senior React Native Engineer | Mobile Apps for 50,000+ Users",
+      "isPartOf": { "@id": "https://aashir-athar.github.io/#website" },
+      "about": { "@id": "https://aashir-athar.github.io/#person" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://aashir-athar.github.io/og-preview.svg",
+        "width": 1200,
+        "height": 630
+      },
+      "inLanguage": "en",
+      "datePublished": "2025-01-15",
+      "dateModified": "2026-05-01",
+      "description": "Senior React Native engineer architecting and shipping production mobile apps to 50,000+ users. Open to senior &amp; lead roles, remote.",
+      "breadcrumb": { "@id": "https://aashir-athar.github.io/#breadcrumb" }
+    }
+    </script>
+
+    <!-- ItemList of all six open-source projects. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
+      "name": "Selected work — open-source mobile projects",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 6,
       "itemListElement": [
         {
           "@type": "ListItem", "position": 1,
           "item": {
             "@type": "SoftwareApplication",
             "name": "xMind",
-            "description": "Open-source social platform with intent-aware feed ranking, enterprise auth, and a 50+ component design system.",
+            "description": "Open-source social platform with weighted-signal feed ranking, multi-provider OAuth via Clerk, and a 50+ component design system at 60fps.",
             "applicationCategory": "SocialNetworkingApplication",
             "operatingSystem": "iOS, Android",
-            "url": "https://github.com/aashir-athar/xmind-app"
+            "url": "https://github.com/aashir-athar/xmind-app",
+            "author": { "@id": "https://aashir-athar.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
         },
         {
@@ -130,10 +286,12 @@
           "item": {
             "@type": "SoftwareApplication",
             "name": "BludStack",
-            "description": "Real-time blood-donor matching with geo-fenced ring-by-ring notifications and urgency-based expiry.",
+            "description": "Geo-fenced blood-donor matching app with ring-by-ring notification propagation, urgency-based request expiry, and 90-day cooldown logic.",
             "applicationCategory": "HealthApplication",
             "operatingSystem": "iOS, Android",
-            "url": "https://github.com/aashir-athar/BludStack-RN"
+            "url": "https://github.com/aashir-athar/BludStack-RN",
+            "author": { "@id": "https://aashir-athar.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
         },
         {
@@ -141,76 +299,118 @@
           "item": {
             "@type": "SoftwareApplication",
             "name": "Trade Ease",
-            "description": "Peer-to-peer marketplace with real-time chat, secure auth, and full transactional flow.",
+            "description": "Peer-to-peer marketplace covering the full transactional loop — listing creation, real-time chat, Firebase Firestore sync, secure auth.",
             "applicationCategory": "BusinessApplication",
             "operatingSystem": "iOS, Android",
-            "url": "https://github.com/aashir-athar/Market-Place-App"
+            "url": "https://github.com/aashir-athar/Market-Place-App",
+            "author": { "@id": "https://aashir-athar.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
         },
         {
           "@type": "ListItem", "position": 4,
           "item": {
             "@type": "SoftwareApplication",
+            "name": "FlowMoney",
+            "description": "Privacy-first Pakistani fintech — SMS auto-ingest of bank alerts, on-device ledger, Groq-powered conversational money assistant, trilingual (English/Urdu RTL/Hindi).",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "iOS, Android",
+            "url": "https://github.com/aashir-athar/FlowMoney",
+            "author": { "@id": "https://aashir-athar.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        },
+        {
+          "@type": "ListItem", "position": 5,
+          "item": {
+            "@type": "SoftwareApplication",
             "name": "Fuelio",
-            "description": "Offline-first vehicle management with statistically correct full-tank fuel-economy algorithm.",
+            "description": "Offline-first vehicle management with statistically correct full-tank fuel-economy algorithm — 100% on-device, 9 service types, multi-currency.",
             "applicationCategory": "UtilitiesApplication",
             "operatingSystem": "iOS, Android",
-            "url": "https://github.com/aashir-athar/fuelio"
+            "url": "https://github.com/aashir-athar/fuelio",
+            "author": { "@id": "https://aashir-athar.github.io/#person" },
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        },
+        {
+          "@type": "ListItem", "position": 6,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "expo-transaction-sms-reader",
+            "description": "Open-source npm package and Expo native module — parses banking SMS into typed transactions across PK, IN, BD, GCC. Smart classifier, 60+ banks/wallets, runtime-registered receiver.",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Android",
+            "url": "https://www.npmjs.com/package/expo-transaction-sms-reader",
+            "author": { "@id": "https://aashir-athar.github.io/#person" },
+            "license": "https://opensource.org/licenses/MIT",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
           }
         }
       ]
     }
     </script>
 
-    <!-- Structured data: ProfessionalService offering -->
+    <!-- ProfessionalService — services I'm hireable for. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
+      "@id": "https://aashir-athar.github.io/#service",
       "name": "Aashir Athar — Senior React Native Engineering",
       "url": "https://aashir-athar.github.io/",
       "image": "https://aashir-athar.github.io/og-preview.svg",
-      "areaServed": "Worldwide",
+      "provider": { "@id": "https://aashir-athar.github.io/#person" },
+      "areaServed": { "@type": "Place", "name": "Worldwide" },
       "priceRange": "$$",
-      "provider": { "@type": "Person", "name": "Aashir Athar" },
+      "currenciesAccepted": "USD, EUR, GBP",
+      "paymentAccepted": "Bank Transfer, Wise, PayPal",
       "serviceType": [
         "React Native Mobile App Development",
         "Mobile Architecture Consulting",
         "Performance Optimization",
-        "CI/CD for Mobile Teams"
+        "CI/CD for Mobile Teams",
+        "Cross-platform iOS &amp; Android Engineering",
+        "Open-source npm Module Development"
+      ],
+      "knowsAbout": [
+        "React Native", "Expo", "TypeScript", "Reanimated 4",
+        "Firebase", "Supabase", "Clerk Auth", "Fastlane CI/CD"
       ]
     }
     </script>
 
-    <!-- Structured data: BreadcrumbList -->
+    <!-- BreadcrumbList — section anchors for sitelinks. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
+      "@id": "https://aashir-athar.github.io/#breadcrumb",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aashir-athar.github.io/#hero" },
-        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://aashir-athar.github.io/#about" },
-        { "@type": "ListItem", "position": 3, "name": "Stack", "item": "https://aashir-athar.github.io/#skills" },
-        { "@type": "ListItem", "position": 4, "name": "Work", "item": "https://aashir-athar.github.io/#projects" },
-        { "@type": "ListItem", "position": 5, "name": "Process", "item": "https://aashir-athar.github.io/#process" },
+        { "@type": "ListItem", "position": 1, "name": "Home",       "item": "https://aashir-athar.github.io/#hero" },
+        { "@type": "ListItem", "position": 2, "name": "About",      "item": "https://aashir-athar.github.io/#about" },
+        { "@type": "ListItem", "position": 3, "name": "Stack",      "item": "https://aashir-athar.github.io/#skills" },
+        { "@type": "ListItem", "position": 4, "name": "Work",       "item": "https://aashir-athar.github.io/#projects" },
+        { "@type": "ListItem", "position": 5, "name": "Process",    "item": "https://aashir-athar.github.io/#process" },
         { "@type": "ListItem", "position": 6, "name": "Experience", "item": "https://aashir-athar.github.io/#experience" },
-        { "@type": "ListItem", "position": 7, "name": "Contact", "item": "https://aashir-athar.github.io/#contact" }
+        { "@type": "ListItem", "position": 7, "name": "Contact",    "item": "https://aashir-athar.github.io/#contact" }
       ]
     }
     </script>
 
-    <!-- Structured data: FAQ -->
+    <!-- FAQPage — eligible for rich FAQ snippets in SERPs. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      "@id": "https://aashir-athar.github.io/#faq",
       "mainEntity": [
         {
           "@type": "Question",
           "name": "What kind of roles is Aashir Athar open to?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Senior and lead React Native roles, mobile architecture consulting, and high-impact freelance engagements. Remote-first, working across US and Pakistan timezones."
+            "text": "Senior and lead React Native roles, mobile architecture consulting, and high-impact freelance engagements. Remote-first, working across US and Pakistan timezones with overlap suitable for both regions."
           }
         },
         {
@@ -218,7 +418,7 @@
           "name": "How many users do Aashir's apps serve in production?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "50,000+ active users across cross-platform React Native apps shipped to the App Store and Google Play."
+            "text": "50,000+ active users across cross-platform React Native apps shipped to the App Store and Google Play, with zero post-launch crashes across multiple releases."
           }
         },
         {
@@ -226,7 +426,7 @@
           "name": "Which tech stack does Aashir specialize in?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "React Native and Expo SDK with TypeScript on the client; Firebase, Supabase, Node.js and MongoDB on the backend; Reanimated 3, Clerk Auth, Fastlane CI/CD, and GitHub Actions for production tooling."
+            "text": "React Native and Expo SDK 54 with TypeScript on the client; Firebase, Supabase, Node.js and MongoDB on the backend; Reanimated 4, Clerk Auth, Fastlane CI/CD, and GitHub Actions for production tooling."
           }
         },
         {
@@ -235,6 +435,22 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "35% faster cold starts, 90% fewer manual deployment errors via Fastlane CI/CD, 25% faster data-fetching after Firebase caching rewrite, and zero post-launch crashes across multiple App Store and Google Play releases."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Aashir based and what time zones does he overlap?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Based in Lahore, Pakistan (PKT, UTC+5). Working overlap with US Eastern (mornings PKT / evenings ET) and US Pacific (early mornings PKT / late nights PT). Replies within 24 hours, usually faster."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Aashir contribute to open source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — six open-source mobile projects on GitHub including a privacy-first Pakistani fintech (FlowMoney), a real-time blood-donor matching app (BludStack), an offline-first vehicle tracker (Fuelio), plus a published npm package (expo-transaction-sms-reader) for parsing banking SMS across PK, IN, BD, and GCC regions."
           }
         }
       ]
@@ -245,5 +461,31 @@
     <a href="#hero" class="skip-link">Skip to content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Plain-text fallback content for crawlers that don't execute JS.
+         Modern Googlebot does, but Bingbot and many AI crawlers (GPTBot,
+         PerplexityBot, ClaudeBot) parse the static HTML first. This block
+         gives them the same thesis the page renders, ensuring the entity
+         description matches the rendered hero copy. Hidden visually. -->
+    <noscript>
+      <h1>Aashir Athar — Senior React Native Engineer</h1>
+      <p>I architect and ship cross-platform mobile apps that hold up six months after launch — not just on demo day. Production React Native trusted by 50,000+ users, with zero post-launch crashes and 35% faster cold starts across the apps I've led.</p>
+      <p>Based in Lahore, Pakistan. Working with US and Pakistan teams since 2022. Open to senior and lead React Native roles, freelance engagements, and consulting on mobile architecture.</p>
+      <p>Contact: <a href="mailto:aashirathar@gmail.com">aashirathar@gmail.com</a> · Replies within 24 hours.</p>
+      <ul>
+        <li><a href="https://github.com/aashir-athar">GitHub: aashir-athar</a></li>
+        <li><a href="https://linkedin.com/in/aashirathar">LinkedIn: aashirathar</a></li>
+        <li><a href="/resume.pdf">Resume (PDF)</a></li>
+      </ul>
+      <h2>Selected open-source work</h2>
+      <ol>
+        <li><a href="https://github.com/aashir-athar/xmind-app">xMind</a> — Open-source social platform with weighted feed ranking and 50+ component design system.</li>
+        <li><a href="https://github.com/aashir-athar/BludStack-RN">BludStack</a> — Geo-fenced blood-donor matching with ring-by-ring notifications.</li>
+        <li><a href="https://github.com/aashir-athar/Market-Place-App">Trade Ease</a> — Peer-to-peer marketplace with real-time chat, Firebase backend.</li>
+        <li><a href="https://github.com/aashir-athar/FlowMoney">FlowMoney</a> — Privacy-first Pakistani fintech with on-device ledger and AI assistant.</li>
+        <li><a href="https://github.com/aashir-athar/fuelio">Fuelio</a> — Offline-first vehicle tracker with statistically correct fuel-economy algorithm.</li>
+        <li><a href="https://www.npmjs.com/package/expo-transaction-sms-reader">expo-transaction-sms-reader</a> — npm package + Expo native module for parsing banking SMS.</li>
+      </ol>
+    </noscript>
   </body>
 </html>

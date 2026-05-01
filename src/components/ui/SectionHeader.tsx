@@ -18,7 +18,7 @@ interface SectionHeaderProps {
 
 const accentMap = {
   cyan:    { text: 'text-[color:var(--cyan)]',    border: 'border-[color:var(--line-bright)]',     bg: 'bg-[var(--cyan-glow)]',    dot: 'bg-[color:var(--cyan)]'    },
-  violet:  { text: 'text-[color:var(--violet)]',  border: 'border-[rgba(139,92,246,0.30)]',         bg: 'bg-[var(--violet-glow)]',  dot: 'bg-[color:var(--violet)]'  },
+  violet:  { text: 'text-[color:var(--violet)]',  border: 'border-[rgba(167,139,250,0.30)]',         bg: 'bg-[var(--violet-glow)]',  dot: 'bg-[color:var(--violet)]'  },
   emerald: { text: 'text-[color:var(--emerald)]', border: 'border-[rgba(16,185,129,0.30)]',         bg: 'bg-[var(--emerald-glow)]', dot: 'bg-[color:var(--emerald)]' },
   amber:   { text: 'text-[color:var(--amber)]',   border: 'border-[rgba(245,158,11,0.30)]',         bg: 'bg-[rgba(245,158,11,0.10)]', dot: 'bg-[color:var(--amber)]' },
   rose:    { text: 'text-[color:var(--rose)]',    border: 'border-[rgba(244,63,94,0.30)]',          bg: 'bg-[rgba(244,63,94,0.10)]', dot: 'bg-[color:var(--rose)]' },

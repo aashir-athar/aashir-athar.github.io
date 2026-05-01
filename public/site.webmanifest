@@ -1,0 +1,70 @@
+{
+  "name": "Aashir Athar — Senior React Native Engineer",
+  "short_name": "Aashir Athar",
+  "description": "Senior React Native engineer architecting and shipping production mobile apps to 50,000+ users. Cross-platform iOS/Android, Expo, TypeScript, performance-tuned. Open to senior and lead roles, remote.",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait-primary",
+  "background_color": "#06080f",
+  "theme_color": "#22d3ee",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["productivity", "business", "developer", "portfolio"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-preview.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Aashir Athar — Senior React Native Engineer portfolio cover"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Selected work",
+      "short_name": "Work",
+      "description": "Six open-source mobile projects shipped end-to-end.",
+      "url": "/#projects",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Contact Aashir",
+      "short_name": "Contact",
+      "description": "Open an email draft. Replies within 24 hours.",
+      "url": "/#contact",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Resume (PDF)",
+      "short_name": "Resume",
+      "description": "Senior React Native engineer — résumé.",
+      "url": "/resume.pdf",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

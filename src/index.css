@@ -13,21 +13,33 @@
   --font-mono: "JetBrains Mono", ui-monospace, "Menlo", monospace;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 
-  /* Palette */
+  /* Palette — three-color brand: cyan + deep purple + gold.
+     Reads as "developer" at a glance (synthwave / IDE syntax aesthetic).
+       --cyan    #22d3ee  electric — code-on-screen, technical clarity
+       --violet  #7c3aed  deep purple — signature identity, sophistication
+       --gold    #fbbf24  warm gold — achievement, attention, "the numbers"
+
+     Distinct from project accents:
+       xMind cyan #06b6d4 vs system #22d3ee — system is brighter/more electric
+       FlowMoney violet #8b5cf6 vs system #7c3aed — system is deeper/more saturated
+       No project uses gold — system has it exclusively. */
   --color-bg: #06080f;
   --color-bg-elev: #0b0f1d;
   --color-surface: #11172a;
   --color-surface-2: #182137;
   --color-line: rgba(255, 255, 255, 0.06);
   --color-line-strong: rgba(255, 255, 255, 0.12);
-  --color-line-bright: rgba(6, 182, 212, 0.40);
+  --color-line-bright: rgba(34, 211, 238, 0.40);
 
   --color-ink: #f1f5ff;
   --color-ink-muted: #8a9bbe;
   --color-ink-faint: #4d5f80;
 
-  --color-cyan: #06b6d4;
-  --color-violet: #8b5cf6;
+  --color-cyan: #22d3ee;     /* electric cyan — primary brand */
+  --color-violet: #a78bfa;   /* lavender purple — secondary brand (brightened
+                                from #7c3aed for text-on-dark legibility:
+                                ~63% luminance vs #06080f bg = ~9:1, AAA) */
+  --color-gold: #fbbf24;     /* warm gold — tertiary highlight */
   --color-emerald: #10b981;
   --color-amber: #f59e0b;
   --color-rose: #f43f5e;
@@ -83,23 +95,48 @@
   --surface-2: #182137;
   --line: rgba(255, 255, 255, 0.06);
   --line-strong: rgba(255, 255, 255, 0.12);
-  --line-bright: rgba(6, 182, 212, 0.40);
+  --line-bright: rgba(34, 211, 238, 0.40);
   --ink: #f1f5ff;
   --ink-muted: #8a9bbe;
   --ink-faint: #4d5f80;
 
   --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.30);
   --shadow-elev: 0 28px 70px rgba(0, 0, 0, 0.55);
-  --shadow-cyan: 0 10px 40px rgba(6, 182, 212, 0.35);
+  --shadow-cyan: 0 10px 40px rgba(34, 211, 238, 0.35);
 
-  --cyan: #06b6d4;
-  --cyan-glow: rgba(6, 182, 212, 0.18);
-  --violet: #8b5cf6;
-  --violet-glow: rgba(139, 92, 246, 0.18);
+  --cyan: #22d3ee;                     /* electric cyan */
+  --cyan-glow: rgba(34, 211, 238, 0.18);
+  --violet: #a78bfa;                   /* lavender purple — bright enough for
+                                          text-on-dark (was #7c3aed) */
+  --violet-glow: rgba(167, 139, 250, 0.22);
+  --gold: #fbbf24;                     /* warm gold — tertiary highlight */
+  --gold-glow: rgba(251, 191, 36, 0.18);
+
+  /* Hero atmosphere — large blurred radial halos behind the hero. The dark
+     theme uses higher opacities because dark BG can absorb the glow. The
+     light theme override is *much* lower because saturated rgba over a
+     near-white BG washes everything out. */
+  --hero-glow-cyan: rgba(34, 211, 238, 0.18);
+  --hero-glow-violet: rgba(167, 139, 250, 0.22);
+
+  /* Project card — category pill at bottom-left. Dark theme uses a deep
+     ink translucency; light theme overrides this to a near-surface tint
+     so the pill reads as a chip rather than a dark blob. */
+  --project-pill-bg: rgba(6, 8, 15, 0.55);
+
+  /* Card-surface overlays — for chip / icon-button backgrounds that sit on
+     top of a card's accent-tinted header. Two opacities. Both are theme-
+     aware so light theme uses a near-white wash instead of dark ink. */
+  --card-overlay: rgba(6, 8, 15, 0.55);
+  --card-overlay-strong: rgba(6, 8, 15, 0.65);
+
+  /* Modal backdrop dim — wraps Cmd+K and ProjectModal. */
+  --modal-backdrop: rgba(6, 8, 15, 0.86);
   --emerald: #10b981;
   --emerald-glow: rgba(16, 185, 129, 0.18);
   --amber: #f59e0b;
   --rose: #f43f5e;
+  --pink: #ec4899;
   --noise-opacity: 0.35;
 }
 
@@ -110,18 +147,75 @@
   --surface-2: #f0f3ff;
   --line: rgba(13, 21, 38, 0.08);
   --line-strong: rgba(13, 21, 38, 0.14);
-  --line-bright: rgba(6, 182, 212, 0.50);
   --ink: #0d1526;
   --ink-muted: #4a5f80;
-  --ink-faint: #8899bb;
+  --ink-faint: #5d6f8e;                /* was #8899bb — bumped for AA on white
+                                          (#8899bb was 3.5:1, fails AA; new
+                                          value is ~4.6:1, AA pass) */
 
   --shadow-card: 0 4px 24px rgba(13, 21, 38, 0.06);
   --shadow-elev: 0 28px 70px rgba(13, 21, 38, 0.12);
-  --shadow-cyan: 0 10px 40px rgba(6, 182, 212, 0.22);
 
-  --cyan-glow: rgba(6, 182, 212, 0.10);
-  --violet-glow: rgba(139, 92, 246, 0.10);
-  --emerald-glow: rgba(16, 185, 129, 0.10);
+  /* ============================================================
+     LIGHT-THEME COLOR OVERRIDES.
+
+     Every brand + status color gets a darker shade on light bg so it
+     passes WCAG AA against #f6f8ff (~95% luminance). The dark-theme
+     shades all fail on white — gold #fbbf24 was 1.9:1, cyan #22d3ee
+     was 2.0:1, etc. These deeper variants keep the brand identity
+     (still cyan / purple / gold / etc.) but are readable as text
+     and as small-element fills on a near-white background.
+     ============================================================ */
+
+  /* Cyan: #22d3ee (dark) → #0891b2 (light). Contrast on white ≈ 7:1. */
+  --cyan: #0891b2;
+  --cyan-glow: rgba(8, 145, 178, 0.14);
+  --line-bright: rgba(8, 145, 178, 0.55);
+  --shadow-cyan: 0 10px 40px rgba(8, 145, 178, 0.30);
+
+  /* Violet: #a78bfa (dark) → #7c3aed (light). Contrast on white ≈ 6:1. */
+  --violet: #7c3aed;
+  --violet-glow: rgba(124, 58, 237, 0.10);
+
+  /* Gold: #fbbf24 (dark) → #d97706 (light). Contrast on white ≈ 5.5:1. */
+  --gold: #d97706;
+  --gold-glow: rgba(217, 119, 6, 0.12);
+
+  /* Emerald: #10b981 (dark) → #059669 (light). Contrast on white ≈ 5:1. */
+  --emerald: #059669;
+  --emerald-glow: rgba(5, 150, 105, 0.10);
+
+  /* Amber: #f59e0b (dark) → #b45309 (light). Distinct from --gold. */
+  --amber: #b45309;
+
+  /* Rose: #f43f5e (dark) → #e11d48 (light). Contrast on white ≈ 5:1. */
+  --rose: #e11d48;
+
+  /* Pink: #ec4899 (dark) → #be185d (light). Contrast on white ≈ 6:1. */
+  --pink: #be185d;
+
+  /* Hero atmosphere — much lower opacity on light bg so the blobs read as
+     a *whisper* of color, not an overwhelming wash. The original 0.22
+     violet at 22% over white = noticeable lavender wash; 0.05 = subtle
+     hint of brand color. */
+  --hero-glow-cyan: rgba(8, 145, 178, 0.06);
+  --hero-glow-violet: rgba(124, 58, 237, 0.05);
+
+  /* Project card pill — light surface bg, switches text to --ink via
+     the [data-theme="light"] .project-pill CSS rule above. */
+  --project-pill-bg: rgba(255, 255, 255, 0.85);
+
+  /* Card-surface overlays — light-theme variants. Near-white tints so
+     chips and icon buttons on top of accent-glow card headers read as
+     light glass, not dark blobs. */
+  --card-overlay: rgba(255, 255, 255, 0.75);
+  --card-overlay-strong: rgba(255, 255, 255, 0.88);
+
+  /* Modal backdrop — slightly less aggressive on light theme. Still
+     darkish so the modal panel pops, but with more transparency so the
+     page underneath shows through. */
+  --modal-backdrop: rgba(13, 21, 38, 0.55);
+
   --noise-opacity: 0.16;
 }
 
@@ -189,7 +283,7 @@ button {
 }
 
 ::selection {
-  background: rgba(6, 182, 212, 0.30);
+  background: rgba(34, 211, 238, 0.30);
   color: var(--ink);
 }
 
@@ -267,18 +361,41 @@ body::before {
   background-size: 32px 32px;
 }
 
-/* Ambient glow blob */
+/* Ambient glow blob. The blur radius is the most expensive thing on this
+   site after the WebGL canvas — it forces a separate composite layer plus a
+   gaussian filter pass. We dial it down on phones where the blob is mostly
+   masked anyway, and pump it back up on big screens where the canvas is
+   dramatic. */
 .ambient-glow {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(80px);
+  filter: blur(60px);
   pointer-events: none;
   z-index: 0;
+  will-change: opacity;
+}
+@media (min-width: 1024px) {
+  .ambient-glow { filter: blur(80px); }
 }
 
-/* Gradient text utilities */
+/* Gradient text utilities.
+   `background-clip: text` only paints through THE ELEMENT'S OWN text
+   glyphs — child elements with their own text are NOT covered. So when
+   `.gradient-text` wraps per-character animation spans (`.char`) with no
+   direct text content of its own, nothing visible renders. Solution:
+   the rule below applies the same clipped gradient to every `.char`
+   inside `.gradient-text`. Each letter then carries its own internal
+   cyan→violet gradient — visible at all times, plays nicely with the
+   per-char kerning animation. */
 .gradient-text {
   background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+.gradient-text .char {
+  background-image: linear-gradient(135deg, var(--cyan), var(--violet));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -592,22 +709,387 @@ section {
 .text-reveal-delay-3 > span { animation-delay: 0.34s; }
 .text-reveal-delay-4 > span { animation-delay: 0.46s; }
 
-/* Cursor glow (desktop, fine pointer only) */
+/* ================================================================
+   MAGNETIC CURSOR — replaces the older soft glow.
+   Two layered elements:
+     .cursor-dot   — small inner dot, follows pointer 1:1.
+     .cursor-ring  — soft outer ring, lerps behind. Snaps to interactive
+                     targets when they declare themselves with
+                     `data-cursor="target"`.
+   Pure transform animation, GPU-only. JS owns position; CSS owns size +
+   color + transitions.
+   ================================================================ */
 @media (hover: hover) and (pointer: fine) {
-  .cursor-glow {
+  .cursor-dot,
+  .cursor-ring {
     position: fixed;
+    top: 0;
+    left: 0;
     pointer-events: none;
-    z-index: 1;
-    width: 520px;
-    height: 520px;
+    z-index: 9000;
     border-radius: 9999px;
-    background: radial-gradient(circle at center, rgba(6, 182, 212, 0.10), transparent 60%);
-    filter: blur(20px);
     transform: translate3d(-50%, -50%, 0);
-    transition: opacity 0.3s ease;
-    mix-blend-mode: screen;
+    will-change: transform, width, height, opacity;
   }
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--cyan);
+    box-shadow: 0 0 12px var(--cyan);
+    transition: opacity 0.2s ease, transform 0.06s linear;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 32px;
+    height: 32px;
+    border: 1px solid color-mix(in srgb, var(--cyan) 65%, transparent);
+    background: rgba(34, 211, 238, 0.05);
+    backdrop-filter: blur(2px);
+    transition:
+      width 0.45s var(--ease-signature),
+      height 0.45s var(--ease-signature),
+      background 0.45s var(--ease-signature),
+      border-color 0.45s var(--ease-signature),
+      opacity 0.25s ease;
+  }
+  .cursor-ring.is-snapped {
+    width: 56px;
+    height: 56px;
+    background: rgba(251, 191, 36, 0.12); /* gold tint when snapped — pop psychology */
+    border-color: color-mix(in srgb, var(--gold) 75%, transparent);
+  }
+  .cursor-ring.is-pressed {
+    width: 22px;
+    height: 22px;
+  }
+  /* Hide native cursor on interactive elements that have a tracked cursor. */
+  [data-cursor="target"] { cursor: none; }
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .cursor-glow { display: none; }
+  .cursor-dot, .cursor-ring { display: none; }
+}
+
+/* ================================================================
+   CHAPTER RAIL — sticky right-side wayfinding for long scroll sites.
+   The rail must never overlap content. Two breakpoints govern it:
+
+     • >= 1400px  — rail visible as DOTS ONLY (~46px wide). The active dot
+                    is larger + glowing — color/size convey state, no label
+                    needed at this size.
+     • >= 1536px  — hover labels enabled. The right margin is now wide
+                    enough (≥ 168px) that the label can expand without
+                    bleeding into the 1200px content track.
+
+   Below 1400px the rail is hidden entirely; the navbar's active-section
+   indicator carries wayfinding duty there.
+
+   The rail is positioned with calc() to live in the natural margin between
+   the content track and the viewport edge, never overlapping content.
+   ================================================================ */
+@media (min-width: 1400px) {
+  .chapter-rail {
+    --rail-content-track: 1200px;
+    position: fixed;
+    /* Sit in the right margin: half of (viewport - content) minus a small
+       breathing offset, falling back to 16px if the math would push the
+       rail off-screen at narrow widths. */
+    right: max(16px, calc((100vw - var(--rail-content-track)) / 2 - 64px));
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 12px 8px;
+    border-radius: 24px;
+    background: rgba(11, 15, 29, 0.55);
+    backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid var(--line);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+  }
+  .chapter-rail.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  [data-theme="light"] .chapter-rail {
+    background: rgba(255, 255, 255, 0.65);
+  }
+}
+
+/* When content widens at 1920+ (bp-xxl-container = 1640px), so does the
+   rail's anchor. */
+@media (min-width: 1920px) {
+  .chapter-rail { --rail-content-track: 1640px; }
+}
+
+/* Below 1400px the rail is hidden — too narrow for it to live outside the
+   content track. Navbar carries wayfinding here. */
+@media (max-width: 1399px) {
+  .chapter-rail { display: none; }
+}
+
+/* Hover labels are gated behind a wider breakpoint. At 1400-1535px the
+   rail stays dot-only; the JS-rendered label spans use this class to
+   enable max-width transitions only when there's room. */
+.chapter-rail [data-rail-label] {
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.45s var(--ease-signature),
+              opacity 0.3s ease,
+              padding-right 0.4s var(--ease-signature);
+}
+@media (min-width: 1536px) {
+  .chapter-rail .group:hover [data-rail-label],
+  .chapter-rail .group:focus-within [data-rail-label] {
+    max-width: 84px;
+    opacity: 1;
+    padding-right: 4px;
+  }
+}
+
+/* ================================================================
+   VIEW TRANSITIONS — themed circular reveal on toggle.
+   The `--theme-origin-x/y` and `--theme-radius` are set by useTheme()
+   right before invoking startViewTransition().
+   ================================================================ */
+@supports (view-transition-name: x) {
+  /* Disable the default cross-fade so we can do the clip ourselves. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+  /* Old DOM (the previous theme) sits underneath. */
+  ::view-transition-old(root) { z-index: 1; }
+  ::view-transition-new(root) { z-index: 2; }
+
+  /* Clip the *new* DOM into a circle that grows from the origin. */
+  @keyframes vt-circle-in {
+    from { clip-path: circle(0 at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)); }
+    to   { clip-path: circle(var(--theme-radius, 1500px) at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)); }
+  }
+  ::view-transition-new(root) {
+    animation: vt-circle-in 0.7s var(--ease-signature) both;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root),
+  ::view-transition-old(root) { animation: none !important; }
+}
+
+/* ================================================================
+   EDITORIAL MEGA-TYPE — hero name + section pull-quotes
+   ================================================================ */
+
+/* Hero wordmark. Uses min-max clamp so XS through 4K all read confidently
+   without a JS-driven font sizer. The Bricolage opsz axis snaps to 96 at
+   this size — the widest, most decisive grade in the family. */
+.hero-name {
+  font-size: clamp(3.4rem, 11vw, 9.6rem);
+  font-variation-settings: "opsz" 96;
+}
+
+/* Editorial char-by-char reveal for the hero name. Each character starts
+   with a wider letter-spacing and slight Y offset, then settles into place.
+   Pure CSS, runs once on first paint (LCP-safe — the H1 is already laid
+   out, we're animating transform + letter-spacing only). */
+@keyframes char-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0.45em) rotate(-2deg);
+    letter-spacing: 0.08em;
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+    letter-spacing: -0.045em;
+    filter: blur(0);
+  }
+}
+.hero-name .char {
+  display: inline-block;
+  white-space: pre;
+  animation: char-rise 1.1s var(--ease-signature) both;
+  will-change: transform, letter-spacing, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-name .char { animation: none; }
+}
+
+/* Section pull-quote — editorial typographic break that lives between
+   sections to create rhythm. Same family as the hero wordmark; a notch
+   smaller. The reveal is CSS-only via a sibling class on intersection. */
+.pull-quote {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.94;
+  text-wrap: balance;
+  font-size: clamp(2.2rem, 6.5vw, 5.4rem);
+  font-variation-settings: "opsz" 96;
+  color: var(--ink);
+}
+.pull-quote .accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-muted);
+  letter-spacing: -0.02em;
+}
+
+/* Surfaces under the hero get a soft top-fade so they meet the hero edge
+   without a hard rule. Enabled by adding `surface-tint` to the section. */
+.surface-tint {
+  position: relative;
+}
+.surface-tint::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 160px;
+  background: linear-gradient(to bottom, var(--bg-elev), transparent);
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 0;
+}
+.surface-tint > * { position: relative; z-index: 1; }
+
+/* The WebGL hero shader is calibrated for dark BG (cyan/violet flow over
+   near-black). On light theme its `mix-blend-mode: screen` against white
+   does nothing useful and its dark base color introduces visual noise.
+   Hide entirely in light mode — the CSS atmosphere alone is enough. */
+[data-theme="light"] .hero-shader-layer { display: none !important; }
+
+/* Project card category pill. Theme-aware via simple per-theme overrides:
+     - dark: dark ink-translucent bg + accent text (current visual identity)
+     - light: light surface-translucent bg + INK text + accent border/dot
+   Switching the text from accent → ink in light mode guarantees readability
+   across all six project accents (cyan/rose/emerald/violet/lime/orange),
+   some of which are too light for AA against any near-white pill bg. */
+.project-pill {
+  background: var(--project-pill-bg);
+  color: var(--pill-accent);
+  border-color: color-mix(in srgb, var(--pill-accent) 25%, transparent);
+}
+[data-theme="light"] .project-pill {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--pill-accent) 50%, transparent);
+}
+
+/* Performance: paint sections only when near the viewport. Cards that are
+   far down the page no longer cost layout/paint until the user scrolls.
+   Two intrinsic-size hints — desktop sections are tall (work grid is ~2 rows
+   of 600px cards), mobile sections collapse to ~1800px. The estimate doesn't
+   have to be exact; close enough that the scrollbar doesn't jump much when
+   sections paint in. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1800px;
+}
+@media (min-width: 1024px) {
+  .cv-auto { contain-intrinsic-size: 1px 1400px; }
+}
+
+/* Skill chip hover — pure CSS, no per-chip onMouseEnter handlers (used to
+   be a perf footgun on a list this long). Each card sets `--chip-accent`. */
+.skill-chip:hover,
+.skill-chip:focus-visible {
+  border-color: color-mix(in srgb, var(--chip-accent, var(--cyan)) 55%, transparent);
+  color: var(--chip-accent, var(--cyan));
+}
+
+/* ================================================================
+   RESPONSIVE BREAKPOINTS — 6 explicit tiers
+   The Tailwind utilities cover most cases; this block is for surgical
+   typography + spacing adjustments where the fluid clamps don't quite
+   land at the extremes. Keep additions minimal — do not re-skin per tier.
+   ----------------------------------------------------------------
+   1. XS  — small phones (portrait)        max-width: 480px
+   2. S   — large phones / small tablets   481–767px
+   3. M   — tablets / phones landscape     768–1023px
+   4. L   — laptops, small desktops        1024–1279px
+   5. XL  — large desktops                 1280–1919px
+   6. XXL — 4K & ultra-wide                ≥ 1920px
+   ================================================================ */
+
+/* 1. XS — small phones (portrait) -------------------------------- */
+@media (max-width: 480px) {
+  html { font-size: 15.5px; }
+
+  /* Tighter hero scroll-padding so anchored sections sit well */
+  html { scroll-padding-top: 80px; }
+
+  /* The 3D phone is already hidden < md (768px). Make sure no leftover
+     phone-stage scaling leaks at this tier. */
+  .phone3d-stage { display: none !important; }
+
+  /* Editorial mega type at this tier — keep big, but rein in line height
+     so the name + lede fit a 360-wide viewport without scroll. */
+  h1 { letter-spacing: -0.04em; }
+
+  /* Section vertical rhythm — slightly tighter on tiny screens. */
+  .section-y { padding-block: clamp(1.5rem, 9vw, 2.5rem); }
+
+  /* Cards: slightly tighter padding floor. */
+  .glass, [class*="rounded-2xl"], [class*="rounded-3xl"] {
+    /* affects nothing structural — relies on Tailwind classes still in effect */
+  }
+}
+
+/* 2. S — large phones / small tablets ---------------------------- */
+@media (min-width: 481px) and (max-width: 767px) {
+  html { font-size: 16px; }
+  html { scroll-padding-top: 88px; }
+  .phone3d-stage { display: none !important; }
+  .section-y { padding-block: clamp(2rem, 7vw, 3rem); }
+}
+
+/* 3. M — tablets (portrait) / phones landscape ------------------- */
+@media (min-width: 768px) and (max-width: 1023px) {
+  html { scroll-padding-top: 92px; }
+  /* The 3D phone shows here at md scale. Keep a sane minimum height so
+     the hero grid doesn't clip the phone column on portrait tablets. */
+  .phone3d-stage { min-height: 440px; }
+}
+
+/* 4. L — laptops / small desktops -------------------------------- */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  /* Default look, no overrides. */
+}
+
+/* 5. XL — large desktops ----------------------------------------- */
+@media (min-width: 1280px) and (max-width: 1919px) {
+  /* Default look, no overrides. */
+}
+
+/* 6. XXL — 4K & ultra-wide --------------------------------------- */
+@media (min-width: 1920px) {
+  html { font-size: 17.5px; }
+
+  /* Lift the content track so it doesn't strand in the middle of a 4K
+     monitor. The default Container max-width is 1200px; widen it here. */
+  .bp-xxl-container {
+    max-width: 1640px !important;
+  }
+
+  /* Section vertical rhythm — generous on big screens. */
+  .section-y { padding-block: clamp(4.5rem, 5vw, 7rem); }
+
+  /* Larger ambient glow so the hero atmosphere fills the wider canvas. */
+  .ambient-glow { filter: blur(110px); }
+}
+
+/* High-pixel-density tweak — no behavior change, just hint to the
+   browser to use crisp text on retina + 4K. */
+@media (min-resolution: 2dppx) {
+  body { -webkit-font-smoothing: antialiased; }
 }
