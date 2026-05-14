@@ -5,18 +5,20 @@ import { Container, Section, SectionHeader } from '../components/ui'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
-const categories = ['Core', 'Mobile', 'Backend', 'Auth', 'DevOps', 'Design'] as const
+const categories = ['Core', 'Web', 'Mobile', 'Backend', 'Auth', 'DevOps', 'AI', 'Design'] as const
 
 /* Category accents are CSS var refs so they auto-theme. Inline styles
  * use color-mix() instead of hex alpha. --pink has no per-theme override,
  * so use a fixed hex for it (acceptable: pink is rarely used as text). */
 const categoryMeta: Record<string, { label: string; color: string; index: string; note: string }> = {
-  Core:    { label: 'Core engineering', color: 'var(--cyan)',    index: '01', note: 'Daily drivers — what every commit touches.' },
-  Mobile:  { label: 'Mobile platform',  color: 'var(--violet)',  index: '02', note: 'Native bridges, animation, distribution.' },
-  Backend: { label: 'Backend & data',   color: 'var(--emerald)', index: '03', note: 'Realtime, persistence, REST + RPC.' },
-  Auth:    { label: 'Auth & security',  color: 'var(--amber)',   index: '04', note: 'Identity, sessions, hardening.' },
-  DevOps:  { label: 'Release & DevOps', color: 'var(--rose)',    index: '05', note: 'Pipelines that don\'t break at 2 a.m.' },
-  Design:  { label: 'Design & UX',      color: 'var(--pink)',    index: '06', note: 'Pixel discipline, motion as feedback.' },
+  Core:    { label: 'Core engineering',   color: 'var(--cyan)',    index: '01', note: 'Daily drivers — what every commit touches.' },
+  Web:     { label: 'Web stack',          color: 'var(--emerald)', index: '02', note: 'React.js + Next.js. Marketing sites, dashboards, full-stack apps — this portfolio is the proof.' },
+  Mobile:  { label: 'Mobile platform',    color: 'var(--violet)',  index: '03', note: 'Native bridges, animation, distribution.' },
+  Backend: { label: 'Backend & data',     color: '#14b8a6',        index: '04', note: 'Realtime, persistence, REST + RPC.' },
+  Auth:    { label: 'Auth & security',    color: 'var(--amber)',   index: '05', note: 'Identity, sessions, hardening.' },
+  DevOps:  { label: 'Release & DevOps',   color: 'var(--rose)',    index: '06', note: 'Pipelines that don\'t break at 2 a.m.' },
+  AI:      { label: 'AI workflow',        color: 'var(--gold)',    index: '07', note: 'Senior pair-programmer, not a magic button. Each tool earns its slot — and my Claude is custom-trained on my own skills + agents.' },
+  Design:  { label: 'Design & creative',  color: 'var(--pink)',    index: '08', note: 'Pixel discipline, motion as feedback, polish that ships — icons, edits, color, voiceover.' },
 }
 
 /* -------------------------------------------------------------------------- *
@@ -58,7 +60,7 @@ export default function Skills() {
               <span className="gradient-text">ship with.</span>
             </>
           }
-          description="React Native end-to-end, plus the backend and DevOps the team needs to keep moving. Tools I've shipped at production scale — not a checklist of things I've heard of in a conference talk."
+          description="React Native and Expo end-to-end. React.js + Next.js for the web side — this portfolio is the proof. Backend, DevOps, an AI workflow tuned for senior-dev throughput, and creative tools for the polish — every chip below is a tool I've shipped at production scale across seven open-source apps + one self-training LLM. Not a checklist of things I've heard of in a conference talk."
         />
 
         <div

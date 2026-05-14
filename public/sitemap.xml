@@ -5,23 +5,24 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
   <!--
-    Single-page portfolio sitemap. The hash-anchor URLs aren't separate
-    documents, but sitemap-listed anchors help Google build sitelinks and
-    LinkedIn / AI search engines surface section-specific snippets. Each
-    URL carries the same image extension so the OG card propagates.
+    Single-page React Native developer portfolio sitemap. The hash-anchor
+    URLs aren't separate documents, but sitemap-listed anchors help
+    Google build sitelinks and LinkedIn / AI search engines surface
+    section-specific snippets. Each URL carries the same image extension
+    so the OG card propagates.
   -->
 
   <url>
     <loc>https://aashir-athar.github.io/</loc>
-    <lastmod>2026-05-01</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://aashir-athar.github.io/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aashir-athar.github.io/" />
     <image:image>
       <image:loc>https://aashir-athar.github.io/og-preview.svg</image:loc>
-      <image:title>Aashir Athar — Senior React Native Engineer</image:title>
-      <image:caption>Production mobile apps that hold up six months past launch. 0 post-launch crashes, 50K+ users, 35% faster cold starts, 6 open-sourced apps.</image:caption>
+      <image:title>Aashir Athar — Senior React Native Developer</image:title>
+      <image:caption>Senior React Native developer shipping production iOS and Android apps. 0 post-launch crashes, 50K+ users, 35% faster cold starts, 7 open-source React Native apps.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://aashir-athar.github.io/favicon.svg</image:loc>
@@ -31,53 +32,53 @@
 
   <url>
     <loc>https://aashir-athar.github.io/#about</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#skills</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#projects</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
       <image:loc>https://aashir-athar.github.io/og-preview.svg</image:loc>
-      <image:title>Selected open-source mobile projects</image:title>
+      <image:title>Selected open-source React Native projects</image:title>
     </image:image>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#process</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#experience</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#contact</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/resume.pdf</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>

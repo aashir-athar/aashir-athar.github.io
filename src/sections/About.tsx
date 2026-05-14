@@ -61,7 +61,7 @@ export default function About() {
               <span className="gradient-text">That's where I work.</span>
             </>
           }
-          description="Senior React Native engineer based in Lahore, Pakistan. Four years working with US and Pakistan teams — architecture, performance budgets, and release pipelines that decide whether a product survives its second quarter."
+          description="Senior React Native developer based in Lahore, Pakistan. Four years across US and Pakistan teams — architecture decisions, performance budgets, and release pipelines that decide whether a cross-platform mobile product survives its second quarter."
         />
 
         <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">
@@ -73,26 +73,44 @@ export default function About() {
             className="md:col-span-7 space-y-5 text-[color:var(--ink-muted)]"
           >
             <p className="text-[1.05rem] leading-[1.78] sm:text-[1.14rem] sm:leading-[1.85]">
-              Four years. Production apps shipped to{' '}
+              Four years. Production React Native apps shipped to{' '}
               <strong className="text-[color:var(--ink)]">50,000+ users</strong> on App Store
               and Google Play — under real load, real reviews, and real 3G in markets you
               don't get to opt out of.
             </p>
             <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
-              My focus is the part of mobile that doesn't make it into the demo:{' '}
+              My focus is the part of mobile that never makes it into the demo:{' '}
               <span className="serif-italic text-[color:var(--ink)]">architecture decisions
-                made on day one, performance budgets enforced before launch, release pipelines
-                that don't break at 2 a.m.</span> I've cut cold-start times by{' '}
+                made on day one, performance budgets enforced before launch, and release
+                pipelines that don't break at 2&nbsp;a.m.</span> I've cut cold-start times by{' '}
               <strong className="text-[color:var(--ink)]">35%</strong>, dropped manual
               deployment errors{' '}
               <strong className="text-[color:var(--ink)]">90%</strong> with Fastlane CI/CD,
               and shipped to production with zero post-launch crashes.
             </p>
             <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
-              Outside client work, I open-source the tools I wish I'd had — six and counting.
-              A privacy-first Pakistani fintech, a real-time blood-donor matching app, an
-              offline-first vehicle tracker, and an Expo native module published to npm.
-              Staying sharp means staying shipping.
+              Outside client work, I open-source the tools I wish I'd had — seven shipping
+              projects and counting. A privacy-first Pakistani fintech, an on-device leaf-health
+              AI built with WWF Pakistan, a real-time blood-donor matching network, a
+              sub-second crypto tracker, an offline-first vehicle ledger, and a published
+              Expo native module for parsing banking SMS. Staying sharp means staying shipping.
+            </p>
+            <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
+              Eighth in flight: <strong className="text-[color:var(--ink)]">Mindees AI</strong> — a
+              self-training open-source LLM I'm building in TypeScript with a
+              <span className="serif-italic text-[color:var(--ink)]"> DeepSeek-V3-class architecture</span>,
+              gradient-descent every five minutes, and zero paid API keys. I'm not a passenger on
+              the AI wave — I'm shipping in it.
+            </p>
+            <p className="text-[1.02rem] leading-[1.78] sm:text-[1.08rem] sm:leading-[1.8]">
+              How that ships fast: senior-dev defaults applied to everything I touch — typed
+              boundaries, predictable state, performance budgets enforced on{' '}
+              <strong className="text-[color:var(--ink)]">2 GB-RAM Android phones</strong>, not
+              just an M-series Mac. Paired with an AI workflow that earns its seat:
+              custom-trained Claude with my own skills and agents for the code itself, ChatGPT
+              for polishing ideas, Grok for grounded research, Nano Banana for icons and
+              imagery, Veo for motion, ElevenLabs for voice. The output is a senior engineer's
+              throughput at a senior engineer's quality bar — without the hype tax.
             </p>
             <div className="pt-4">
               <a

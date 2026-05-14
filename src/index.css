@@ -1039,10 +1039,16 @@ section {
   /* Section vertical rhythm — slightly tighter on tiny screens. */
   .section-y { padding-block: clamp(1.5rem, 9vw, 2.5rem); }
 
-  /* Cards: slightly tighter padding floor. */
-  .glass, [class*="rounded-2xl"], [class*="rounded-3xl"] {
-    /* affects nothing structural — relies on Tailwind classes still in effect */
-  }
+  /* Pull-quote padding compresses on XS — no need for huge whitespace
+     between sections on a 320px viewport. */
+  .pull-quote { font-size: clamp(1.85rem, 8.5vw, 2.4rem); }
+
+  /* Hero name — keep visible without wrapping awkwardly on 320px */
+  .hero-name { font-size: clamp(2.8rem, 13vw, 4rem); }
+
+  /* Buttons retain ≥48px height on touch (already enforced by .btn-*).
+     Ensure they don't wrap mid-label on very narrow widths. */
+  .btn-primary, .btn-ghost { white-space: nowrap; }
 }
 
 /* 2. S — large phones / small tablets ---------------------------- */
@@ -1051,6 +1057,7 @@ section {
   html { scroll-padding-top: 88px; }
   .phone3d-stage { display: none !important; }
   .section-y { padding-block: clamp(2rem, 7vw, 3rem); }
+  .pull-quote { font-size: clamp(2.1rem, 7vw, 3.4rem); }
 }
 
 /* 3. M — tablets (portrait) / phones landscape ------------------- */

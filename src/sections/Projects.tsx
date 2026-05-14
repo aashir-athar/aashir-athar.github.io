@@ -31,12 +31,14 @@ const ease = [0.16, 1, 0.3, 1] as const
 /* Artifact taxonomy — keyed by project.id so we can render a real badge
  * specific to what the artifact actually is. */
 const artifacts: Record<string, { label: string; tone: 'cyan' | 'violet' | 'emerald' | 'amber' | 'rose' | 'pink' }> = {
-  xmind:           { label: 'OPEN SOURCE',   tone: 'cyan' },
-  bludstack:       { label: 'CIVIC IMPACT',  tone: 'rose' },
-  tradeease:       { label: 'P2P MARKETPLACE', tone: 'emerald' },
-  flowmoney:       { label: 'PRIVACY-FIRST', tone: 'violet' },
-  fuelio:          { label: '100% OFFLINE',  tone: 'amber' },
+  'mindees-ai':      { label: 'IN DEVELOPMENT',  tone: 'amber' },
+  'forest-sentry':   { label: 'WWF PAKISTAN',    tone: 'emerald' },
+  xmind:             { label: 'OPEN SOURCE',     tone: 'cyan' },
+  flowmoney:         { label: 'PRIVACY-FIRST',   tone: 'violet' },
   'expo-sms-reader': { label: 'PUBLISHED ON NPM', tone: 'amber' },
+  bludstack:         { label: 'CIVIC IMPACT',    tone: 'rose' },
+  'crypto-tracker':  { label: 'REAL-TIME',       tone: 'amber' },
+  fuelio:            { label: '100% OFFLINE',    tone: 'amber' },
 }
 
 function ProjectCard({
@@ -131,7 +133,20 @@ function ProjectCard({
               className="project-pill inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[0.62rem] tracking-[0.12em] backdrop-blur-md"
               style={{ ['--pill-accent' as string]: project.accent } as React.CSSProperties}
             >
-              <Sparkles size={10} aria-hidden="true" />
+              {project.inDevelopment ? (
+                <span
+                  aria-hidden="true"
+                  className="relative inline-flex h-1.5 w-1.5 rounded-full"
+                  style={{ background: project.accent, boxShadow: `0 0 8px ${project.accent}` }}
+                >
+                  <span
+                    className="absolute inset-0 animate-pulse-ring rounded-full"
+                    style={{ background: project.accent }}
+                  />
+                </span>
+              ) : (
+                <Sparkles size={10} aria-hidden="true" />
+              )}
               {artifact.label}
             </span>
           )}
@@ -271,10 +286,10 @@ export default function Projects() {
             <>
               Apps in{' '}
               <span className="text-[color:var(--cyan)]">production.</span>{' '}
-              <span className="serif-italic text-[color:var(--ink-muted)]">Not</span> portfolio briefs.
+              <span className="serif-italic text-[color:var(--ink-muted)]">One LLM</span> in flight.
             </>
           }
-          description="Six open-sourced shipping projects — architected, built, and released end-to-end. Real problems, real constraints, real source on GitHub. Not folder-fillers engineered for screenshots."
+          description="Seven shipped open-source React Native apps plus a self-training LLM in active development — architected, built, and released end-to-end. Real problems, real constraints, real source on GitHub. Not folder-fillers engineered for screenshots."
         />
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

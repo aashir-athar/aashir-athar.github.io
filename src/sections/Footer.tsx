@@ -1,5 +1,5 @@
 import { Mail, ArrowUp } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from '../components/SocialIcons'
+import { GithubIcon, LinkedinIcon, XIcon, InstagramIcon } from '../components/SocialIcons'
 import { Container } from '../components/ui'
 import LocalTime from '../components/LocalTime'
 
@@ -13,9 +13,11 @@ const footerLinks = [
 ]
 
 const socials = [
-  { href: 'https://github.com/aashir-athar', icon: <GithubIcon size={15} />, label: 'GitHub' },
-  { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={15} />, label: 'LinkedIn' },
-  { href: 'mailto:aashirathar@gmail.com', icon: <Mail size={15} />, label: 'Email' },
+  { href: 'https://github.com/aashir-athar',     icon: <GithubIcon size={15} />,    label: 'GitHub' },
+  { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={15} />,  label: 'LinkedIn' },
+  { href: 'https://x.com/aashirathar',           icon: <XIcon size={13} />,         label: 'X' },
+  { href: 'https://instagram.com/aashirathar',   icon: <InstagramIcon size={15} />, label: 'Instagram' },
+  { href: 'mailto:aashirathar@gmail.com',        icon: <Mail size={15} />,          label: 'Email' },
 ]
 
 export default function Footer() {
@@ -25,7 +27,8 @@ export default function Footer() {
   return (
     <footer className="relative z-[1] mt-16 border-t border-[color:var(--line)] py-14 sm:mt-20 md:mt-24 md:py-16">
       <Container>
-        {/* Mega name as editorial signature */}
+        {/* Mega name as editorial signature. Tighter clamp on XS so the
+            wordmark never overflows on 320px screens. */}
         <div className="mb-12 border-b border-[color:var(--line)] pb-10">
           <a
             href="#hero"
@@ -34,14 +37,14 @@ export default function Footer() {
               scrollTop()
             }}
             className="block font-display font-bold leading-[0.9] tracking-[-0.04em] text-[color:var(--ink)] no-underline transition-opacity hover:opacity-90"
-            style={{ fontSize: 'clamp(2.5rem, 14vw, 9rem)' }}
+            style={{ fontSize: 'clamp(2.25rem, 13vw, 9rem)' }}
             aria-label="Aashir Athar — back to top"
           >
             Aashir <span className="gradient-text">Athar.</span>
           </a>
           <p className="mt-4 max-w-xl text-[0.95rem] leading-[1.65] text-[color:var(--ink-muted)]">
-            Senior React Native engineer. Production mobile apps that hold up six months past
-            launch — for cross-platform teams that ship to real users.
+            Senior React Native developer. Production mobile apps that hold up six months
+            past launch — for cross-platform teams shipping to real users.
           </p>
         </div>
 
@@ -103,7 +106,7 @@ export default function Footer() {
                   target={s.href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
                   aria-label={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)] text-[color:var(--ink-muted)] transition-colors hover:border-[color:var(--cyan)] hover:text-[color:var(--cyan)]"
+                  className="grid h-10 w-10 place-items-center rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)] text-[color:var(--ink-muted)] transition-colors hover:border-[color:var(--cyan)] hover:text-[color:var(--cyan)] focus-visible:border-[color:var(--cyan)] focus-visible:text-[color:var(--cyan)]"
                 >
                   {s.icon}
                 </a>
@@ -112,7 +115,7 @@ export default function Footer() {
                 type="button"
                 onClick={scrollTop}
                 aria-label="Back to top"
-                className="ml-1 grid h-9 w-9 place-items-center rounded-lg border border-[color:var(--line-bright)] bg-[color:var(--cyan-glow)] text-[color:var(--cyan)] transition-transform [transition-timing-function:var(--ease-signature)] hover:-translate-y-1"
+                className="ml-1 grid h-10 w-10 place-items-center rounded-lg border border-[color:var(--line-bright)] bg-[color:var(--cyan-glow)] text-[color:var(--cyan)] transition-transform [transition-timing-function:var(--ease-signature)] hover:-translate-y-1 focus-visible:-translate-y-1"
               >
                 <ArrowUp size={15} />
               </button>
@@ -122,7 +125,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-2 border-t border-[color:var(--line)] pt-6 font-mono text-[0.72rem] text-[color:var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Aashir Athar. All rights reserved.</p>
-          <p>Designed &amp; built by Aashir Athar</p>
+          <p>Designed &amp; built by Aashir Athar — React Native developer.</p>
         </div>
       </Container>
     </footer>

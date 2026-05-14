@@ -40,7 +40,7 @@ export default function Process() {
               <span className="gradient-text">— no surprises.</span>
             </>
           }
-          description="A five-step rhythm I run on every engagement. It's how I ship on time, with zero post-launch crashes, and leave behind a codebase the next engineer can read — without a Slack thread or a hand-off call."
+          description="The five-step rhythm I run on every React Native engagement. It's how I ship on time, hit zero post-launch crashes, and leave behind a codebase the next engineer can read without a Slack thread or a hand-off call."
         />
 
         <div className="relative">

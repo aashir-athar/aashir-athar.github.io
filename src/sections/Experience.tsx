@@ -32,7 +32,7 @@ export default function Experience() {
               <span className="gradient-text">shipped, led.</span>
             </>
           }
-          description="Junior to senior in three years, lead in the fourth — production React Native across US and Pakistan teams since 2022. The summary above; the receipts, in order, below."
+          description="Junior to senior in three years, lead in the fourth — production React Native across US and Pakistan teams since 2022. The summary above; the receipts, in chronological order, below."
         />
 
         <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">

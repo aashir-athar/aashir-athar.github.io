@@ -212,7 +212,8 @@ export default function Navbar({ theme, onToggleTheme, onOpenPalette }: NavbarPr
                 data-cursor="target"
                 whileHover={{ scale: 1.04, y: -1 }}
                 whileTap={{ scale: 0.96 }}
-                className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-[linear-gradient(135deg,var(--cyan),var(--violet))] px-4 font-display text-[0.8rem] font-bold tracking-wide text-white shadow-[0_4px_16px_rgba(34,211,238,0.35)]"
+                className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-[linear-gradient(135deg,var(--cyan),var(--violet))] px-4 font-display text-[0.8rem] font-bold tracking-wide text-white shadow-[0_4px_16px_rgba(34,211,238,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--cyan)]"
+                aria-label="Hire Aashir — open email draft"
               >
                 Hire me
                 <span aria-hidden="true">→</span>

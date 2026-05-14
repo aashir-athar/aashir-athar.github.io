@@ -116,7 +116,7 @@ export default function App() {
         <div className="cv-auto"><Skills /></div>
 
         <PullQuote kicker="The receipts">
-          Six open-source apps. <span className="accent">Real source.</span> Real users. Real load.
+          Seven shipped. <span className="accent">One in flight.</span> Real source. Real users. Real load.
         </PullQuote>
 
         <div className="cv-auto"><Projects /></div>

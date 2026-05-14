@@ -11,6 +11,9 @@ export interface Project {
   accentGlow: string
   category: string
   highlights: CaseStudyHighlight[]
+  /** Marks a project as still in active development — renders an
+   *  "IN DEVELOPMENT" badge instead of a category artifact pill. */
+  inDevelopment?: boolean
 }
 
 export interface CaseStudyHighlight {

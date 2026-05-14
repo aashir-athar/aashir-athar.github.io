@@ -1,7 +1,7 @@
 {
-  "name": "Aashir Athar — Senior React Native Engineer",
+  "name": "Aashir Athar — Senior React Native Developer",
   "short_name": "Aashir Athar",
-  "description": "Senior React Native engineer architecting and shipping production mobile apps to 50,000+ users. Cross-platform iOS/Android, Expo, TypeScript, performance-tuned. Open to senior and lead roles, remote.",
+  "description": "Senior React Native developer architecting and shipping production iOS & Android apps to 50,000+ users. Cross-platform, Expo SDK 54, TypeScript, performance-tuned. Seven open-source React Native apps on GitHub. Hire a React Native dev — remote, senior & lead roles.",
   "start_url": "/",
   "scope": "/",
   "id": "/",
@@ -39,20 +39,20 @@
       "sizes": "1200x630",
       "type": "image/svg+xml",
       "form_factor": "wide",
-      "label": "Aashir Athar — Senior React Native Engineer portfolio cover"
+      "label": "Aashir Athar — Senior React Native Developer portfolio cover"
     }
   ],
   "shortcuts": [
     {
       "name": "Selected work",
       "short_name": "Work",
-      "description": "Six open-source mobile projects shipped end-to-end.",
+      "description": "Seven open-source React Native projects shipped end-to-end.",
       "url": "/#projects",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     },
     {
-      "name": "Contact Aashir",
-      "short_name": "Contact",
+      "name": "Hire Aashir",
+      "short_name": "Hire",
       "description": "Open an email draft. Replies within 24 hours.",
       "url": "/#contact",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
@@ -60,7 +60,7 @@
     {
       "name": "Resume (PDF)",
       "short_name": "Resume",
-      "description": "Senior React Native engineer — résumé.",
+      "description": "Senior React Native developer — résumé.",
       "url": "/resume.pdf",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     }

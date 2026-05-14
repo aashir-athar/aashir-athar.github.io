@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Mail, Download, ArrowDown } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from '../components/SocialIcons'
+import { GithubIcon, LinkedinIcon, XIcon, InstagramIcon } from '../components/SocialIcons'
 import LocalTime from '../components/LocalTime'
 import Marquee from '../components/Marquee'
 import { Container } from '../components/ui'
@@ -19,19 +19,22 @@ const stats = [
   { value: '0', label: 'Post-launch crashes' },
   { value: '50K+', label: 'Users in production' },
   { value: '↓ 35%', label: 'Cold-start time' },
-  { value: '6', label: 'Open-sourced apps' },
+  { value: '7 + 1', label: 'Open source · LLM in flight' },
 ]
 
 const socials = [
-  { href: 'https://github.com/aashir-athar',          icon: <GithubIcon size={16} />, label: 'GitHub' },
-  { href: 'https://linkedin.com/in/aashirathar',      icon: <LinkedinIcon size={16} />, label: 'LinkedIn' },
-  { href: 'mailto:aashirathar@gmail.com',             icon: <Mail size={16} />,        label: 'Email' },
+  { href: 'https://github.com/aashir-athar',     icon: <GithubIcon size={16} />,    label: 'GitHub' },
+  { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={16} />,  label: 'LinkedIn' },
+  { href: 'https://x.com/aashirathar',           icon: <XIcon size={14} />,         label: 'X (Twitter)' },
+  { href: 'https://instagram.com/aashirathar',   icon: <InstagramIcon size={16} />, label: 'Instagram' },
+  { href: 'mailto:aashirathar@gmail.com',        icon: <Mail size={16} />,          label: 'Email' },
 ]
 
 const marqueeItems = [
-  'React Native', 'Expo SDK 54', 'TypeScript', 'Reanimated 4',
-  'Firebase', 'Supabase', 'Clerk Auth', 'Node · Express',
-  'MongoDB', 'Fastlane CI/CD', 'GitHub Actions', 'Figma',
+  'React Native 0.81', 'Expo SDK 54', 'TypeScript strict', 'Reanimated 4',
+  'New Architecture', 'Expo Router 6', 'Zustand', 'TanStack Query',
+  'Supabase + PostGIS', 'Firebase', 'Clerk Auth', 'Node · Express',
+  'On-device TFLite', 'Custom Claude agents', 'Fastlane CI/CD', 'GitHub Actions',
 ]
 
 /* Heuristic gate for the shader — we want it on big screens with capable
@@ -66,12 +69,7 @@ export default function Hero() {
       aria-label="Introduction"
       className="relative isolate flex min-h-[100dvh] items-center overflow-hidden pt-24 pb-12 sm:pt-28 md:pt-32 md:pb-20"
     >
-      {/* ---- Layer 0: CSS atmosphere — always painted, LCP-safe.
-             Glow opacities are CSS variables (`--hero-glow-cyan` /
-             `--hero-glow-violet`) so dark theme keeps its rich tints
-             while light theme falls back to a far subtler wash. The
-             WebGL shader sits on top via mix-blend, never *replacing*
-             the CSS layer. ---- */}
+      {/* ---- Layer 0: CSS atmosphere — always painted, LCP-safe.            */}
       <div
         aria-hidden="true"
         className="ambient-glow top-[-220px] left-1/2 h-[720px] w-[720px] -translate-x-1/2"
@@ -93,11 +91,7 @@ export default function Hero() {
         className="grid-bg pointer-events-none absolute inset-0 z-0 opacity-[0.18] [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)]"
       />
 
-      {/* ---- Layer 1: WebGL shader (lazy, eligible-only, dark-theme-only).
-             Sits between the CSS layer and the content. The .hero-shader-
-             layer class lets the [data-theme="light"] CSS rule hide it
-             entirely on light theme, where its dark-calibrated cyan/violet
-             flow adds nothing useful. ---- */}
+      {/* ---- Layer 1: WebGL shader (lazy, eligible-only, dark-theme-only). */}
       {shaderOn && (
         <Suspense fallback={null}>
           <div
@@ -110,7 +104,7 @@ export default function Hero() {
       )}
 
       <Container className="relative z-[1]">
-        {/* Top meta — local time + availability. Same as before, polished. */}
+        {/* Top meta — local time + availability. */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -127,24 +121,18 @@ export default function Hero() {
           </span>
         </motion.div>
 
-        {/* ---- Hero lockup. Single editorial axis — no sidebar, no phone.
-                The H1 + lede are the focal point. Everything below is the
-                proof tape. -------------------------------------------- */}
+        {/* ---- Hero lockup ---- */}
         <div className="relative mx-auto max-w-[1100px]">
           {/* Eyebrow */}
           <p className="font-mono text-[0.72rem] tracking-[0.18em] text-[color:var(--ink-faint)] uppercase">
             <span aria-hidden="true" className="text-[color:var(--cyan)]">[</span> Senior React
-            Native engineer · est. 2022{' '}
+            Native developer · shipping since 2022{' '}
             <span aria-hidden="true" className="text-[color:var(--cyan)]">]</span>
           </p>
 
-          {/* Editorial mega-name. Char-by-char kerning reveal — each
-              character lifts and settles its own letter-spacing as it
-              lands. We split the wordmark client-side so the H1 in the DOM
-              is still semantically "Aashir Athar." for SEO + screen
-              readers; the visual chars are decorative spans. */}
+          {/* Editorial mega-name — char-by-char kerning reveal. */}
           <h1
-            aria-label="Aashir Athar"
+            aria-label="Aashir Athar — Senior React Native Developer"
             className="hero-name mt-6 font-display font-bold leading-[0.96] tracking-[-0.045em] text-[color:var(--ink)]"
           >
             <span aria-hidden="true">
@@ -177,12 +165,21 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Lede — the actual promise. Half-width on desktop, full on mobile. */}
-          <p className="text-reveal text-reveal-block text-reveal-delay-3 mt-8 max-w-[42rem] text-[1.06rem] leading-[1.78] text-[color:var(--ink-muted)] sm:text-[1.18rem] sm:leading-[1.82]">
+          {/* SEO-anchored sub-headline. Visible, keyword-aligned, distinct from
+              the lede below — gives Googlebot + AI crawlers an unambiguous
+              entity description. */}
+          <p className="mt-5 max-w-[42rem] font-display text-[1.18rem] font-semibold leading-[1.35] tracking-[-0.012em] text-[color:var(--ink)] sm:text-[1.34rem]">
+            Senior <span className="text-[color:var(--cyan)]">React Native developer</span>{' '}
+            building production mobile apps for{' '}
+            <span className="gradient-text">iOS &amp; Android.</span>
+          </p>
+
+          {/* Lede — the promise. */}
+          <p className="text-reveal text-reveal-block text-reveal-delay-3 mt-6 max-w-[44rem] text-[1.04rem] leading-[1.78] text-[color:var(--ink-muted)] sm:text-[1.14rem] sm:leading-[1.82]">
             <span>
-              I architect and ship cross-platform mobile apps that hold up{' '}
-              <span className="serif-italic text-[color:var(--ink)]">six months after launch</span>
-              {' '}— not just on demo day. Production React Native trusted by{' '}
+              I architect cross-platform mobile apps that hold up{' '}
+              <span className="serif-italic text-[color:var(--ink)]">six months past launch</span>
+              {' '}— not just on demo day. React Native and Expo SDK 54 in production for{' '}
               <strong className="text-[color:var(--ink)]">50,000+ users</strong>, with{' '}
               <strong className="text-[color:var(--ink)]">zero post-launch crashes</strong>{' '}
               and <strong className="text-[color:var(--ink)]">35% faster cold starts</strong>{' '}
@@ -190,7 +187,7 @@ export default function Hero() {
             </span>
           </p>
 
-          {/* Primary + secondary CTAs */}
+          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -202,7 +199,7 @@ export default function Hero() {
               onClick={handleScrollTo('projects')}
               className="btn-primary group"
             >
-              Read case studies
+              See the work
               <ArrowRight
                 size={18}
                 aria-hidden="true"
@@ -216,7 +213,7 @@ export default function Hero() {
               className="btn-ghost"
             >
               <Download size={16} aria-hidden="true" />
-              Resume
+              Resume (PDF)
             </a>
           </motion.div>
 
@@ -227,7 +224,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.7, ease }}
             className="mt-5 pt-8 font-mono text-[0.72rem] tracking-[0.06em] text-[color:var(--ink-faint)]"
           >
-            Replies within 24h · Remote-friendly · Lahore + US time overlap
+            Replies within 24h · Remote-first · Lahore ↔ US time overlap
           </motion.p>
 
           {/* Socials */}
@@ -235,13 +232,13 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.85, ease }}
-            className="mt-7 flex items-center gap-3"
+            className="mt-7 flex flex-wrap items-center gap-3"
           >
             <span className="hidden font-mono text-[0.72rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)] sm:inline">
               Reach out
             </span>
             <span aria-hidden="true" className="hidden h-px w-8 bg-[color:var(--line-strong)] sm:inline-block" />
-            <ul className="flex items-center gap-2">
+            <ul className="flex flex-wrap items-center gap-2">
               {socials.map(s => (
                 <li key={s.label}>
                   <motion.a
@@ -250,7 +247,7 @@ export default function Hero() {
                     rel="noopener noreferrer"
                     aria-label={s.label}
                     whileHover={{ y: -2 }}
-                    className="grid h-11 w-11 place-items-center rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)]/80 text-[color:var(--ink-muted)] backdrop-blur-md transition-colors hover:border-[color:var(--cyan)] hover:text-[color:var(--cyan)]"
+                    className="grid h-11 w-11 place-items-center rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)]/80 text-[color:var(--ink-muted)] backdrop-blur-md transition-colors hover:border-[color:var(--cyan)] hover:text-[color:var(--cyan)] focus-visible:border-[color:var(--cyan)] focus-visible:text-[color:var(--cyan)]"
                   >
                     {s.icon}
                   </motion.a>
@@ -300,10 +297,6 @@ export default function Hero() {
               <dt className="order-2 mt-2 text-[0.78rem] text-[color:var(--ink-faint)]">
                 {s.label}
               </dt>
-              {/* Stat value renders in --gold. Color psychology: yellow/gold
-                  carries achievement + attention. These numbers are the
-                  most credibility-loaded thing on the page — gold makes
-                  them lock the reader's eye instantly. */}
               <dd
                 className="order-1 font-display text-[2rem] font-bold leading-none tracking-[-0.03em] sm:text-[2.5rem]"
                 style={{ color: 'var(--gold)' }}
@@ -314,7 +307,7 @@ export default function Hero() {
           ))}
         </motion.dl>
 
-        {/* Scroll cue — gentle, single-axis, signals "more below." */}
+        {/* Scroll cue */}
         <motion.a
           href="#about"
           onClick={handleScrollTo('about')}
