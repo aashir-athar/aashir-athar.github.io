@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f7f8fb" media="(prefers-color-scheme: light)" />
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Apply saved/system theme before first paint (light is the default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme');
+          var dark = t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+      })();
+    </script>
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="mask-icon" href="/favicon.svg" color="#0a7fa3" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Self-hosted fonts — preload the two LCP faces only (display + body). -->
+    <link rel="preload" href="/fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/geist.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://www.npmjs.com" />
+    <link rel="prefetch" href="/og-preview.png" as="image" type="image/png" />
+
+    <!-- Primary SEO -->
+    <title>Aashir Athar — Senior Full-Stack Product Engineer | Frameworks, LLMs &amp; Apps</title>
+    <meta name="description" content="Aashir Athar, senior full-stack product engineer in Lahore, Pakistan. I build the whole stack: MindeesNative (a from-scratch cross-platform framework), MindeesAI (a self-training LLM in TypeScript), a published React Native component library, on-device ML, and full-stack apps with React, Next.js, React Native, Node and Python. 12 solo, open-source projects on GitHub. Open to full-time roles and freelance, remote, replies within 24h." />
+    <meta name="author" content="Aashir Athar" />
+    <meta name="keywords" content="senior full-stack engineer, full-stack product engineer, senior software engineer, react native developer, next.js developer, react developer, typescript engineer, hire senior engineer, freelance software engineer, remote engineer, Aashir Athar, framework author, LLM engineer, AI engineer, on-device AI, machine learning engineer, Lahore software engineer, Pakistan software engineer, open-source developer, MindeesNative, MindeesAI, MindeesUI" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
+
+    <meta name="geo.region" content="PK-PB" />
+    <meta name="geo.placename" content="Lahore, Pakistan" />
+    <meta name="geo.position" content="31.5204;74.3587" />
+
+    <link rel="canonical" href="https://aashir-athar.github.io/" />
+    <link rel="alternate" hreflang="en" href="https://aashir-athar.github.io/" />
+    <link rel="alternate" hreflang="x-default" href="https://aashir-athar.github.io/" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- Entity verification (rel=me) — links the person to their profiles so
+         search + AI engines resolve "Aashir Athar" to one identity. -->
+    <link rel="me" href="https://github.com/aashir-athar" />
+    <link rel="me" href="https://linkedin.com/in/aashirathar" />
+    <link rel="me" href="https://x.com/aashirathar" />
+    <link rel="me" href="mailto:aashirathar@gmail.com" />
+    <link rel="author" href="https://aashir-athar.github.io/#person" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="Aashir Athar — Senior Full-Stack Product Engineer" />
+    <meta property="og:title" content="Aashir Athar — Senior Full-Stack Product Engineer" />
+    <meta property="og:description" content="Most engineers pick a layer. I build all of them: a from-scratch cross-platform framework, a self-training LLM in TypeScript, a published component library, on-device ML, and full-stack apps. 12 solo, open-source projects. Open to full-time and freelance, remote." />
+    <meta property="og:image" content="https://aashir-athar.github.io/og-preview.png" />
+    <meta property="og:image:secure_url" content="https://aashir-athar.github.io/og-preview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Aashir Athar — Senior Full-Stack Product Engineer. Frameworks, LLMs and cross-platform apps. 12 solo, open-source projects on GitHub." />
+    <meta property="og:url" content="https://aashir-athar.github.io/" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="profile:first_name" content="Aashir" />
+    <meta property="profile:last_name" content="Athar" />
+    <meta property="profile:username" content="aashir-athar" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@aashirathar" />
+    <meta name="twitter:creator" content="@aashirathar" />
+    <meta name="twitter:title" content="Aashir Athar — Senior Full-Stack Product Engineer" />
+    <meta name="twitter:description" content="I build the whole stack: a from-scratch framework, a self-training LLM, a published component library, on-device ML, and full-stack apps. 12 solo, open-source projects. Open to full-time and freelance, remote." />
+    <meta name="twitter:image" content="https://aashir-athar.github.io/og-preview.png" />
+    <meta name="twitter:image:alt" content="Aashir Athar — Senior Full-Stack Product Engineer" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Aashir Athar" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#0a7fa3" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://aashir-athar.github.io/#person",
+      "name": "Aashir Athar",
+      "givenName": "Aashir",
+      "familyName": "Athar",
+      "url": "https://aashir-athar.github.io/",
+      "image": { "@type": "ImageObject", "url": "https://aashir-athar.github.io/og-preview.png", "width": 1200, "height": 630 },
+      "jobTitle": "Senior Full-Stack Product Engineer",
+      "alternateName": ["Senior Software Engineer", "Full-Stack Engineer", "React Native Developer", "Next.js Developer", "AI Engineer", "Framework Author"],
+      "description": "Senior full-stack product engineer in Lahore, Pakistan. Builds the whole stack: MindeesNative (a from-scratch cross-platform framework), MindeesAI (a self-training LLM in TypeScript), MindeesUI (a published universal React Native component library), on-device ML built with WWF Pakistan, and full-stack apps with React, Next.js, React Native, Node and Python. 12 solo, open-source projects on GitHub.",
+      "email": "mailto:aashirathar@gmail.com",
+      "telephone": "+92-307-477-8889",
+      "address": { "@type": "PostalAddress", "addressLocality": "Lahore", "addressRegion": "Punjab", "addressCountry": "PK" },
+      "nationality": { "@type": "Country", "name": "Pakistan" },
+      "knowsLanguage": [ { "@type": "Language", "name": "English" }, { "@type": "Language", "name": "Urdu" } ],
+      "knowsAbout": ["TypeScript", "React", "Next.js", "React Native", "Expo", "Full-stack development", "Compilers", "Signals reactivity", "CRDTs", "Node.js", "Express", "Supabase", "PostGIS", "Prisma", "MongoDB", "Large Language Models", "Mixture of Experts", "RAG", "RLHF", "PyTorch", "On-device machine learning", "TensorFlow Lite", "Design systems", "Performance optimization", "Accessibility"],
+      "hasOccupation": { "@type": "Occupation", "name": "Senior Full-Stack Product Engineer", "occupationLocation": { "@type": "City", "name": "Lahore, Pakistan" }, "skills": "TypeScript, React, Next.js, React Native, Node.js, Python, PyTorch, Supabase, MongoDB, LLM architecture, on-device ML, design systems" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Riphah International University", "address": { "@type": "PostalAddress", "addressCountry": "PK" } },
+      "worksFor": { "@type": "Organization", "name": "3STechLabs" },
+      "sameAs": ["https://github.com/aashir-athar", "https://github.com/mindees", "https://linkedin.com/in/aashirathar", "https://x.com/aashirathar", "https://instagram.com/aashirathar", "https://www.npmjs.com/~aashir-athar"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://aashir-athar.github.io/#website",
+      "name": "Aashir Athar — Senior Full-Stack Product Engineer",
+      "url": "https://aashir-athar.github.io/",
+      "description": "Senior full-stack product engineer portfolio: a from-scratch framework, a self-training LLM, a published component library, on-device ML, and full-stack apps. All solo, open-source.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://aashir-athar.github.io/#person" },
+      "author": { "@id": "https://aashir-athar.github.io/#person" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Flagship open-source projects by Aashir Athar",
+      "numberOfItems": 8,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "item": { "@type": "SoftwareSourceCode", "name": "MindeesNative", "description": "A from-scratch, TypeScript-first cross-platform app framework (a React Native and Flutter alternative): signals reactivity, a compiler with enforced performance budgets, a multi-target renderer, signed OTA, CRDT sync. 10 packages on npm.", "codeRepository": "https://github.com/mindees/mindees", "programmingLanguage": "TypeScript", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "SoftwareApplication", "name": "MindeesAI", "description": "A native, self-training open-source LLM in TypeScript with a DeepSeek-V3-class architecture (MoE, MLA, MTP), a continual-learning loop, RAG, and RLHF. Live demo.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Web", "url": "https://github.com/aashir-athar/mindeesai", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "SoftwareApplication", "name": "MindeesUI", "description": "A published universal React Native component library (about 145 components plus 74 screen blocks) with a deterministic Layout Intelligence Layer. On npm as @mindees/ui.", "applicationCategory": "DeveloperApplication", "operatingSystem": "iOS, Android, Web", "url": "https://github.com/mindees/mindees-ui", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "SoftwareApplication", "name": "ForestSentry", "description": "Offline-first React Native conservation app with on-device TFLite leaf-health AI, GPS tree registry, and PostGIS zones. Built with WWF Pakistan.", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Android", "url": "https://github.com/aashir-athar/forest-sentry", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "SoftwareApplication", "name": "xMind", "description": "Open-source full-stack React Native social platform with an on-device deterministic feed ranker and an Express 5 + MongoDB Atlas backend.", "applicationCategory": "SocialNetworkingApplication", "operatingSystem": "iOS, Android", "url": "https://github.com/aashir-athar/xmind-app", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "SoftwareApplication", "name": "FlowMoney", "description": "Privacy-first, offline-first finance app that turns bank SMS into a private ledger on-device, with a Groq money assistant. 30+ Pakistani banks, trilingual.", "applicationCategory": "FinanceApplication", "operatingSystem": "Android", "url": "https://github.com/aashir-athar/FlowMoney", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 7, "item": { "@type": "SoftwareApplication", "name": "expo-transaction-sms-reader", "description": "A published npm package and Expo native module that turns raw banking SMS into typed transactions. 60+ institutions across PK, IN, BD, GCC.", "applicationCategory": "DeveloperApplication", "operatingSystem": "Android", "url": "https://www.npmjs.com/package/expo-transaction-sms-reader", "author": { "@id": "https://aashir-athar.github.io/#person" } } },
+        { "@type": "ListItem", "position": 8, "item": { "@type": "SoftwareApplication", "name": "BludStack", "description": "A real-time, geo-fenced blood-donation network with atomic Postgres RPCs and live donor GPS. Live demo.", "applicationCategory": "HealthApplication", "operatingSystem": "iOS, Android", "url": "https://github.com/aashir-athar/BludStack-RN", "author": { "@id": "https://aashir-athar.github.io/#person" } } }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://aashir-athar.github.io/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://aashir-athar.github.io/#hero" },
+        { "@type": "ListItem", "position": 2, "name": "About", "item": "https://aashir-athar.github.io/#about" },
+        { "@type": "ListItem", "position": 3, "name": "Work", "item": "https://aashir-athar.github.io/#work" },
+        { "@type": "ListItem", "position": 4, "name": "Stack", "item": "https://aashir-athar.github.io/#stack" },
+        { "@type": "ListItem", "position": 5, "name": "Process", "item": "https://aashir-athar.github.io/#process" },
+        { "@type": "ListItem", "position": 6, "name": "Experience", "item": "https://aashir-athar.github.io/#experience" },
+        { "@type": "ListItem", "position": 7, "name": "Contact", "item": "https://aashir-athar.github.io/#contact" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://aashir-athar.github.io/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "Is Aashir Athar available to hire?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Aashir is open to full-time roles, freelance builds, and consulting on architecture. Remote-first from Lahore, Pakistan, with comfortable overlap across US and EU hours. He reads every message himself and replies within a day." } },
+        { "@type": "Question", "name": "What does Aashir Athar build?", "acceptedAnswer": { "@type": "Answer", "text": "The whole stack. A from-scratch cross-platform framework (MindeesNative), a self-training LLM in TypeScript (MindeesAI), a published React Native component library (MindeesUI), on-device ML built with WWF Pakistan (ForestSentry), and full-stack apps with React, Next.js, React Native, Node and Python." } },
+        { "@type": "Question", "name": "Are these real projects, and can I see the code?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every project is solo and open-source, with public source on GitHub at github.com/aashir-athar and github.com/mindees. The framework, the LLM, and the component library are all public repositories you can read, run, and verify." } },
+        { "@type": "Question", "name": "Which tech stack does Aashir Athar work in?", "acceptedAnswer": { "@type": "Answer", "text": "TypeScript across the board. React 19 and Next.js 16 on the web, React Native and Expo on mobile, Node, Express, Supabase with PostGIS, MongoDB, and Prisma on the backend, PyTorch and transformers.js for models." } },
+        { "@type": "Question", "name": "How can I contact Aashir Athar?", "acceptedAnswer": { "@type": "Answer", "text": "Email aashirathar@gmail.com, or reach him on LinkedIn (linkedin.com/in/aashirathar), GitHub (github.com/aashir-athar), or X (x.com/aashirathar). Mobile and WhatsApp: +92 307 477 8889." } }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://aashir-athar.github.io/#webpage",
+      "url": "https://aashir-athar.github.io/",
+      "name": "Aashir Athar — Senior Full-Stack Product Engineer",
+      "isPartOf": { "@id": "https://aashir-athar.github.io/#website" },
+      "about": { "@id": "https://aashir-athar.github.io/#person" },
+      "primaryImageOfPage": { "@type": "ImageObject", "url": "https://aashir-athar.github.io/og-preview.png", "width": 1200, "height": 630 },
+      "inLanguage": "en",
+      "datePublished": "2025-01-15",
+      "dateModified": "2026-06-07",
+      "breadcrumb": { "@id": "https://aashir-athar.github.io/#breadcrumb" },
+      "speakable": { "@type": "SpeakableSpecification", "cssSelector": ["h1", "#about-thesis"] }
+    }
+    </script>
+    <script type="module" crossorigin src="/assets/index-C65FEQJP.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-COnpUsM8.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-CNLXT5PO.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-vxCWRI8M.js">
+    <link rel="modulepreload" crossorigin href="/assets/projects-BYsFqgkW.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-CDsXRAHI.css">
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <noscript>
+      <h1>Aashir Athar — Senior Full-Stack Product Engineer</h1>
+      <p>Most engineers pick a layer. I build all of them: a from-scratch cross-platform framework, a self-training LLM in TypeScript, a published component library, on-device ML, and full-stack apps. Every project is solo and open-source, on GitHub.</p>
+      <p>Based in Lahore, Pakistan. Open to full-time roles, freelance builds, and consulting, remote, replies within 24 hours.</p>
+      <p>Contact: <a href="mailto:aashirathar@gmail.com">aashirathar@gmail.com</a>, Mobile / WhatsApp: +92 307 477 8889.</p>
+      <ul>
+        <li><a href="https://github.com/aashir-athar">GitHub: aashir-athar</a></li>
+        <li><a href="https://github.com/mindees">GitHub org: mindees</a></li>
+        <li><a href="https://linkedin.com/in/aashirathar">LinkedIn: aashirathar</a></li>
+        <li><a href="https://x.com/aashirathar">X: @aashirathar</a></li>
+        <li><a href="/resume.pdf">Resume (PDF)</a></li>
+      </ul>
+      <h2>Flagship open-source work</h2>
+      <ol>
+        <li><a href="https://github.com/mindees/mindees">MindeesNative</a>: a from-scratch, TypeScript-first cross-platform app framework (a React Native and Flutter alternative).</li>
+        <li><a href="https://github.com/aashir-athar/mindeesai">MindeesAI</a>: a native, self-training open-source LLM in TypeScript. Live demo at mindeesai.vercel.app.</li>
+        <li><a href="https://github.com/mindees/mindees-ui">MindeesUI</a>: a published universal React Native component library. On npm as @mindees/ui.</li>
+        <li><a href="https://github.com/aashir-athar/forest-sentry">ForestSentry</a>: offline-first on-device leaf-health AI, built with WWF Pakistan.</li>
+        <li><a href="https://github.com/aashir-athar/xmind-app">xMind</a>: full-stack social platform with an on-device feed ranker.</li>
+        <li><a href="https://github.com/aashir-athar/FlowMoney">FlowMoney</a>: privacy-first finance app that turns bank SMS into a private ledger.</li>
+        <li><a href="https://www.npmjs.com/package/expo-transaction-sms-reader">expo-transaction-sms-reader</a>: a published Expo native module that parses banking SMS.</li>
+        <li><a href="https://github.com/aashir-athar/BludStack-RN">BludStack</a>: a real-time, geo-fenced blood-donation network. Live demo at blud-stack-rn.vercel.app.</li>
+      </ol>
+    </noscript>
+  </body>
+</html>

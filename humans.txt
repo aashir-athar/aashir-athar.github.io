@@ -1,0 +1,23 @@
+/* TEAM */
+  Senior Full-Stack Product Engineer: Aashir Athar
+  Contact:    aashirathar [at] gmail.com
+  GitHub:     @aashir-athar
+  Org:        github.com/mindees
+  LinkedIn:   /in/aashirathar
+  From:       Lahore, Pakistan
+  Open to:    full-time, freelance, consulting (remote, worldwide)
+
+/* SITE */
+  Last update:  2026/06
+  Language:     English
+  Standards:    HTML5, CSS3, ES2024, WCAG 2.2 AA, View Transitions API
+  Components:   React 19 (Compiler), TypeScript (strict), Tailwind v4
+  Motion:       Framer Motion, Lenis smooth scroll, Three.js (lazy, dark-only)
+  Build:        Vite 8 + Rolldown
+  Hosting:      GitHub Pages
+  Fonts:        Bricolage Grotesque, Geist, Geist Mono, Instrument Serif (self-hosted)
+
+/* THANKS */
+  Open source: Vite, React, Framer Motion, Lenis, Three.js, Lucide.
+
+  Built solo, with restraint, in Lahore.

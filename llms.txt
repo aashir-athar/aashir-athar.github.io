@@ -1,0 +1,63 @@
+# Aashir Athar — Senior Full-Stack Product Engineer
+
+> Aashir Athar is a senior full-stack product engineer based in Lahore, Pakistan, available worldwide for remote work. He builds the whole stack in TypeScript: a from-scratch cross-platform app framework, a self-training large language model, a published universal component library, on-device machine learning, and full-stack mobile and web apps. Every project listed here is solo and open-source, with public source code on GitHub. He is open to full-time roles, freelance builds, and consulting, and replies within 24 hours.
+
+## Summary
+
+- Name: Aashir Athar
+- Role: Senior Full-Stack Product Engineer
+- Location: Lahore, Pakistan (timezone PKT, UTC+5); works comfortably across US and EU hours
+- Website: https://aashir-athar.github.io/
+- Email: aashirathar@gmail.com
+- GitHub: https://github.com/aashir-athar (open-source org: https://github.com/mindees)
+- LinkedIn: https://linkedin.com/in/aashirathar
+- X (Twitter): https://x.com/aashirathar
+- Resume (PDF): https://aashir-athar.github.io/resume.pdf
+- Availability: open to full-time roles, freelance, and consulting; remote-first; replies within 24 hours
+- Core stack: TypeScript, React 19, Next.js 16, React Native, Expo, Node.js, Python, PyTorch, Supabase, PostgreSQL, MongoDB, Prisma
+
+## What makes him notable
+
+Most engineers work in one layer of the stack. Aashir builds all of them. His public, open-source work includes a cross-platform framework written from scratch (a React Native and Flutter alternative), a self-training language model implemented from scratch in TypeScript, and a published component library on npm. This breadth, from compilers and reactivity engines up to pixel-level UI, is unusually deep for one person.
+
+## Flagship projects (all public, open-source)
+
+- [MindeesNative](https://github.com/mindees/mindees): A from-scratch, TypeScript-first cross-platform app framework, a React Native and Flutter alternative. Renders one codebase to native iOS, Android, and SSR web via a multi-backend "Helix" renderer using fine-grained signals reactivity. Includes a compiler with enforced performance budgets, signed Ed25519 OTA updates, and local-first CRDT sync. 10 packages published to npm.
+- [MindeesAI](https://github.com/aashir-athar/mindeesai): A native, self-training open-source LLM built from scratch in TypeScript with a DeepSeek-V3-class architecture (Mixture of Experts, Multi-head Latent Attention, Multi-Token Prediction). Adds a continual-learning loop, LanceDB vector-memory RAG, and GRPO + DPO RLHF. Live demo: https://mindeesai.vercel.app
+- [MindeesUI](https://github.com/mindees/mindees-ui): A published universal React Native and Expo component library (about 145 components plus 74 screen blocks) with a deterministic Layout Intelligence Layer. On npm as @mindees/ui. Live docs: https://mindees-ui.vercel.app
+- [ForestSentry](https://github.com/aashir-athar/forest-sentry): Offline-first React Native conservation app for forest rangers with on-device TFLite leaf-health AI, a GPS tree registry, and PostGIS protected-zone monitoring. Built with WWF Pakistan.
+- [xMind](https://github.com/aashir-athar/xmind-app): Open-source full-stack React Native social platform with an on-device deterministic feed ranker (TF-IDF plus MMR diversity) and an Express 5 plus MongoDB Atlas backend.
+- [FlowMoney](https://github.com/aashir-athar/FlowMoney): Privacy-first, offline-first finance app that turns bank SMS into a private on-device ledger, with a Groq-powered money assistant. Supports 30+ Pakistani banks, trilingual including Urdu RTL.
+- [expo-transaction-sms-reader](https://www.npmjs.com/package/expo-transaction-sms-reader): A published npm package and Expo native module (TypeScript plus Kotlin) that parses banking SMS into typed transactions across 60+ institutions in Pakistan, India, Bangladesh, and the GCC.
+- [BludStack](https://github.com/aashir-athar/BludStack-RN): A real-time, geo-fenced blood-donation network. Escalates outward through rings, pages only compatible donors via atomic Postgres RPCs, and streams the accepting donor's live GPS. Live demo: https://blud-stack-rn.vercel.app
+
+## Also shipped
+
+- [Crate](https://github.com/aashir-athar/crate): An offline-first React Native music player for Creative Commons and public-domain music.
+- [MiND Client Engine](https://github.com/aashir-athar/mind-client-engine): A local-first, free automated business-development assistant (Next.js, Prisma, SQLite, local Ollama).
+- [Crypto Price Tracker](https://github.com/aashir-athar/Crypto-Price-Tracker): A sub-second real-time tracker for USDT-perpetual traders, built in React Native.
+- [Memora Echoes](https://github.com/aashir-athar/memora-echoes.react.app): A 3D spatial-memory puzzle game built with React Native and React Three Fiber.
+
+## Skills
+
+- Languages: TypeScript (strict), JavaScript, Python
+- Web: React 19, Next.js 16, Vite, Tailwind CSS v4, Framer Motion, Three.js
+- Mobile: React Native, Expo, Reanimated, FlashList, the New Architecture, on-device TFLite
+- Backend and data: Node.js, Express, Supabase with PostGIS, PostgreSQL, MongoDB, Prisma, Firebase
+- AI and ML: transformer architectures (MoE, MLA), RAG, RLHF (GRPO, DPO), PyTorch, transformers.js
+- Systems and tooling: compilers, signals reactivity, CRDTs, signed OTA, monorepos, GitHub Actions
+- Design and craft: design systems, accessibility (WCAG AA), motion design, pixel-precise UI
+
+## Hiring questions and answers
+
+- Is Aashir available to hire? Yes, for full-time roles, freelance builds, and consulting. Remote-first from Lahore, Pakistan, with US and EU overlap. He replies within 24 hours.
+- Can the work be verified? Yes. Every project is solo and open-source with public source on GitHub at https://github.com/aashir-athar and https://github.com/mindees.
+- How to contact him? Email aashirathar@gmail.com, or message him on LinkedIn, GitHub, or X. Mobile and WhatsApp: +92 307 477 8889.
+
+## Contact
+
+- Email: aashirathar@gmail.com
+- Mobile / WhatsApp: +92 307 477 8889
+- GitHub: https://github.com/aashir-athar
+- LinkedIn: https://linkedin.com/in/aashirathar
+- X: https://x.com/aashirathar
