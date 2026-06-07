@@ -24,7 +24,7 @@ export const projects: Project[] = [
     id: 'mindees-native',
     name: 'MindeesNative',
     repo: 'mindees/mindees',
-    year: '2025',
+    year: '2026',
     platform: 'Cross-platform framework',
     tagline: 'A from-scratch, TypeScript-first cross-platform app framework, a React Native and Flutter alternative, built in the open.',
     description:
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     id: 'mindees-ai',
     name: 'MindeesAI',
     repo: 'aashir-athar/mindeesai',
-    year: '2025',
+    year: '2026',
     platform: 'Self-training LLM',
     tagline: 'A native, self-training open-source LLM built from scratch in TypeScript. You own the weights, and it keeps learning.',
     description:
@@ -85,7 +85,7 @@ export const projects: Project[] = [
     id: 'mindees-ui',
     name: 'MindeesUI',
     repo: 'mindees/mindees-ui',
-    year: '2025',
+    year: '2026',
     platform: 'Universal component library',
     tagline: 'A published, universal React Native + Expo component library whose components actually understand layout context.',
     description:
@@ -116,7 +116,7 @@ export const projects: Project[] = [
     id: 'forest-sentry',
     name: 'ForestSentry',
     repo: 'aashir-athar/forest-sentry',
-    year: '2025',
+    year: '2026',
     platform: 'Conservation field tool',
     tagline: 'Offline-first forest monitoring with on-device leaf-health AI, built for the rangers who actually walk the trails.',
     description:
@@ -146,7 +146,7 @@ export const projects: Project[] = [
     id: 'xmind',
     name: 'xMind',
     repo: 'aashir-athar/xmind-app',
-    year: '2025',
+    year: '2025-2026',
     platform: 'Full-stack social app',
     tagline: 'An open-source React Native social network with a real on-device feed ranker and a serverless Express + MongoDB backend.',
     description:
@@ -176,7 +176,7 @@ export const projects: Project[] = [
     id: 'flowmoney',
     name: 'FlowMoney',
     repo: 'aashir-athar/FlowMoney',
-    year: '2025',
+    year: '2026',
     platform: 'Privacy-first fintech',
     tagline: 'An offline-first finance app that turns bank SMS into a private spending ledger, with no server, no manual entry, and no data leaving the phone.',
     description:
@@ -206,7 +206,7 @@ export const projects: Project[] = [
     id: 'expo-sms-reader',
     name: 'expo-transaction-sms-reader',
     repo: 'aashir-athar/expo-transaction-sms-reader',
-    year: '2025',
+    year: '2026',
     platform: 'Published npm · native module',
     tagline: 'A published Expo native module that turns raw banking SMS into clean, fully-typed transaction data.',
     description:
@@ -237,7 +237,7 @@ export const projects: Project[] = [
     id: 'bludstack',
     name: 'BludStack',
     repo: 'aashir-athar/BludStack-RN',
-    year: '2025',
+    year: '2026',
     platform: 'Real-time healthtech',
     tagline: 'A real-time, geo-fenced blood-donation network: "Uber, but for blood." Watch the donor approach in real time.',
     description:
@@ -270,7 +270,7 @@ export const projects: Project[] = [
     id: 'crate',
     name: 'Crate',
     repo: 'aashir-athar/crate',
-    year: '2025',
+    year: '2026',
     platform: 'Offline music player',
     tagline: 'An offline-first music player for Creative Commons and public-domain music: paste a link, download legally, play offline.',
     description:
@@ -300,7 +300,7 @@ export const projects: Project[] = [
     id: 'mind-client-engine',
     name: 'MiND Client Engine',
     repo: 'aashir-athar/mind-client-engine',
-    year: '2025',
+    year: '2026',
     platform: 'Full-stack automation',
     tagline: 'A local-first, 100% free automated business-development assistant: a self-hosted CRM and outreach engine for $0.',
     description:
@@ -330,7 +330,7 @@ export const projects: Project[] = [
     id: 'crypto-tracker',
     name: 'Crypto Price Tracker',
     repo: 'aashir-athar/Crypto-Price-Tracker',
-    year: '2025',
+    year: '2024-2026',
     platform: 'Real-time markets app',
     tagline: 'A sub-second real-time tracker for USDT-perpetual traders: momentum boards, paper portfolio, threshold alerts.',
     description:
@@ -360,7 +360,7 @@ export const projects: Project[] = [
     id: 'memora-echoes',
     name: 'Memora Echoes',
     repo: 'aashir-athar/memora-echoes.react.app',
-    year: '2025',
+    year: '2026',
     platform: '3D mobile game',
     tagline: 'A meditative 3D spatial-memory puzzle game: watch a scene materialise, hold its shape, reweave it from memory.',
     description:
