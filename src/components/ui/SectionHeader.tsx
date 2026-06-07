@@ -1,100 +1,43 @@
-import { motion } from 'framer-motion'
 import { type ReactNode } from 'react'
+import { KineticText, Reveal } from '../Kinetic'
 
 interface SectionHeaderProps {
-  /** Editorial numbered index — e.g. "01" */
-  index?: string
-  /** Eyebrow label — e.g. "About" */
-  eyebrow: string
-  /** Color accent for the eyebrow chip + dot */
-  accent?: 'cyan' | 'violet' | 'emerald' | 'amber' | 'rose' | 'pink'
+  /** Two-digit mono index, e.g. "01". */
+  index: string
+  /** The single editorial kicker, e.g. "WORK". */
+  label: string
+  /** Display title. Pass an array mixing strings and a `.serif-italic` accent span. */
   title: ReactNode
-  description?: ReactNode
-  /** Editorial rule — defaults to a 1px gradient under the title */
-  rule?: boolean
-  align?: 'center' | 'left'
+  lede?: ReactNode
   id?: string
+  className?: string
 }
 
-const accentMap = {
-  cyan:    { text: 'text-[color:var(--cyan)]',    border: 'border-[color:var(--line-bright)]',     bg: 'bg-[var(--cyan-glow)]',    dot: 'bg-[color:var(--cyan)]'    },
-  violet:  { text: 'text-[color:var(--violet)]',  border: 'border-[rgba(167,139,250,0.30)]',         bg: 'bg-[var(--violet-glow)]',  dot: 'bg-[color:var(--violet)]'  },
-  emerald: { text: 'text-[color:var(--emerald)]', border: 'border-[rgba(16,185,129,0.30)]',         bg: 'bg-[var(--emerald-glow)]', dot: 'bg-[color:var(--emerald)]' },
-  amber:   { text: 'text-[color:var(--amber)]',   border: 'border-[rgba(245,158,11,0.30)]',         bg: 'bg-[rgba(245,158,11,0.10)]', dot: 'bg-[color:var(--amber)]' },
-  rose:    { text: 'text-[color:var(--rose)]',    border: 'border-[rgba(244,63,94,0.30)]',          bg: 'bg-[rgba(244,63,94,0.10)]', dot: 'bg-[color:var(--rose)]' },
-  pink:    { text: 'text-[color:var(--pink)]',    border: 'border-[rgba(236,72,153,0.30)]',         bg: 'bg-[rgba(236,72,153,0.10)]', dot: 'bg-[color:var(--pink)]' },
-} as const
-
-export function SectionHeader({
-  index,
-  eyebrow,
-  accent = 'cyan',
-  title,
-  description,
-  rule = true,
-  align = 'left',
-  id,
-}: SectionHeaderProps) {
-  const tones = accentMap[accent]
-  const isCenter = align === 'center'
-  const wrap = isCenter ? 'mx-auto text-center' : 'text-left'
-  const descMax = isCenter ? 'max-w-2xl' : 'max-w-3xl'
-
+/* The one consistent section-header system: a mono `NN / LABEL` index, a
+ * balance-wrapped display title (word-reveal), and an optional 66ch lede.
+ * One editorial marker only — never a stacked eyebrow AND a number. */
+export function SectionHeader({ index, label, title, lede, id, className = '' }: SectionHeaderProps) {
   return (
-    <motion.header
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`mb-6 sm:mb-8 md:mb-10 ${wrap}`}
-    >
-      <div
-        className={`flex flex-wrap items-center gap-3 ${isCenter ? 'justify-center' : ''}`}
-      >
-        {index && (
-          <span className="section-index">
-            <span className="text-[color:var(--ink-muted)]">{index}</span>
-            <span className="mx-2 text-[color:var(--ink-faint)]">/</span>
-            <span className={tones.text}>{eyebrow}</span>
-          </span>
-        )}
-        {!index && (
-          <span
-            className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-[0.72rem] tracking-[0.05em] ${tones.bg} ${tones.text} ${tones.border}`}
-          >
-            <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${tones.dot}`} />
-            {eyebrow}
-          </span>
-        )}
-      </div>
-
-      <h2
+    <header className={`max-w-[46rem] ${className}`}>
+      <Reveal>
+        <span className="section-index">
+          <span className="text-[color:var(--ink-muted)]">{index}</span>
+          <span className="mx-2 text-[color:var(--ink-faint)]">/</span>
+          <span className="text-[color:var(--accent-strong)]">{label}</span>
+        </span>
+      </Reveal>
+      <KineticText
+        as="h2"
         id={id}
-        className={`mt-6 font-display font-bold text-[length:var(--text-h1)] leading-[1.06] tracking-[-0.025em] text-[color:var(--ink)] ${
-          isCenter ? 'mx-auto max-w-3xl' : ''
-        }`}
+        className="mt-5 font-display text-h1 text-[color:var(--ink)]"
       >
         {title}
-      </h2>
-
-      {description && (
-        <p
-          className={`mt-6 text-[1.02rem] leading-[1.8] text-[color:var(--ink-muted)] sm:text-[1.06rem] sm:leading-[1.82] ${descMax} ${
-            isCenter ? 'mx-auto' : ''
-          }`}
-        >
-          {description}
-        </p>
+      </KineticText>
+      {lede && (
+        <Reveal as="p" delay={0.08} className="mt-5 max-w-[60ch] text-lede text-[color:var(--ink-muted)]">
+          {lede}
+        </Reveal>
       )}
-
-      {rule && (
-        <div
-          aria-hidden="true"
-          className={`mt-8 h-px w-full bg-[linear-gradient(90deg,var(--line-strong),transparent)] ${
-            isCenter ? 'max-w-md mx-auto' : ''
-          }`}
-        />
-      )}
-    </motion.header>
+    </header>
   )
 }

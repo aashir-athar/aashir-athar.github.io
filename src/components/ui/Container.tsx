@@ -1,22 +1,15 @@
 import { type HTMLAttributes } from 'react'
 
 interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'narrow' | 'default'
 }
 
-const sizes = {
-  sm: 'max-w-3xl',
-  md: 'max-w-5xl',
-  /* Default content track. Caps at 1200px through XL; widens at 4K/ultra-wide
-     via the `bp-xxl` overrides in index.css so content doesn't look stranded
-     in the middle of a 1920+ monitor. */
-  lg: 'max-w-[1200px] bp-xxl-container',
-} as const
-
-export function Container({ size = 'lg', className = '', ...rest }: ContainerProps) {
+/* 1200px content track (1640px at 4K via .bp-xxl-container), fluid gutters. */
+export function Container({ size = 'default', className = '', ...rest }: ContainerProps) {
+  const track = size === 'narrow' ? 'max-w-[760px]' : 'bp-xxl-container'
   return (
     <div
-      className={`mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-10 ${sizes[size]} ${className}`}
+      className={`mx-auto w-full px-[clamp(1rem,4vw,2rem)] ${track} ${className}`}
       {...rest}
     />
   )

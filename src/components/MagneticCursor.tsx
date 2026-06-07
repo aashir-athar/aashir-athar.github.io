@@ -1,34 +1,17 @@
 import { useEffect, useRef } from 'react'
 
 /* -------------------------------------------------------------------------- *
- *  MAGNETIC CURSOR — two-layer pointer.                                       *
- *                                                                             *
- *  Inner dot follows the real cursor 1:1 (transform every move). Outer ring   *
- *  lerps behind on a critically-damped spring, and *snaps* to any element     *
- *  that declares `data-cursor="target"` — its bounding box is read on enter,  *
- *  and the ring centers on the box and grows to wrap it.                      *
- *                                                                             *
- *  Why two layers: the dot communicates exact pointer position (precision).   *
- *  The ring communicates *target* — what the click will affect (intent). When *
- *  hovering a button the ring wraps the button; when free-roaming the ring    *
- *  is just a 32px halo. Subtle but signature.                                 *
- *                                                                             *
- *  Performance:                                                                *
- *   - One `requestAnimationFrame` loop, transforms only.                      *
- *   - Listeners attach at `document` level, capture phase, passive.           *
- *   - Spawns nothing on touch / coarse pointer / reduced motion (CSS hides    *
- *     the elements outright; JS still skips its work).                        *
- *   - Skip layout reads in the rAF loop — bounding box is read only when a    *
- *     new target is entered (input event, not a tick).                        *
+ *  MAGNETIC CURSOR (device #5) — two-layer pointer.                           *
+ *                                                                            *
+ *  Inner dot follows the real cursor 1:1. Outer ring lerps behind and snaps  *
+ *  to any element declaring `data-cursor="target"`, growing to a halo and    *
+ *  tinting with the accent. While snapped, the ring stays glued to the       *
+ *  target by re-reading its rect inside the single rAF loop — so there is    *
+ *  NO window 'scroll' listener (Lenis owns scroll), and the only layout      *
+ *  read happens while actively hovering a target (bounded, rare).            *
+ *                                                                            *
+ *  Spawns nothing on touch / coarse pointer / reduced motion.               *
  * -------------------------------------------------------------------------- */
-
-interface SnapBox {
-  x: number
-  y: number
-  w: number
-  h: number
-}
-
 export default function MagneticCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
@@ -46,74 +29,48 @@ export default function MagneticCursor() {
     let my = window.innerHeight / 2
     let rx = mx
     let ry = my
-
-    /* When the ring is snapped to an element, we lerp toward that element's
-     * center instead of the cursor center. The CSS class `is-snapped`
-     * controls the size; transform here controls position. */
-    let snap: SnapBox | null = null
-    let pressed = false
+    let snapEl: HTMLElement | null = null
 
     const onMove = (e: PointerEvent) => {
       mx = e.clientX
       my = e.clientY
-      // Dot snaps to the cursor immediately — no smoothing.
       dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`
     }
 
-    /* Pointer-over: walk the event composedPath to find the closest element
-     * declaring itself a cursor target. We do this once per `pointerover`
-     * (delegated), not per move. */
     const onOver = (e: PointerEvent) => {
       const t = (e.target as Element | null)?.closest?.('[data-cursor="target"]')
       if (t instanceof HTMLElement) {
-        const r = t.getBoundingClientRect()
-        snap = { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, h: r.height }
+        snapEl = t
         ring.classList.add('is-snapped')
-      } else if (snap) {
-        snap = null
+      } else if (snapEl) {
+        snapEl = null
         ring.classList.remove('is-snapped')
       }
     }
 
-    /* Recompute snap on scroll/resize while a target is engaged — bounding
-     * box drifts otherwise. We re-query the element under the pointer. */
-    const refreshSnap = () => {
-      const el = document.elementFromPoint(mx, my)
-      const t = el?.closest?.('[data-cursor="target"]')
-      if (t instanceof HTMLElement) {
-        const r = t.getBoundingClientRect()
-        snap = { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, h: r.height }
-      } else {
-        snap = null
-        ring.classList.remove('is-snapped')
-      }
-    }
+    const onDown = () => ring.classList.add('is-pressed')
+    const onUp = () => ring.classList.remove('is-pressed')
+    const onLeave = () => { dot.style.opacity = '0'; ring.style.opacity = '0' }
+    const onEnter = () => { dot.style.opacity = '1'; ring.style.opacity = '1' }
 
-    const onDown = () => {
-      pressed = true
-      ring.classList.add('is-pressed')
-    }
-    const onUp = () => {
-      pressed = false
-      ring.classList.remove('is-pressed')
-    }
-    const onLeave = () => {
-      dot.style.opacity = '0'
-      ring.style.opacity = '0'
-    }
-    const onEnter = () => {
-      dot.style.opacity = '1'
-      ring.style.opacity = '1'
-    }
-
-    /* The render loop. ~one transform per frame; no layout read. */
+    /* One rAF loop, transforms only. The single layout read (rect) happens
+       only while snapped to a target. */
     let rafId = 0
     const tick = () => {
-      const target = snap ?? { x: mx, y: my }
-      // Critically-damped lerp.
-      const k = 0.18
-      rx += (target.x - rx) * k
-      ry += (target.y - ry) * k
+      let tx = mx
+      let ty = my
+      if (snapEl) {
+        if (snapEl.isConnected) {
+          const r = snapEl.getBoundingClientRect()
+          tx = r.left + r.width / 2
+          ty = r.top + r.height / 2
+        } else {
+          snapEl = null
+          ring.classList.remove('is-snapped')
+        }
+      }
+      rx += (tx - rx) * 0.18
+      ry += (ty - ry) * 0.18
       ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`
       rafId = window.requestAnimationFrame(tick)
     }
@@ -124,12 +81,7 @@ export default function MagneticCursor() {
     document.addEventListener('pointerup', onUp, { passive: true })
     document.addEventListener('pointerleave', onLeave, { passive: true })
     document.addEventListener('pointerenter', onEnter, { passive: true })
-    window.addEventListener('scroll', refreshSnap, { passive: true })
-    window.addEventListener('resize', refreshSnap, { passive: true })
     rafId = window.requestAnimationFrame(tick)
-
-    /* Suppress press flag — make sure the ring never sticks pressed. */
-    void pressed
 
     return () => {
       window.cancelAnimationFrame(rafId)
@@ -139,8 +91,6 @@ export default function MagneticCursor() {
       document.removeEventListener('pointerup', onUp)
       document.removeEventListener('pointerleave', onLeave)
       document.removeEventListener('pointerenter', onEnter)
-      window.removeEventListener('scroll', refreshSnap)
-      window.removeEventListener('resize', refreshSnap)
     }
   }, [])
 

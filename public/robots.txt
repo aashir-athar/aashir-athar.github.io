@@ -1,5 +1,7 @@
 # https://aashir-athar.github.io/robots.txt
-# Senior React Native engineer's portfolio — single-page, fully crawlable.
+# Aashir Athar — senior full-stack product engineer. Single-page, fully
+# crawlable, and intentionally open to AI / LLM search engines (see below).
+# LLM-readable summary: https://aashir-athar.github.io/llms.txt
 
 # ---------------------------------------------------------------------------
 # Default policy — allow all good-citizen crawlers.
@@ -19,6 +21,7 @@ Disallow:
 
 User-agent: Googlebot-Image
 Allow: /
+Allow: /og-preview.png
 Allow: /og-preview.svg
 Allow: /favicon.svg
 

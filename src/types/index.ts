@@ -1,6 +1,15 @@
+export type ProjectStatus = 'shipped' | 'in-development' | 'published-npm'
+export type ProjectTier = 'flagship' | 'secondary'
+
 export interface Project {
   id: string
   name: string
+  /** "owner/repo" — rendered in monospace as a verifiable artifact. */
+  repo: string
+  /** Year (or year range) for the editorial index. */
+  year: string
+  /** Short "kind" label, e.g. "Cross-platform framework". */
+  platform: string
   tagline: string
   description: string
   features: string[]
@@ -10,10 +19,9 @@ export interface Project {
   accent: string
   accentGlow: string
   category: string
+  status: ProjectStatus
+  tier: ProjectTier
   highlights: CaseStudyHighlight[]
-  /** Marks a project as still in active development — renders an
-   *  "IN DEVELOPMENT" badge instead of a category artifact pill. */
-  inDevelopment?: boolean
 }
 
 export interface CaseStudyHighlight {
@@ -46,7 +54,6 @@ export interface Certification {
 export interface Skill {
   name: string
   category: string
-  /** Optional self-rating, no longer rendered. Kept for back-compat. */
   level?: number
   icon?: string
 }

@@ -1,55 +1,50 @@
-import { useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
-import { Mail, Phone, MapPin, ArrowUpRight, CircleCheck, Copy, Send } from 'lucide-react'
-import { GithubIcon, LinkedinIcon, XIcon, InstagramIcon, WhatsappIcon } from '../components/SocialIcons'
+import { useRef, useState, type FormEvent } from 'react'
+import { Mail, MapPin, Copy, Check, Send } from 'lucide-react'
+import { GithubIcon, LinkedinIcon, XIcon, WhatsappIcon } from '../components/SocialIcons'
 import { Container, Section, SectionHeader } from '../components/ui'
+import { Reveal } from '../components/Kinetic'
 import LocalTime from '../components/LocalTime'
 
-const ease = [0.16, 1, 0.3, 1] as const
+/* -------------------------------------------------------------------------- *
+ *  CONTACT (05) - the close.                                                  *
+ *                                                                            *
+ *  Two-column card on md+ (left = status + channels, right = a no-backend    *
+ *  form), single column on mobile. RESTRAINT ZONE: <Reveal> entry only, no   *
+ *  decorative motion. The form has no server: "Open email draft" composes a  *
+ *  mailto and hands off to the user's client, so the page stays static and   *
+ *  trackless. Chrome accent is `--accent` only. All copy free of em dashes.  *
+ * -------------------------------------------------------------------------- */
+
 const EMAIL = 'aashirathar@gmail.com'
-const PHONE_PRIMARY = '+92 307 477 8889'
-const PHONE_PRIMARY_TEL = '+923074778889'
-const PHONE_SECONDARY = '+92 325 420 0010'
-const PHONE_SECONDARY_TEL = '+923254200010'
-/* WhatsApp shares the primary mobile number — wa.me requires no leading '+'. */
-const WHATSAPP_WA_ME = PHONE_PRIMARY_TEL.replace(/^\+/, '')
 
 const channels = [
-  { icon: <GithubIcon size={16} />,    label: 'GitHub',         handle: 'aashir-athar',  href: 'https://github.com/aashir-athar',       color: 'var(--ink)' },
-  { icon: <LinkedinIcon size={16} />,  label: 'LinkedIn',       handle: 'aashirathar',   href: 'https://linkedin.com/in/aashirathar',   color: '#0a66c2' },
-  { icon: <XIcon size={14} />,         label: 'X',              handle: '@aashirathar',  href: 'https://x.com/aashirathar',              color: 'var(--ink)' },
-  { icon: <InstagramIcon size={16} />, label: 'Instagram',      handle: '@aashirathar',  href: 'https://instagram.com/aashirathar',      color: '#e1306c' },
-  { icon: <Mail size={16} />,          label: 'Email',          handle: EMAIL,           href: `mailto:${EMAIL}`,                        color: 'var(--cyan)' },
-  { icon: <Phone size={16} />,         label: 'Mobile',         handle: PHONE_PRIMARY,   href: `tel:${PHONE_PRIMARY_TEL}`,               color: 'var(--emerald)' },
-  { icon: <Phone size={16} />,         label: 'Mobile (alt)',   handle: PHONE_SECONDARY, href: `tel:${PHONE_SECONDARY_TEL}`,             color: 'var(--emerald)' },
-  { icon: <WhatsappIcon size={16} />,  label: 'WhatsApp',       handle: PHONE_PRIMARY,   href: `https://wa.me/${WHATSAPP_WA_ME}`,        color: '#25d366' },
-]
+  { icon: <GithubIcon size={16} />,   label: 'GitHub',            handle: 'aashir-athar',      href: 'https://github.com/aashir-athar',     external: true },
+  { icon: <LinkedinIcon size={16} />, label: 'LinkedIn',          handle: 'aashirathar',       href: 'https://linkedin.com/in/aashirathar', external: true },
+  { icon: <XIcon size={14} />,        label: 'X',                 handle: '@aashirathar',      href: 'https://x.com/aashirathar',           external: true },
+  { icon: <Mail size={16} strokeWidth={1.5} />,    label: 'Email',    handle: EMAIL,            href: `mailto:${EMAIL}`,                     external: false },
+  { icon: <WhatsappIcon size={16} />, label: 'Mobile / WhatsApp', handle: '+92 307 477 8889',  href: 'https://wa.me/923074778889',          external: true },
+] as const
 
-/* -------------------------------------------------------------------------- *
- *  CONTACT — single confident panel.                                          *
- *                                                                             *
- *  Two columns inside one rounded card:                                       *
- *   - Left: positioning + availability + channel list (now 7 channels).       *
- *   - Right: 3-field form. Submitting opens the user's mail app via mailto:   *
- *     so the "no backend, no tracking" promise holds.                         *
- * -------------------------------------------------------------------------- */
+const fieldClass =
+  'w-full rounded-[var(--r-sm)] border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-3.5 py-2.5 text-body text-[color:var(--ink)] outline-none transition-colors duration-200 placeholder:text-[color:var(--ink-faint)] focus:border-[color:var(--accent)]'
+
+const labelClass = 'font-mono text-eyebrow uppercase tracking-[0.16em] text-[color:var(--ink-faint)]'
+
+type FieldName = 'name' | 'email' | 'message'
+type FieldErrors = Partial<Record<FieldName, string>>
+
+/* Basic, intentionally forgiving email shape: something@something.something. */
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [opened, setOpened] = useState(false)
+  const [errors, setErrors] = useState<FieldErrors>({})
   const [copied, setCopied] = useState(false)
-  const reduceMotion = useReducedMotion()
+  const [opened, setOpened] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const subject = encodeURIComponent(`Project inquiry from ${formData.name || 'a visitor'}`)
-    const body = encodeURIComponent(
-      `Hi Aashir,\n\n${formData.message}\n\n— ${formData.name}\n${formData.email}`,
-    )
-    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
-    setOpened(true)
-    window.setTimeout(() => setOpened(false), 6000)
-  }
+  const nameRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
 
   const copyEmail = async () => {
     try {
@@ -57,202 +52,221 @@ export default function Contact() {
       setCopied(true)
       window.setTimeout(() => setCopied(false), 2000)
     } catch {
-      /* clipboard unavailable — silent. */
+      setCopied(false)
     }
+  }
+
+  const validate = (data: typeof formData): FieldErrors => {
+    const next: FieldErrors = {}
+    if (!data.name.trim()) next.name = 'Please enter your name.'
+    if (!data.email.trim()) next.email = 'Please enter your email.'
+    else if (!EMAIL_RE.test(data.email.trim())) next.email = 'Please enter a valid email address.'
+    if (!data.message.trim()) next.message = 'Please enter a message.'
+    return next
+  }
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const nextErrors = validate(formData)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length > 0) {
+      setOpened(false)
+      /* Move focus to the first invalid field, in DOM order. */
+      if (nextErrors.name) nameRef.current?.focus()
+      else if (nextErrors.email) emailRef.current?.focus()
+      else if (nextErrors.message) messageRef.current?.focus()
+      return
+    }
+
+    const subject = `Project inquiry from ${formData.name || 'your portfolio'}`
+    const body = `${formData.message}\n\nFrom: ${formData.name}\nReply to: ${formData.email}`
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    setOpened(true)
   }
 
   return (
     <Section id="contact" aria-labelledby="contact-heading">
       <Container>
         <SectionHeader
-          index="06"
-          eyebrow="Contact"
-          accent="cyan"
+          index="05"
+          label="CONTACT"
           id="contact-heading"
-          title={
-            <>
-              Got something to ship?{' '}
-              <span className="serif-italic text-[color:var(--cyan)]">Let's</span>{' '}
-              <span className="gradient-text">make it move.</span>
-            </>
-          }
-          description="Open to senior and lead React Native roles, freelance engagements, and consulting on mobile architecture. Replies within 24 hours — usually faster. Pakistan-based, working US and EU time-zones."
+          title={['Got something hard to ', <span className="serif-italic">build?</span>]}
+          lede="A full-time role, a freelance build, or a second opinion on an architecture you are stuck on. Send it over. I read every message myself and reply within a day, usually sooner. Lahore-based, comfortable across US and EU hours."
         />
 
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease }}
-          className="relative overflow-hidden rounded-3xl border border-[color:var(--line)] bg-[color:var(--surface)] shadow-[var(--shadow-card)]"
-        >
-          <span
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent)]"
-          />
-
-          <div className="grid gap-0 md:grid-cols-12">
-            {/* ===== LEFT — positioning + channels ===== */}
-            <div className="border-b border-[color:var(--line)] p-6 sm:p-8 md:col-span-5 md:border-r md:border-b-0">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(16,185,129,0.30)] bg-[rgba(16,185,129,0.10)] px-3 py-1 font-mono text-[0.72rem] text-[color:var(--emerald)]">
+        <Reveal className="mt-12 lg:mt-16">
+          <div className="grid overflow-hidden rounded-[var(--r-lg)] border border-[color:var(--line)] bg-[color:var(--surface)] shadow-[var(--shadow-sm)] md:grid-cols-2">
+            {/* ===== LEFT — status + channels ===== */}
+            <div className="flex flex-col gap-7 border-b border-[color:var(--line)] p-6 sm:p-8 md:border-b-0 md:border-r">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+                <span className="inline-flex items-center gap-2 rounded-[var(--r-pill)] border border-[color:var(--line)] bg-[color:var(--surface-2)] px-3 py-1.5 font-mono text-eyebrow uppercase tracking-[0.16em] text-[color:var(--ink-muted)]">
                   <span
                     aria-hidden="true"
-                    className="relative h-1.5 w-1.5 rounded-full bg-[color:var(--emerald)] shadow-[0_0_8px_var(--emerald)]"
+                    className="relative h-1.5 w-1.5 rounded-full bg-[color:var(--ok)] before:absolute before:inset-0 before:animate-pulse-ring before:rounded-full before:bg-[color:var(--ok)]"
                   />
-                  Currently available
+                  Open to work
                 </span>
                 <LocalTime />
               </div>
 
-              <p className="mt-7 inline-flex items-center gap-2.5 text-[0.95rem] text-[color:var(--ink-muted)]">
-                <MapPin size={14} aria-hidden="true" className="text-[color:var(--ink-faint)]" />
+              <p className="inline-flex items-center gap-2 text-small text-[color:var(--ink-muted)]">
+                <MapPin size={15} strokeWidth={1.5} aria-hidden="true" className="text-[color:var(--ink-faint)]" />
                 Lahore, Pakistan · Remote worldwide
               </p>
 
-              <p className="mt-5 max-w-md text-[0.97rem] leading-[1.78] text-[color:var(--ink-muted)]">
-                <span className="font-semibold text-[color:var(--ink)]">Best fit:</span>{' '}
-                teams building consumer mobile products at scale — where architecture and
-                performance decide whether the product survives month six.
-              </p>
+              <div>
+                <p className={labelClass}>Best fit</p>
+                <p className="mt-2.5 max-w-[42ch] text-body text-[color:var(--ink-muted)]">
+                  Teams who care whether the thing still works in month six, where
+                  architecture and the performance budget decide the outcome.
+                </p>
+              </div>
 
-              {/* Quick-copy email — primary contact */}
+              {/* Quick-copy email */}
               <button
                 type="button"
                 onClick={copyEmail}
-                aria-label="Copy email address to clipboard"
-                className="group mt-7 flex min-h-[3rem] w-full items-center justify-between rounded-xl border border-[color:var(--line-bright)] bg-[color:var(--surface-2)] px-4 py-4 text-left text-[0.95rem] text-[color:var(--ink)] transition-colors hover:border-[color:var(--cyan)] focus-visible:border-[color:var(--cyan)]"
+                data-cursor="target"
+                aria-label={copied ? 'Email address copied' : `Copy email address ${EMAIL}`}
+                className="group flex min-h-[44px] w-full items-center justify-between gap-3 rounded-[var(--r-sm)] border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-3.5 py-2.5 text-left transition-colors duration-200 hover:border-[color:var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent)] active:scale-95"
               >
-                <span className="flex min-w-0 items-center gap-2.5">
-                  <Mail size={15} className="text-[color:var(--cyan)]" aria-hidden="true" />
+                <span className="data flex min-w-0 items-center gap-2.5 text-[color:var(--ink)]">
+                  <Mail size={15} strokeWidth={1.5} aria-hidden="true" className="flex-shrink-0 text-[color:var(--ink-faint)]" />
                   <span className="truncate">{EMAIL}</span>
                 </span>
-                <span
-                  className={`flex flex-shrink-0 items-center gap-1.5 font-mono text-[0.72rem] ${
-                    copied ? 'text-[color:var(--emerald)]' : 'text-[color:var(--ink-faint)]'
-                  }`}
-                >
-                  {copied ? <CircleCheck size={13} aria-hidden="true" /> : <Copy size={13} aria-hidden="true" />}
+                <span className="inline-flex flex-shrink-0 items-center gap-1.5 text-small font-medium text-[color:var(--ink-muted)] transition-colors duration-200 group-hover:text-[color:var(--accent-strong)]">
+                  {copied ? (
+                    <Check size={15} strokeWidth={1.5} aria-hidden="true" className="text-[color:var(--ok)]" />
+                  ) : (
+                    <Copy size={15} strokeWidth={1.5} aria-hidden="true" />
+                  )}
                   {copied ? 'Copied' : 'Copy'}
                 </span>
               </button>
 
-              {/* Channels list — 7 channels including X, Instagram, WhatsApp */}
-              <ul className="mt-3 space-y-2">
-                {channels.map((c, i) => (
-                  <motion.li
-                    key={c.label}
-                    initial={reduceMotion ? false : { opacity: 0, x: -12 }}
-                    whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.04 * i, duration: 0.5, ease }}
-                  >
+              {/* Channels */}
+              <ul className="mt-auto flex flex-col gap-1 border-t border-[color:var(--line)] pt-5">
+                {channels.map(c => (
+                  <li key={c.label}>
                     <a
                       href={c.href}
-                      target={c.href.startsWith('http') ? '_blank' : undefined}
-                      rel="noopener noreferrer"
-                      aria-label={`${c.label}: ${c.handle}`}
-                      className="group flex min-h-[3rem] items-center justify-between rounded-xl border border-[color:var(--line)] bg-[color:var(--surface)] px-4 py-3 text-[color:var(--ink-muted)] no-underline transition-[border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-[color:var(--line-strong)] focus-visible:border-[color:var(--cyan)]"
+                      {...(c.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      data-cursor="target"
+                      className="group flex min-h-[44px] items-center gap-3 rounded-[var(--r-sm)] px-1.5 py-1.5 transition-colors duration-200 hover:bg-[color:var(--surface-2)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent)] active:scale-95"
                     >
-                      <span className="flex min-w-0 items-center gap-3.5">
-                        <span style={{ color: c.color }} className="flex-shrink-0">{c.icon}</span>
-                        <span className="min-w-0">
-                          <span className="block font-display text-[0.85rem] font-semibold text-[color:var(--ink)]">
-                            {c.label}
-                          </span>
-                          <span className="block truncate break-all font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
-                            {c.handle}
-                          </span>
-                        </span>
+                      <span className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-[var(--r-sm)] border border-[color:var(--line)] text-[color:var(--ink-muted)] transition-colors duration-200 group-hover:border-[color:var(--accent)] group-hover:text-[color:var(--accent-strong)]">
+                        {c.icon}
                       </span>
-                      <ArrowUpRight
-                        aria-hidden="true"
-                        size={16}
-                        className="flex-shrink-0 text-[color:var(--ink-faint)] transition-transform duration-500 [transition-timing-function:var(--ease-signature)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      />
+                      <span className="flex min-w-0 flex-col">
+                        <span className="text-small font-medium text-[color:var(--ink)]">{c.label}</span>
+                        <span className="link-underline data truncate text-[color:var(--ink-muted)]">{c.handle}</span>
+                      </span>
                     </a>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </div>
 
-            {/* ===== RIGHT — form ===== */}
-            <div className="p-6 sm:p-8 md:col-span-7 md:p-10">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <h3 className="font-display text-[1.4rem] font-bold tracking-[-0.02em] text-[color:var(--ink)] sm:text-[1.55rem]">
-                  Send a message
-                </h3>
-                <span className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-[color:var(--ink-faint)]">
-                  No backend · No tracking
-                </span>
-              </div>
-              <p className="mt-2.5 text-[0.88rem] text-[color:var(--ink-muted)]">
-                Submitting opens a draft in your email app. If your client is unusual,
-                copy the address above and email me directly.
-              </p>
+            {/* ===== RIGHT — no-backend form ===== */}
+            <div className="bg-[color:var(--surface)] p-6 sm:p-8">
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="contact-name" className={labelClass}>Name</label>
+                  <input
+                    ref={nameRef}
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    required
+                    autoComplete="name"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={e => {
+                      const value = e.target.value
+                      setFormData(f => ({ ...f, name: value }))
+                      if (errors.name) setErrors(prev => ({ ...prev, name: undefined }))
+                    }}
+                    aria-invalid={errors.name ? true : undefined}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    className={fieldClass}
+                  />
+                  {errors.name && (
+                    <p id="name-error" className="mt-1.5 text-small text-[color:var(--err)]">
+                      {errors.name}
+                    </p>
+                  )}
+                </div>
 
-              {opened ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="mt-7 flex flex-col items-start gap-3 rounded-xl border border-[rgba(16,185,129,0.30)] bg-[rgba(16,185,129,0.06)] p-5"
-                >
-                  <CircleCheck size={26} className="text-[color:var(--emerald)]" aria-hidden="true" />
-                  <p className="font-display text-base font-semibold text-[color:var(--ink)]">
-                    Email draft opened.
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="contact-email" className={labelClass}>Email</label>
+                  <input
+                    ref={emailRef}
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    placeholder="you@company.com"
+                    value={formData.email}
+                    onChange={e => {
+                      const value = e.target.value
+                      setFormData(f => ({ ...f, email: value }))
+                      if (errors.email) setErrors(prev => ({ ...prev, email: undefined }))
+                    }}
+                    aria-invalid={errors.email ? true : undefined}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    className={fieldClass}
+                  />
+                  {errors.email && (
+                    <p id="email-error" className="mt-1.5 text-small text-[color:var(--err)]">
+                      {errors.email}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="contact-message" className={labelClass}>Message</label>
+                  <textarea
+                    ref={messageRef}
+                    id="contact-message"
+                    name="message"
+                    required
+                    rows={5}
+                    placeholder="What are you building, and where are you stuck?"
+                    value={formData.message}
+                    onChange={e => {
+                      const value = e.target.value
+                      setFormData(f => ({ ...f, message: value }))
+                      if (errors.message) setErrors(prev => ({ ...prev, message: undefined }))
+                    }}
+                    aria-invalid={errors.message ? true : undefined}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
+                    className={`${fieldClass} resize-y`}
+                  />
+                  {errors.message && (
+                    <p id="message-error" className="mt-1.5 text-small text-[color:var(--err)]">
+                      {errors.message}
+                    </p>
+                  )}
+                </div>
+
+                <button type="submit" data-cursor="target" className="btn-primary group w-full justify-center">
+                  <Send size={16} strokeWidth={1.5} aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                  Open email draft
+                </button>
+
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <p aria-live="polite" className="text-small font-medium text-[color:var(--ok)]">
+                    {opened ? 'Draft opened.' : ''}
                   </p>
-                  <p className="text-[0.88rem] text-[color:var(--ink-muted)]">
-                    If nothing happened, copy {EMAIL} above and email me directly.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="mt-7 space-y-5">
-                  {(['name', 'email'] as const).map(id => (
-                    <label key={id} className="block">
-                      <span className="font-mono text-[0.72rem] uppercase tracking-[0.10em] text-[color:var(--ink-muted)]">
-                        {id === 'name' ? 'Your name' : 'Email address'}
-                      </span>
-                      <input
-                        id={id}
-                        type={id === 'email' ? 'email' : 'text'}
-                        required
-                        autoComplete={id === 'name' ? 'name' : 'email'}
-                        placeholder={id === 'name' ? 'Jane Doe' : 'jane@company.com'}
-                        value={formData[id]}
-                        onChange={e => setFormData(prev => ({ ...prev, [id]: e.target.value }))}
-                        className="mt-2 min-h-[3rem] w-full rounded-lg border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-4 py-3 text-base text-[color:var(--ink)] outline-none transition-colors placeholder:text-[color:var(--ink-faint)] focus:border-[color:var(--cyan)]"
-                      />
-                    </label>
-                  ))}
-
-                  <label className="block">
-                    <span className="font-mono text-[0.72rem] uppercase tracking-[0.10em] text-[color:var(--ink-muted)]">
-                      Tell me about it
-                    </span>
-                    <textarea
-                      id="message"
-                      required
-                      rows={5}
-                      placeholder="What you're building, the role, the timeline — or just say hello."
-                      value={formData.message}
-                      onChange={e => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                      className="mt-2 w-full resize-y rounded-lg border border-[color:var(--line)] bg-[color:var(--bg-elev)] px-4 py-3 text-base text-[color:var(--ink)] outline-none transition-colors placeholder:text-[color:var(--ink-faint)] focus:border-[color:var(--cyan)]"
-                    />
-                  </label>
-
-                  <button type="submit" className="btn-primary group w-full sm:w-auto">
-                    <Send size={16} aria-hidden="true" />
-                    Open email draft
-                  </button>
-
-                  <p className="font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
-                    Replies typically within 24 hours.
-                  </p>
-                </form>
-              )}
+                  <p className={labelClass}>No backend · No tracking</p>
+                </div>
+              </form>
             </div>
           </div>
-        </motion.div>
+        </Reveal>
       </Container>
     </Section>
   )

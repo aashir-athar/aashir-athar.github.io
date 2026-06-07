@@ -4,58 +4,48 @@ export interface ProcessStep {
   title: string
   body: string
   artifacts: string[]
-  accent: string
 }
 
-/* Step accents are CSS variable references so they auto-theme between
- * dark and light modes. Each var has both a dark-friendly and light-
- * friendly shade defined in index.css. Components consuming `accent`
- * use color-mix() for opacity (e.g. 33% borders) instead of hex alpha,
- * which CSS-var values can't carry. */
+/* How a product gets from an idea to something people actually use. */
 export const processSteps: ProcessStep[] = [
   {
-    id: 'discover',
+    id: 'frame',
     index: '01',
-    title: 'Discover',
+    title: 'Frame',
     body:
-      'Before code, the question. I sit with product, design, and ops to find the actual problem — the one users feel, not the one the brief describes. Constraints get surfaced early so they shape the architecture, not the bug list.',
-    artifacts: ['Stakeholder interviews', 'Constraint map', 'Risk register'],
-    accent: 'var(--cyan)',
+      'Before code, the question. I find the real problem (the one users feel, not the one the brief describes) and surface the hard constraints early so they shape the architecture instead of the bug list.',
+    artifacts: ['Problem statement', 'Constraint map', 'Success metrics'],
   },
   {
     id: 'architect',
     index: '02',
     title: 'Architect',
     body:
-      'A modular React Native foundation with typed boundaries, predictable state, and a release pipeline that holds up six months in. Decisions get written down — every team I leave keeps shipping without me.',
-    artifacts: ['ADR / decision log', 'Performance budget', 'Module map'],
-    accent: 'var(--violet)',
+      'A typed, modular foundation with predictable state and clear seams: the kind of structure a framework, an LLM, and a mobile app can all share. Decisions get written down so the system survives past month six.',
+    artifacts: ['Module map', 'Typed boundaries', 'Performance budget'],
   },
   {
     id: 'build',
     index: '03',
     title: 'Build',
     body:
-      'Vertical slices over horizontal layers. The first PR is something users can touch — auth, feed, booking — not a folder of utils. We ship daily, review weekly, refactor on the third pass.',
-    artifacts: ['Vertical slice MVP', 'Component library', 'Test harness'],
-    accent: 'var(--emerald)',
+      'Vertical slices over horizontal layers. The first PR is something you can touch (a feed, a chat, a training loop), not a folder of utils. Ship daily, review continuously, refactor on the third pass.',
+    artifacts: ['Vertical-slice MVP', 'Design system', 'Test harness'],
   },
   {
     id: 'ship',
     index: '04',
     title: 'Ship',
     body:
-      'Fastlane + GitHub Actions, env-aware builds, signed releases, automated metadata. Deployments that used to take a day take ten minutes — and stop failing the way they used to.',
+      'CI that enforces the budget, env-aware builds, signed releases, OTA where it fits. Deployments that used to take a day take ten minutes, and stop failing the way they used to.',
     artifacts: ['CI/CD pipeline', 'Crash + perf telemetry', 'Release playbook'],
-    accent: 'var(--amber)',
   },
   {
     id: 'measure',
     index: '05',
     title: 'Measure',
     body:
-      'Cold-start, frame drops, crash-free sessions, retention. Numbers I can defend in a roadmap meeting. If something regresses, the dashboard tells us before users do — and before the next sprint.',
-    artifacts: ['LCP / FCP budgets', 'Crash-free %', 'Engagement deltas'],
-    accent: 'var(--rose)',
+      'Cold-start, frame drops, crash-free sessions, retention, eval scores. Numbers I can defend in a roadmap meeting, and if something regresses, the dashboard tells us before users do.',
+    artifacts: ['Perf budgets', 'Crash-free %', 'Eval gates'],
   },
 ]

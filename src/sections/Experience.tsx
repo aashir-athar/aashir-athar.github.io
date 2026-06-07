@@ -1,181 +1,150 @@
-import { motion } from 'framer-motion'
-import { useInView } from '../hooks/useInView'
+import { MapPin } from 'lucide-react'
 import { experience, education, certifications } from '../data/resume'
-import { MapPin, GraduationCap, Award } from 'lucide-react'
 import { Container, Section, SectionHeader } from '../components/ui'
+import { Reveal } from '../components/Kinetic'
 
-const ease = [0.16, 1, 0.3, 1] as const
-
-/* Company accents are CSS var refs so they auto-theme across modes. */
-const companyColors: Record<string, string> = {
-  '3STechLabs': 'var(--cyan)',
-  'AppGlide Technologies': 'var(--violet)',
-  'TechNova Solutions Inc.': 'var(--emerald)',
-  'W3 Technologies': 'var(--amber)',
-}
+/* -------------------------------------------------------------------------- *
+ *  EXPERIENCE (05) — a document-style résumé timeline.                        *
+ *                                                                            *
+ *  Layout: on lg a 12-col grid. Left 8 cols are the role timeline, hung on a *
+ *  `border-l` hairline with `--accent` node dots; right 4 cols stack         *
+ *  Education + Certifications. Below lg it collapses to a single column      *
+ *  (timeline first, then education/certs).                                   *
+ *                                                                            *
+ *  Chrome accent is `--accent` only — no per-company colors. Periods,        *
+ *  locations and years are mono `.data` with tabular figures so the columns  *
+ *  align. Each block fades in via <Reveal> with a short stagger.             *
+ * -------------------------------------------------------------------------- */
 
 export default function Experience() {
-  const { ref, inView } = useInView()
-
   return (
     <Section id="experience" aria-labelledby="experience-heading">
       <Container>
         <SectionHeader
-          index="05"
-          eyebrow="Experience"
-          accent="cyan"
+          index="04"
+          label="EXPERIENCE"
           id="experience-heading"
-          title={
-            <>
-              Four years —{' '}
-              <span className="serif-italic text-[color:var(--cyan)]">architected,</span>{' '}
-              <span className="gradient-text">shipped, led.</span>
-            </>
-          }
-          description="Junior to senior in three years, lead in the fourth — production React Native across US and Pakistan teams since 2022. The summary above; the receipts, in chronological order, below."
+          title={['Where the ', <span className="serif-italic">reps</span>, ' came from.']}
+          lede="Cross-platform engineering across US and Pakistan teams since 2022, the client work that built the habits behind the open-source projects above."
         />
 
-        <div ref={ref} className="grid gap-12 md:grid-cols-12 md:gap-12 lg:gap-16">
-          {/* Timeline */}
-          <div className="md:col-span-8">
-            <ol className="relative space-y-7 pl-7">
+        <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-12 lg:gap-x-14 lg:gap-y-0">
+          {/* ---- Role timeline ---- */}
+          <div className="lg:col-span-8">
+            <ol className="relative">
+              {/* Continuous rail line, centered in the 1.5rem gutter column. */}
               <span
                 aria-hidden="true"
-                className="absolute top-2 bottom-2 left-0 w-px bg-[linear-gradient(to_bottom,var(--cyan),var(--violet),transparent)] opacity-50"
+                className="pointer-events-none absolute left-3 top-2 bottom-2 w-px -translate-x-1/2 bg-[color:var(--line-strong)]"
               />
-              {experience.map((exp, i) => {
-                const color = companyColors[exp.company] ?? 'var(--cyan)'
-                return (
-                  <motion.li
-                    key={`${exp.company}-${i}`}
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={inView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.6, delay: i * 0.08, ease }}
-                    className="relative"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="absolute -left-[30px] top-3 h-2.5 w-2.5 rounded-full ring-4 ring-[color:var(--bg)]"
-                      style={{ background: color, boxShadow: `0 0 12px ${color}` }}
-                    />
-                    <article className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-card)] transition-[border-color] duration-300 hover:border-[color:var(--line-strong)] sm:p-6 md:p-7">
-                      <div className="flex flex-wrap items-start justify-between gap-3">
+              {experience.map((exp, i) => (
+                <li
+                  key={`${exp.company}-${exp.period}`}
+                  className="relative grid grid-cols-[1.5rem_1fr] gap-x-4 pb-10 last:pb-0 sm:gap-x-6"
+                >
+                  {/* Gutter: node dot centered exactly on the rail line. */}
+                  <span aria-hidden="true" className="relative">
+                    <span className="absolute left-3 top-7 h-3 w-3 -translate-x-1/2 rounded-full border-2 border-[color:var(--bg)] bg-[color:var(--accent)] shadow-[var(--shadow-glow)]" />
+                  </span>
+
+                  <Reveal delay={Math.min(i * 0.06, 0.24)}>
+                    <article className="rounded-[var(--r-md)] border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-sm)] sm:p-6">
+                      <div className="flex flex-col gap-x-6 gap-y-2 sm:flex-row sm:items-start sm:justify-between">
                         <div className="min-w-0">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <h3 className="font-display text-[1.1rem] font-bold tracking-[-0.015em] text-[color:var(--ink)] sm:text-[1.2rem]">
-                              {exp.role}
-                            </h3>
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                            <h3 className="font-display text-h3 text-[color:var(--ink)]">{exp.role}</h3>
                             {exp.current && (
-                              <span className="inline-flex items-center gap-1 rounded-full border border-[rgba(16,185,129,0.30)] bg-[rgba(16,185,129,0.10)] px-2 py-0.5 text-[0.65rem] font-medium text-[color:var(--emerald)]">
+                              <span className="inline-flex items-center gap-1.5 rounded-[var(--r-pill)] border border-[color:var(--line)] bg-[color:var(--surface-2)] px-2.5 py-0.5 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[color:var(--ink-muted)]">
                                 <span
                                   aria-hidden="true"
-                                  className="h-1 w-1 rounded-full bg-[color:var(--emerald)] shadow-[0_0_6px_var(--emerald)]"
+                                  className="relative h-1.5 w-1.5 rounded-full bg-[color:var(--ok)] before:absolute before:inset-0 before:animate-pulse-ring before:rounded-full before:bg-[color:var(--ok)]"
                                 />
                                 Current
                               </span>
                             )}
                           </div>
-                          <div
-                            className="mt-1.5 font-display text-[0.95rem] font-medium"
-                            style={{ color }}
-                          >
-                            {exp.company}
-                          </div>
+                          <p className="mt-1 text-body font-medium text-[color:var(--ink)]">{exp.company}</p>
                         </div>
-                        <div className="flex flex-shrink-0 flex-col items-end text-right">
-                          <span className="whitespace-nowrap font-mono text-[0.72rem] tracking-[0.05em] text-[color:var(--ink-faint)]">
-                            {exp.period}
-                          </span>
-                          <span className="mt-0.5 flex items-center gap-1 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
-                            <MapPin size={11} aria-hidden="true" />
+
+                        <div className="flex flex-col gap-1 sm:shrink-0 sm:items-end sm:text-right">
+                          <span className="data text-[color:var(--ink-muted)]">{exp.period}</span>
+                          <span className="inline-flex items-center gap-1.5 font-mono text-[0.78rem] text-[color:var(--ink-faint)]">
+                            <MapPin size={13} strokeWidth={1.5} aria-hidden="true" />
                             {exp.location}
                           </span>
                         </div>
                       </div>
 
-                      <ul className="mt-6 space-y-3.5">
-                        {exp.bullets.map((b, bi) => (
-                          <li
-                            key={bi}
-                            className="flex items-start gap-3 text-[0.95rem] leading-[1.8] text-[color:var(--ink-muted)]"
-                          >
+                      <ul className="mt-4 space-y-2.5 border-t border-[color:var(--line)] pt-4">
+                        {exp.bullets.map(bullet => (
+                          <li key={bullet} className="flex gap-3 text-small text-[color:var(--ink-muted)]">
                             <span
                               aria-hidden="true"
-                              className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full"
-                              style={{ background: color }}
+                              className="mt-[0.5rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent)]"
                             />
-                            {b}
+                            <span className="leading-relaxed">{bullet}</span>
                           </li>
                         ))}
                       </ul>
                     </article>
-                  </motion.li>
-                )
-              })}
+                  </Reveal>
+                </li>
+              ))}
             </ol>
           </div>
 
-          {/* Sidebar — education + certs */}
-          <aside className="md:col-span-4 space-y-8">
-            <div>
-              <div className="mb-4 flex items-center gap-2.5">
-                <div className="grid h-7 w-7 place-items-center rounded-lg border border-[rgba(167,139,250,0.30)] bg-[color:var(--violet-glow)]">
-                  <GraduationCap size={13} className="text-[color:var(--violet)]" />
-                </div>
-                <h3 className="font-display text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--ink)]">
+          {/* ---- Education + Certifications ---- */}
+          <aside className="flex flex-col gap-10 lg:col-span-4">
+            <section aria-labelledby="education-heading">
+              <Reveal>
+                <h3 id="education-heading" className="eyebrow mb-4">
                   Education
                 </h3>
-              </div>
-              <div className="space-y-3">
+              </Reveal>
+              <ul className="space-y-3">
                 {education.map((edu, i) => (
-                  <motion.article
-                    key={i}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.4 + i * 0.08 }}
-                    className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-card)]"
-                  >
-                    <div className="font-display text-[0.95rem] font-semibold text-[color:var(--ink)]">
-                      {edu.degree}
-                    </div>
-                    <div className="mt-1 text-[0.85rem] text-[color:var(--violet)]">
-                      {edu.institution}
-                    </div>
-                    <div className="mt-1 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
-                      {edu.period}
-                    </div>
-                  </motion.article>
+                  <li key={`${edu.institution}-${edu.period}`}>
+                    <Reveal delay={Math.min(i * 0.06, 0.18)}>
+                      <article className="rounded-[var(--r-md)] border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-sm)]">
+                        <p className="font-display text-[1.02rem] font-semibold leading-snug text-[color:var(--ink)]">
+                          {edu.degree}
+                        </p>
+                        <p className="mt-1 text-small text-[color:var(--ink-muted)]">{edu.institution}</p>
+                        <p className="mt-2 data text-[color:var(--ink-faint)]">{edu.period}</p>
+                        {edu.note && (
+                          <p className="mt-2 text-small text-[color:var(--ink-muted)]">{edu.note}</p>
+                        )}
+                      </article>
+                    </Reveal>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
 
-            <div>
-              <div className="mb-4 flex items-center gap-2.5">
-                <div className="grid h-7 w-7 place-items-center rounded-lg border border-[rgba(245,158,11,0.30)] bg-[rgba(245,158,11,0.10)]">
-                  <Award size={13} className="text-[color:var(--amber)]" />
-                </div>
-                <h3 className="font-display text-[0.82rem] font-semibold uppercase tracking-[0.12em] text-[color:var(--ink)]">
+            <section aria-labelledby="certifications-heading">
+              <Reveal>
+                <h3 id="certifications-heading" className="eyebrow mb-4">
                   Certifications
                 </h3>
-              </div>
-              <div className="space-y-3">
+              </Reveal>
+              <ul className="space-y-3">
                 {certifications.map((cert, i) => (
-                  <motion.article
-                    key={i}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.5 + i * 0.08 }}
-                    className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-card)]"
-                  >
-                    <div className="font-display text-[0.95rem] font-semibold text-[color:var(--ink)]">
-                      {cert.name}
-                    </div>
-                    <div className="mt-1 text-[0.85rem] text-[color:var(--amber)]">{cert.issuer}</div>
-                    <div className="mt-1 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">{cert.year}</div>
-                  </motion.article>
+                  <li key={`${cert.name}-${cert.year}`}>
+                    <Reveal delay={Math.min(i * 0.06, 0.18)}>
+                      <article className="rounded-[var(--r-md)] border border-[color:var(--line)] bg-[color:var(--surface)] p-5 shadow-[var(--shadow-sm)]">
+                        <p className="font-display text-[1.02rem] font-semibold leading-snug text-[color:var(--ink)]">
+                          {cert.name}
+                        </p>
+                        <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                          <p className="text-small text-[color:var(--ink-muted)]">{cert.issuer}</p>
+                          <span className="data text-[color:var(--ink-faint)]">{cert.year}</span>
+                        </div>
+                      </article>
+                    </Reveal>
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </section>
           </aside>
         </div>
       </Container>

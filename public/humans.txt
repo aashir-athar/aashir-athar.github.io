@@ -1,30 +1,23 @@
 /* TEAM */
-  Senior React Native Engineer: Aashir Athar
-  Contact:                       aashirathar [at] gmail.com
-  GitHub:                        @aashir-athar
-  LinkedIn:                      /in/aashirathar
-  From:                          Lahore, Pakistan
-  Working with:                  US + Pakistan teams since 2022
+  Senior Full-Stack Product Engineer: Aashir Athar
+  Contact:    aashirathar [at] gmail.com
+  GitHub:     @aashir-athar
+  Org:        github.com/mindees
+  LinkedIn:   /in/aashirathar
+  From:       Lahore, Pakistan
+  Open to:    full-time, freelance, consulting (remote, worldwide)
 
 /* SITE */
-  Last update:    2026/05
-  Language:       English
-  Standards:      HTML5, CSS3, ES2026, WCAG 2.2 AA, View Transitions API
-  Components:     React 19 (Compiler), TypeScript 6, Tailwind v4
-  Build:          Vite 8 + Rolldown
-  Hosting:        GitHub Pages
-  Doctype:        HTML5
-  IDE:            VS Code, Cursor
+  Last update:  2026/06
+  Language:     English
+  Standards:    HTML5, CSS3, ES2024, WCAG 2.2 AA, View Transitions API
+  Components:   React 19 (Compiler), TypeScript (strict), Tailwind v4
+  Motion:       Framer Motion, Lenis smooth scroll, Three.js (lazy, dark-only)
+  Build:        Vite 8 + Rolldown
+  Hosting:      GitHub Pages
+  Fonts:        Bricolage Grotesque, Geist, Geist Mono, Instrument Serif (self-hosted)
 
 /* THANKS */
-  Open source — Vite, React, Framer Motion, Three.js, Lucide.
-  Editorial type — Bricolage Grotesque, Inter Tight, JetBrains Mono,
-                   Instrument Serif. All Google Fonts.
+  Open source: Vite, React, Framer Motion, Lenis, Three.js, Lucide.
 
-   _____   _____  ____ _______ ___ _______
-  |  ___| / ___|| __ )_   _|_ _|_   _|
-  | |_   | |    |  _ \ | |  | |  | |
-  |  _|  | |___ | |_) || |  | |  | |
-  |_|     \____|____/ |_| |___| |_|
-
-  Built with restraint, in Lahore.
+  Built solo, with restraint, in Lahore.

@@ -1,63 +1,75 @@
-import { Mail, ArrowUp } from 'lucide-react'
+import { ArrowUp } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, XIcon, InstagramIcon } from '../components/SocialIcons'
 import { Container } from '../components/ui'
 import LocalTime from '../components/LocalTime'
+import { scrollToId, scrollToTop } from '../lib/smoothScroll'
 
-const footerLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Stack', href: '#skills' },
-  { label: 'Work', href: '#projects' },
-  { label: 'Process', href: '#process' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
-]
+/* -------------------------------------------------------------------------- *
+ *  FOOTER — full-width mega-signature over --bg-elev (chrome, not a Section). *
+ *                                                                             *
+ *  The wordmark "Aashir Athar." sits at text-display scale and doubles as a   *
+ *  back-to-top control. Below it: status, sitemap, and connect columns that   *
+ *  stack on mobile, then a mono colophon row with tabular figures.            *
+ *  No second hue, no gradient text — surname emphasis is Instrument italic.   *
+ * -------------------------------------------------------------------------- */
 
-const socials = [
-  { href: 'https://github.com/aashir-athar',     icon: <GithubIcon size={15} />,    label: 'GitHub' },
-  { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={15} />,  label: 'LinkedIn' },
-  { href: 'https://x.com/aashirathar',           icon: <XIcon size={13} />,         label: 'X' },
-  { href: 'https://instagram.com/aashirathar',   icon: <InstagramIcon size={15} />, label: 'Instagram' },
-  { href: 'mailto:aashirathar@gmail.com',        icon: <Mail size={15} />,          label: 'Email' },
-]
+const sitemap = [
+  { id: 'about',      label: 'About' },
+  { id: 'work',       label: 'Work' },
+  { id: 'stack',      label: 'Stack' },
+  { id: 'process',    label: 'Process' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'contact',    label: 'Contact' },
+] as const
+
+const connect = [
+  { href: 'https://github.com/aashir-athar',     icon: <GithubIcon size={16} />,    label: 'GitHub · aashir-athar' },
+  { href: 'https://github.com/mindees',          icon: <GithubIcon size={16} />,    label: 'GitHub · mindees (org)' },
+  { href: 'https://linkedin.com/in/aashirathar', icon: <LinkedinIcon size={16} />,  label: 'LinkedIn' },
+  { href: 'https://x.com/aashirathar',           icon: <XIcon size={14} />,         label: 'X' },
+  { href: 'https://instagram.com/aashirathar',   icon: <InstagramIcon size={16} />, label: 'Instagram' },
+] as const
 
 export default function Footer() {
   const year = new Date().getFullYear()
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <footer className="relative z-[1] mt-16 border-t border-[color:var(--line)] py-14 sm:mt-20 md:mt-24 md:py-16">
+    <footer
+      aria-label="Site footer"
+      className="relative z-[1] border-t border-[color:var(--line)] bg-[color:var(--bg-elev)] pb-10 pt-[clamp(3.5rem,7vw,6rem)]"
+    >
       <Container>
-        {/* Mega name as editorial signature. Tighter clamp on XS so the
-            wordmark never overflows on 320px screens. */}
-        <div className="mb-12 border-b border-[color:var(--line)] pb-10">
-          <a
-            href="#hero"
-            onClick={e => {
-              e.preventDefault()
-              scrollTop()
-            }}
-            className="block font-display font-bold leading-[0.9] tracking-[-0.04em] text-[color:var(--ink)] no-underline transition-opacity hover:opacity-90"
-            style={{ fontSize: 'clamp(2.25rem, 13vw, 9rem)' }}
-            aria-label="Aashir Athar — back to top"
-          >
-            Aashir <span className="gradient-text">Athar.</span>
-          </a>
-          <p className="mt-4 max-w-xl text-[0.95rem] leading-[1.65] text-[color:var(--ink-muted)]">
-            Senior React Native developer. Production mobile apps that hold up six months
-            past launch — for cross-platform teams shipping to real users.
-          </p>
-        </div>
+        {/* ---- Mega-signature — also the back-to-top control ---- */}
+        <button
+          type="button"
+          data-cursor="target"
+          onClick={scrollToTop}
+          aria-label="Aashir Athar — back to top"
+          className="group block w-full text-left font-display text-display font-bold tracking-[-0.035em] text-[color:var(--ink)] transition-[transform,opacity] duration-200 ease-[var(--ease-out)] active:scale-[0.985] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--accent)]"
+        >
+          Aashir{' '}
+          <span className="serif-italic text-[color:var(--ink)] transition-colors duration-200 group-hover:text-[color:var(--accent-strong)]">
+            Athar
+          </span>
+          <span aria-hidden="true" className="serif-italic text-[color:var(--accent-strong)]">.</span>
+        </button>
 
-        <div className="grid gap-10 md:grid-cols-12 md:items-start md:gap-10">
-          {/* Brand status */}
-          <div className="md:col-span-5">
+        <p className="mt-6 max-w-[60ch] text-body text-[color:var(--ink-muted)]">
+          Senior full-stack product engineer. I build frameworks, LLMs, and the apps on top.
+          All of it solo and open-source, with the repos public on GitHub.
+        </p>
+
+        {/* ---- Columns: Status · Sitemap · Connect (stack on mobile) ---- */}
+        <div className="mt-12 grid gap-10 border-t border-[color:var(--line)] pt-10 sm:grid-cols-2 md:grid-cols-12 md:gap-10">
+          {/* Status */}
+          <div className="md:col-span-4">
             <p className="eyebrow">Status</p>
-            <p className="mt-4 inline-flex items-center gap-2 font-mono text-[0.78rem] text-[color:var(--emerald)]">
+            <p className="mt-4 inline-flex items-center gap-2 text-small text-[color:var(--ink-muted)]">
               <span
                 aria-hidden="true"
-                className="relative h-1.5 w-1.5 animate-pulse-ring rounded-full bg-[color:var(--emerald)] shadow-[0_0_8px_var(--emerald)]"
+                className="relative h-1.5 w-1.5 rounded-full bg-[color:var(--ok)] before:absolute before:inset-0 before:animate-pulse-ring before:rounded-full before:bg-[color:var(--ok)]"
               />
-              Available for senior &amp; lead roles
+              Open to full-time and freelance
             </p>
             <div className="mt-3">
               <LocalTime />
@@ -65,18 +77,16 @@ export default function Footer() {
           </div>
 
           {/* Sitemap */}
-          <nav aria-label="Footer" className="md:col-span-4">
+          <nav aria-label="Footer navigation" className="md:col-span-4">
             <p className="eyebrow">Sitemap</p>
             <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-2.5">
-              {footerLinks.map(l => (
-                <li key={l.href}>
+              {sitemap.map(l => (
+                <li key={l.id}>
                   <a
-                    href={l.href}
-                    onClick={e => {
-                      e.preventDefault()
-                      document.querySelector(l.href)?.scrollIntoView({ behavior: 'smooth' })
-                    }}
-                    className="link-underline text-[0.92rem] text-[color:var(--ink-muted)]"
+                    href={`#${l.id}`}
+                    data-cursor="target"
+                    onClick={e => { e.preventDefault(); scrollToId(l.id) }}
+                    className="link-underline inline-flex min-h-[44px] items-center text-small text-[color:var(--ink-muted)]"
                   >
                     {l.label}
                   </a>
@@ -87,7 +97,8 @@ export default function Footer() {
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-underline text-[0.92rem] text-[color:var(--ink-muted)]"
+                  data-cursor="target"
+                  className="link-underline inline-flex min-h-[44px] items-center text-small text-[color:var(--ink-muted)]"
                 >
                   Resume
                 </a>
@@ -95,37 +106,43 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* Channels */}
-          <div className="md:col-span-3">
+          {/* Connect */}
+          <div className="md:col-span-4">
             <p className="eyebrow">Connect</p>
             <div className="mt-4 flex flex-wrap items-center gap-2">
-              {socials.map(s => (
+              {connect.map(s => (
                 <a
                   key={s.label}
                   href={s.href}
-                  target={s.href.startsWith('http') ? '_blank' : undefined}
+                  target="_blank"
                   rel="noopener noreferrer"
+                  data-cursor="target"
                   aria-label={s.label}
-                  className="grid h-10 w-10 place-items-center rounded-lg border border-[color:var(--line)] bg-[color:var(--surface)] text-[color:var(--ink-muted)] transition-colors hover:border-[color:var(--cyan)] hover:text-[color:var(--cyan)] focus-visible:border-[color:var(--cyan)] focus-visible:text-[color:var(--cyan)]"
+                  title={s.label}
+                  className="grid h-11 w-11 place-items-center rounded-[var(--r-sm)] border border-[color:var(--line)] bg-[color:var(--surface)] text-[color:var(--ink-muted)] transition-[transform,border-color,color] duration-200 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-[color:var(--accent)] hover:text-[color:var(--accent-strong)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent)]"
                 >
                   {s.icon}
                 </a>
               ))}
               <button
                 type="button"
-                onClick={scrollTop}
+                onClick={scrollToTop}
+                data-cursor="target"
                 aria-label="Back to top"
-                className="ml-1 grid h-10 w-10 place-items-center rounded-lg border border-[color:var(--line-bright)] bg-[color:var(--cyan-glow)] text-[color:var(--cyan)] transition-transform [transition-timing-function:var(--ease-signature)] hover:-translate-y-1 focus-visible:-translate-y-1"
+                className="grid h-11 w-11 place-items-center rounded-[var(--r-sm)] border border-[color:var(--accent)] bg-[color:var(--accent-glow)] text-[color:var(--accent-strong)] transition-[transform,box-shadow] duration-200 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow)] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--accent)]"
               >
-                <ArrowUp size={15} />
+                <ArrowUp size={16} strokeWidth={1.5} aria-hidden="true" />
               </button>
             </div>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-2 border-t border-[color:var(--line)] pt-6 font-mono text-[0.72rem] text-[color:var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between">
+        {/* ---- Colophon — mono, tabular ---- */}
+        <div className="mt-12 flex flex-col gap-3 border-t border-[color:var(--line)] pt-6 text-data tabular-nums text-[color:var(--ink-faint)] sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} Aashir Athar. All rights reserved.</p>
-          <p>Designed &amp; built by Aashir Athar — React Native developer.</p>
+          <p>
+            Built with React 19 + Vite. Type: Bricolage Grotesque, Geist, Geist Mono, Instrument Serif.
+          </p>
         </div>
       </Container>
     </footer>

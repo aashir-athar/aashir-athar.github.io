@@ -34,11 +34,9 @@ export default function LocalTime() {
     <span className="inline-flex items-center gap-2 font-mono text-[0.72rem] text-[color:var(--ink-faint)]">
       <span
         aria-hidden="true"
-        className={`h-1.5 w-1.5 rounded-full ${online ? 'bg-[color:var(--emerald)]' : 'bg-[color:var(--amber)]'}`}
+        className={`h-1.5 w-1.5 rounded-full ${online ? 'bg-[color:var(--ok)]' : 'bg-[color:var(--warn)]'}`}
         style={{
-          boxShadow: online
-            ? '0 0 8px var(--emerald)'
-            : '0 0 8px var(--amber)',
+          boxShadow: online ? '0 0 8px var(--ok)' : '0 0 8px var(--warn)',
         }}
       />
       <span className="uppercase tracking-[0.16em]">

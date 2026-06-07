@@ -96,10 +96,10 @@ function Field({ paused }: FieldProps) {
     () => ({
       uTime:       { value: 0 },
       uResolution: { value: new Vector2(1, 1) },
-      uColorA:     { value: new Color('#22d3ee') },
-      uColorB:     { value: new Color('#a78bfa') },
-      uColorBg:    { value: new Color('#06080f') },
-      uIntensity:  { value: 0.95 },
+      uColorA:     { value: new Color('#34d6f0') },  // Signal Cyan (accent)
+      uColorB:     { value: new Color('#0e7a93') },  // deeper cyan — monochrome flow
+      uColorBg:    { value: new Color('#070a12') },  // dark canvas
+      uIntensity:  { value: 0.9 },
     }),
     [],
   )

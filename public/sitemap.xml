@@ -4,82 +4,73 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
-  <!--
-    Single-page React Native developer portfolio sitemap. The hash-anchor
-    URLs aren't separate documents, but sitemap-listed anchors help
-    Google build sitelinks and LinkedIn / AI search engines surface
-    section-specific snippets. Each URL carries the same image extension
-    so the OG card propagates.
-  -->
+  <!-- Single-page portfolio. The section anchors help search engines build
+       sitelinks and help AI search engines surface section-level snippets. -->
 
   <url>
     <loc>https://aashir-athar.github.io/</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://aashir-athar.github.io/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://aashir-athar.github.io/" />
     <image:image>
-      <image:loc>https://aashir-athar.github.io/og-preview.svg</image:loc>
-      <image:title>Aashir Athar — Senior React Native Developer</image:title>
-      <image:caption>Senior React Native developer shipping production iOS and Android apps. 0 post-launch crashes, 50K+ users, 35% faster cold starts, 7 open-source React Native apps.</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://aashir-athar.github.io/favicon.svg</image:loc>
-      <image:title>Aashir Athar — wordmark</image:title>
+      <image:loc>https://aashir-athar.github.io/og-preview.png</image:loc>
+      <image:title>Aashir Athar — Senior Full-Stack Product Engineer</image:title>
+      <image:caption>Senior full-stack product engineer. I build the whole stack: a cross-platform framework, a self-training LLM, a published component library, on-device ML, and full-stack apps. 12 solo, open-source projects.</image:caption>
     </image:image>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#about</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://aashir-athar.github.io/#skills</loc>
-    <lastmod>2026-05-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://aashir-athar.github.io/#projects</loc>
-    <lastmod>2026-05-14</lastmod>
+    <loc>https://aashir-athar.github.io/#work</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://aashir-athar.github.io/og-preview.svg</image:loc>
-      <image:title>Selected open-source React Native projects</image:title>
+      <image:loc>https://aashir-athar.github.io/og-preview.png</image:loc>
+      <image:title>Selected open-source work by Aashir Athar</image:title>
     </image:image>
   </url>
 
   <url>
-    <loc>https://aashir-athar.github.io/#process</loc>
-    <lastmod>2026-05-14</lastmod>
+    <loc>https://aashir-athar.github.io/#stack</loc>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.75</priority>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://aashir-athar.github.io/#process</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#experience</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/#contact</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://aashir-athar.github.io/resume.pdf</loc>
-    <lastmod>2026-05-14</lastmod>
+    <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.90</priority>
+    <priority>0.9</priority>
   </url>
 </urlset>

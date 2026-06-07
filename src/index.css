@@ -1,63 +1,73 @@
 @import "tailwindcss";
 
-/* ================================================================
-   DESIGN TOKENS — Tailwind v4 @theme
-   Editorial type system + brand palette + container scale.
-   ================================================================ */
+/* ============================================================================
+   AASHIR ATHAR — SENIOR PORTFOLIO · DESIGN SYSTEM
+   "An editorial spec sheet that moves like a demo reel."
+   Impeccable by default (passes review with motion off), kinetic on purpose
+   (budget spent in exactly seven named devices). Light is the default theme;
+   dark is an equal-parity toggle. One chrome accent: Signal Cyan.
+   ============================================================================ */
+
+/* ---- Self-hosted fonts (latin subset, variable woff2, same-origin) -------- */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/fonts/bricolage.woff2") format("woff2");
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/geist.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/geist-mono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+}
+
+/* ============================================================================
+   TOKENS — Tailwind v4 @theme (fonts + modular type scale + container)
+   ============================================================================ */
 @theme {
-  /* Fonts — Bricolage Grotesque (display, optical-sized) + Inter Tight (body)
-     + JetBrains Mono (accents) + Instrument Serif (italic accents). Variable.
-     Distinctive editorial system used by award-winning portfolios in 2025. */
-  --font-display: "Bricolage Grotesque", "Inter Tight", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-body: "Inter Tight", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "Menlo", monospace;
+  --font-display: "Bricolage Grotesque", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 
-  /* Palette — three-color brand: cyan + deep purple + gold.
-     Reads as "developer" at a glance (synthwave / IDE syntax aesthetic).
-       --cyan    #22d3ee  electric — code-on-screen, technical clarity
-       --violet  #7c3aed  deep purple — signature identity, sophistication
-       --gold    #fbbf24  warm gold — achievement, attention, "the numbers"
-
-     Distinct from project accents:
-       xMind cyan #06b6d4 vs system #22d3ee — system is brighter/more electric
-       FlowMoney violet #8b5cf6 vs system #7c3aed — system is deeper/more saturated
-       No project uses gold — system has it exclusively. */
-  --color-bg: #06080f;
-  --color-bg-elev: #0b0f1d;
-  --color-surface: #11172a;
-  --color-surface-2: #182137;
-  --color-line: rgba(255, 255, 255, 0.06);
-  --color-line-strong: rgba(255, 255, 255, 0.12);
-  --color-line-bright: rgba(34, 211, 238, 0.40);
-
-  --color-ink: #f1f5ff;
-  --color-ink-muted: #8a9bbe;
-  --color-ink-faint: #4d5f80;
-
-  --color-cyan: #22d3ee;     /* electric cyan — primary brand */
-  --color-violet: #a78bfa;   /* lavender purple — secondary brand (brightened
-                                from #7c3aed for text-on-dark legibility:
-                                ~63% luminance vs #06080f bg = ~9:1, AAA) */
-  --color-gold: #fbbf24;     /* warm gold — tertiary highlight */
-  --color-emerald: #10b981;
-  --color-amber: #f59e0b;
-  --color-rose: #f43f5e;
-  --color-pink: #ec4899;
-
-  /* Editorial type scale — confident, fluid, optical-sized */
-  --text-mega: clamp(3rem, 11vw, 9.5rem);
-  --text-mega--line-height: 0.92;
+  /* Modular scale, ratio 1.26. Display steps fluid; UI/body fixed. */
+  --text-mega: clamp(3.4rem, 11vw, 9.6rem);
+  --text-mega--line-height: 0.90;
   --text-mega--letter-spacing: -0.045em;
-  --text-mega--font-weight: 700;
+  --text-mega--font-weight: 800;
 
   --text-display: clamp(2.4rem, 7.5vw, 5.25rem);
-  --text-display--line-height: 1.02;
+  --text-display--line-height: 1.0;
   --text-display--letter-spacing: -0.035em;
   --text-display--font-weight: 700;
 
-  --text-h1: clamp(1.95rem, 5.2vw, 3.25rem);
-  --text-h1--line-height: 1.06;
+  --text-h1: clamp(2rem, 5.2vw, 3.25rem);
+  --text-h1--line-height: 1.04;
   --text-h1--letter-spacing: -0.025em;
   --text-h1--font-weight: 700;
 
@@ -66,460 +76,281 @@
   --text-h2--letter-spacing: -0.02em;
   --text-h2--font-weight: 700;
 
-  --text-h3: clamp(1.05rem, 1.6vw, 1.2rem);
+  --text-h3: 1.2rem;
   --text-h3--line-height: 1.35;
+  --text-h3--letter-spacing: -0.01em;
   --text-h3--font-weight: 600;
 
+  --text-lede: clamp(1.05rem, 1.8vw, 1.35rem);
+  --text-lede--line-height: 1.55;
+  --text-lede--letter-spacing: -0.005em;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+
   --text-eyebrow: 0.72rem;
-  --text-eyebrow--letter-spacing: 0.16em;
   --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
   --text-eyebrow--font-weight: 500;
 
-  /* Containers */
-  --container-3xl: 1320px;
+  --text-data: 0.8125rem;
+  --text-data--line-height: 1.4;
+  --text-data--font-weight: 500;
 
-  /* Radius */
-  --radius-card: 1.1rem;
-  --radius-pill: 9999px;
+  /* Larger data tier — stat/highlight VALUES (one token across card + modal). */
+  --text-data-lg: 0.95rem;
+  --text-data-lg--line-height: 1.2;
+  --text-data-lg--font-weight: 600;
+
+  --container-3xl: 1200px;
 }
 
-/* ================================================================
-   THEME COLORS — runtime CSS variables
-   Referenced everywhere via var(--ink), var(--bg), etc.
-   ================================================================ */
+/* ============================================================================
+   THEME COLOR TOKENS — single source of truth, AA-verified both themes.
+   Light is the default (:root). Dark is equal-parity via [data-theme="dark"].
+   ============================================================================ */
 :root,
-[data-theme="dark"] {
-  --bg: #06080f;
-  --bg-elev: #0b0f1d;
-  --surface: #11172a;
-  --surface-2: #182137;
-  --line: rgba(255, 255, 255, 0.06);
-  --line-strong: rgba(255, 255, 255, 0.12);
-  --line-bright: rgba(34, 211, 238, 0.40);
-  --ink: #f1f5ff;
-  --ink-muted: #8a9bbe;
-  --ink-faint: #4d5f80;
-
-  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.30);
-  --shadow-elev: 0 28px 70px rgba(0, 0, 0, 0.55);
-  --shadow-cyan: 0 10px 40px rgba(34, 211, 238, 0.35);
-
-  --cyan: #22d3ee;                     /* electric cyan */
-  --cyan-glow: rgba(34, 211, 238, 0.18);
-  --violet: #a78bfa;                   /* lavender purple — bright enough for
-                                          text-on-dark (was #7c3aed) */
-  --violet-glow: rgba(167, 139, 250, 0.22);
-  --gold: #fbbf24;                     /* warm gold — tertiary highlight */
-  --gold-glow: rgba(251, 191, 36, 0.18);
-
-  /* Hero atmosphere — large blurred radial halos behind the hero. The dark
-     theme uses higher opacities because dark BG can absorb the glow. The
-     light theme override is *much* lower because saturated rgba over a
-     near-white BG washes everything out. */
-  --hero-glow-cyan: rgba(34, 211, 238, 0.18);
-  --hero-glow-violet: rgba(167, 139, 250, 0.22);
-
-  /* Project card — category pill at bottom-left. Dark theme uses a deep
-     ink translucency; light theme overrides this to a near-surface tint
-     so the pill reads as a chip rather than a dark blob. */
-  --project-pill-bg: rgba(6, 8, 15, 0.55);
-
-  /* Card-surface overlays — for chip / icon-button backgrounds that sit on
-     top of a card's accent-tinted header. Two opacities. Both are theme-
-     aware so light theme uses a near-white wash instead of dark ink. */
-  --card-overlay: rgba(6, 8, 15, 0.55);
-  --card-overlay-strong: rgba(6, 8, 15, 0.65);
-
-  /* Modal backdrop dim — wraps Cmd+K and ProjectModal. */
-  --modal-backdrop: rgba(6, 8, 15, 0.86);
-  --emerald: #10b981;
-  --emerald-glow: rgba(16, 185, 129, 0.18);
-  --amber: #f59e0b;
-  --rose: #f43f5e;
-  --pink: #ec4899;
-  --noise-opacity: 0.35;
-}
-
 [data-theme="light"] {
-  --bg: #f6f8ff;
-  --bg-elev: #eef1fb;
+  color-scheme: light;
+
+  --bg: #f7f8fb;
+  --bg-elev: #eef1f7;
   --surface: #ffffff;
-  --surface-2: #f0f3ff;
+  --surface-2: #f0f3f9;
   --line: rgba(13, 21, 38, 0.08);
-  --line-strong: rgba(13, 21, 38, 0.14);
-  --ink: #0d1526;
-  --ink-muted: #4a5f80;
-  --ink-faint: #5d6f8e;                /* was #8899bb — bumped for AA on white
-                                          (#8899bb was 3.5:1, fails AA; new
-                                          value is ~4.6:1, AA pass) */
+  --line-strong: rgba(13, 21, 38, 0.16);
 
-  --shadow-card: 0 4px 24px rgba(13, 21, 38, 0.06);
-  --shadow-elev: 0 28px 70px rgba(13, 21, 38, 0.12);
+  --ink: #0c1322;
+  --ink-muted: #475067;
+  --ink-faint: #586585;
 
-  /* ============================================================
-     LIGHT-THEME COLOR OVERRIDES.
+  --accent: #0a7fa3;          /* Signal Cyan — the one chrome accent */
+  --accent-strong: #086683;   /* accent text at small sizes (AAA) */
+  --accent-ink: #ffffff;      /* text on accent fill */
+  --accent-glow: rgba(10, 127, 163, 0.12);
 
-     Every brand + status color gets a darker shade on light bg so it
-     passes WCAG AA against #f6f8ff (~95% luminance). The dark-theme
-     shades all fail on white — gold #fbbf24 was 1.9:1, cyan #22d3ee
-     was 2.0:1, etc. These deeper variants keep the brand identity
-     (still cyan / purple / gold / etc.) but are readable as text
-     and as small-element fills on a near-white background.
-     ============================================================ */
+  --highlight: #9a4a06;       /* warm "the numbers" — stats only */
 
-  /* Cyan: #22d3ee (dark) → #0891b2 (light). Contrast on white ≈ 7:1. */
-  --cyan: #0891b2;
-  --cyan-glow: rgba(8, 145, 178, 0.14);
-  --line-bright: rgba(8, 145, 178, 0.55);
-  --shadow-cyan: 0 10px 40px rgba(8, 145, 178, 0.30);
+  --ok: #0b7a52;
+  --warn: #9a5b00;
+  --err: #c42b45;
 
-  /* Violet: #a78bfa (dark) → #7c3aed (light). Contrast on white ≈ 6:1. */
-  --violet: #7c3aed;
-  --violet-glow: rgba(124, 58, 237, 0.10);
+  --shadow-sm: 0 2px 10px rgba(13, 21, 38, 0.05), 0 8px 30px rgba(13, 21, 38, 0.06);
+  --shadow-md: 0 10px 24px rgba(13, 21, 38, 0.08), 0 28px 60px rgba(13, 21, 38, 0.10);
+  --shadow-glow: 0 10px 40px var(--accent-glow);
 
-  /* Gold: #fbbf24 (dark) → #d97706 (light). Contrast on white ≈ 5.5:1. */
-  --gold: #d97706;
-  --gold-glow: rgba(217, 119, 6, 0.12);
-
-  /* Emerald: #10b981 (dark) → #059669 (light). Contrast on white ≈ 5:1. */
-  --emerald: #059669;
-  --emerald-glow: rgba(5, 150, 105, 0.10);
-
-  /* Amber: #f59e0b (dark) → #b45309 (light). Distinct from --gold. */
-  --amber: #b45309;
-
-  /* Rose: #f43f5e (dark) → #e11d48 (light). Contrast on white ≈ 5:1. */
-  --rose: #e11d48;
-
-  /* Pink: #ec4899 (dark) → #be185d (light). Contrast on white ≈ 6:1. */
-  --pink: #be185d;
-
-  /* Hero atmosphere — much lower opacity on light bg so the blobs read as
-     a *whisper* of color, not an overwhelming wash. The original 0.22
-     violet at 22% over white = noticeable lavender wash; 0.05 = subtle
-     hint of brand color. */
-  --hero-glow-cyan: rgba(8, 145, 178, 0.06);
-  --hero-glow-violet: rgba(124, 58, 237, 0.05);
-
-  /* Project card pill — light surface bg, switches text to --ink via
-     the [data-theme="light"] .project-pill CSS rule above. */
-  --project-pill-bg: rgba(255, 255, 255, 0.85);
-
-  /* Card-surface overlays — light-theme variants. Near-white tints so
-     chips and icon buttons on top of accent-glow card headers read as
-     light glass, not dark blobs. */
-  --card-overlay: rgba(255, 255, 255, 0.75);
-  --card-overlay-strong: rgba(255, 255, 255, 0.88);
-
-  /* Modal backdrop — slightly less aggressive on light theme. Still
-     darkish so the modal panel pops, but with more transparency so the
-     page underneath shows through. */
-  --modal-backdrop: rgba(13, 21, 38, 0.55);
-
-  --noise-opacity: 0.16;
+  --noise-opacity: 0.04;
+  --modal-backdrop: rgba(13, 21, 38, 0.45);
+  --card-overlay: rgba(255, 255, 255, 0.78);
 }
 
-/* ================================================================
-   GLOBAL RESET + BASE
-   ================================================================ */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #070a12;
+  --bg-elev: #0c111f;
+  --surface: #11172a;
+  --surface-2: #19223a;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.14);
+
+  --ink: #eef2fc;
+  --ink-muted: #9aa8c6;
+  --ink-faint: #74849f;
+
+  --accent: #34d6f0;
+  --accent-strong: #34d6f0;
+  --accent-ink: #04121a;
+  --accent-glow: rgba(52, 214, 240, 0.20);
+
+  --highlight: #f0b84a;
+
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --err: #fb7185;
+
+  --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.36), 0 8px 30px rgba(0, 0, 0, 0.42);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5), 0 24px 60px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 10px 40px var(--accent-glow);
+
+  --noise-opacity: 0.06;
+  --modal-backdrop: rgba(4, 7, 14, 0.84);
+  --card-overlay: rgba(8, 12, 22, 0.6);
 }
+
+/* ============================================================================
+   SCALES — spacing · radii · section rhythm · motion · z-index
+   ============================================================================ */
+:root {
+  --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem; --space-4: 1rem;
+  --space-5: 1.5rem;  --space-6: 2rem;     --space-7: 3rem;    --space-8: 4rem;
+  --space-9: 6rem;    --space-10: 8rem;
+
+  --r-xs: 0.375rem; --r-sm: 0.625rem; --r-md: 1rem; --r-lg: 1.5rem; --r-pill: 9999px;
+
+  --section-y: clamp(4rem, 9vw, 9rem);
+  --section-y-tight: clamp(2.5rem, 5vw, 4.5rem);
+  --section-y-hero: clamp(6rem, 12vh, 11rem);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-reel: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-snap: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* z-index scale: dropdown 30 · nav 40 · rail 60 · backdrop 100 · modal 110 · toast 120 · cursor 9000 */
+  --z-nav: 40; --z-rail: 60; --z-backdrop: 100; --z-modal: 110; --z-cursor: 9000;
+}
+
+@media (max-width: 480px)  { :root { --section-y: clamp(2.5rem, 9vw, 3.25rem); } }
+@media (min-width: 1920px) { :root { --section-y: clamp(5rem, 5vw, 7.5rem); } }
+
+/* ============================================================================
+   RESET + BASE
+   ============================================================================ */
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  text-size-adjust: 100%;
+  scroll-padding-top: 6rem;
   font-size: 16px;
   -webkit-tap-highlight-color: transparent;
 }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 body {
   margin: 0;
   font-family: var(--font-body);
+  font-size: var(--text-body);
   font-weight: 400;
-  /* Inter Tight + Bricolage feature settings */
-  font-feature-settings: "cv11", "ss01", "ss03";
-  /* Open editorial leading — paragraphs without explicit leading still read
-     comfortably. Anything tighter is opt-in via Tailwind's `leading-*`. */
-  line-height: 1.7;
+  line-height: 1.65;
   letter-spacing: -0.005em;
   color: var(--ink);
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.4s var(--ease-out), color 0.4s var(--ease-out);
   overflow-x: hidden;
   min-width: 320px;
 }
+[data-theme="dark"] body { line-height: 1.7; }
 
-/* Bricolage optical sizing — opt-in larger size = wider, more confident */
-h1, h2, h3, h4, h5, h6 {
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 96;
-}
-
-/* Italic emphasis uses Instrument Serif (Awwwards-staple accent) */
-.serif-italic {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-
-img,
-svg,
-video {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-button {
-  font: inherit;
-  color: inherit;
-}
-
-::selection {
-  background: rgba(34, 211, 238, 0.30);
-  color: var(--ink);
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, var(--cyan), var(--violet));
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--violet), var(--cyan));
-}
-
-/* Headings inherit display family */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   color: var(--ink);
   margin: 0;
+  font-weight: 700;
   text-wrap: balance;
+  font-optical-sizing: auto;
+}
+h1, h2 { font-variation-settings: "opsz" 96; }
+p { margin: 0; text-wrap: pretty; }
+
+/* Italic emphasis — Instrument Serif, the contrast move (replaces gradient text). */
+.serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
-p {
-  margin: 0;
-  text-wrap: pretty;
+/* Mono carries real data — tabular figures so columns align and don't jitter. */
+.font-mono, .eyebrow, .section-index, .data {
+  font-variant-numeric: tabular-nums;
 }
 
-/* iOS form-zoom guard */
-input, textarea, select {
-  font-size: max(16px, 1rem);
-}
+img, svg, video { max-width: 100%; height: auto; display: block; }
+button { font: inherit; color: inherit; }
+input, textarea, select { font-size: max(16px, 1rem); }
 
-/* ================================================================
-   SIGNATURE EASING — used as a brand asset across all motion
-   ================================================================ */
-:root {
-  --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-power: cubic-bezier(0.65, 0, 0.35, 1);
-}
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); color: var(--ink); }
 
-/* ================================================================
-   COMPONENT HELPERS — reused atomic utilities
-   ================================================================ */
+/* Scrollbar — neutral, accent on hover. No gradient. */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 9999px; border: 3px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-/* Subtle SVG noise overlay — adds tactile depth */
+/* ============================================================================
+   TEXTURE + ATMOSPHERE
+   ============================================================================ */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
   opacity: var(--noise-opacity);
-  mix-blend-mode: overlay;
 }
 
-/* Background grid — for hero/section backdrops */
 .grid-bg {
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: -1px -1px;
+  background-size: 72px 72px;
 }
 
-.grid-bg-fine {
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-/* Ambient glow blob. The blur radius is the most expensive thing on this
-   site after the WebGL canvas — it forces a separate composite layer plus a
-   gaussian filter pass. We dial it down on phones where the blob is mostly
-   masked anyway, and pump it back up on big screens where the canvas is
-   dramatic. */
+/* Ambient glow blob — cap 2 concurrent, never animate the blur radius. */
 .ambient-glow {
   position: absolute;
   border-radius: 9999px;
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
-  will-change: opacity;
 }
-@media (min-width: 1024px) {
-  .ambient-glow { filter: blur(80px); }
-}
+@media (min-width: 1024px) { .ambient-glow { filter: blur(80px); } }
+@media (min-width: 1920px) { .ambient-glow { filter: blur(110px); } }
 
-/* Gradient text utilities.
-   `background-clip: text` only paints through THE ELEMENT'S OWN text
-   glyphs — child elements with their own text are NOT covered. So when
-   `.gradient-text` wraps per-character animation spans (`.char`) with no
-   direct text content of its own, nothing visible renders. Solution:
-   the rule below applies the same clipped gradient to every `.char`
-   inside `.gradient-text`. Each letter then carries its own internal
-   cyan→violet gradient — visible at all times, plays nicely with the
-   per-char kerning animation. */
-.gradient-text {
-  background: linear-gradient(135deg, var(--cyan), var(--violet));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-.gradient-text .char {
-  background-image: linear-gradient(135deg, var(--cyan), var(--violet));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-.gradient-text-emerald {
-  background: linear-gradient(135deg, var(--emerald), var(--cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-.gradient-text-warm {
-  background: linear-gradient(135deg, var(--amber), var(--rose));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Glass surfaces */
 .glass {
-  background: rgba(17, 23, 42, 0.55);
-  backdrop-filter: blur(16px) saturate(160%);
+  background: color-mix(in srgb, var(--surface) 65%, transparent);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid var(--line);
 }
-[data-theme="light"] .glass {
-  background: rgba(255, 255, 255, 0.65);
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: var(--surface); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
-/* ================================================================
-   ANIMATIONS
-   ================================================================ */
-@keyframes pulse-ring {
-  0% { transform: scale(0.85); opacity: 1; }
-  100% { transform: scale(2.6); opacity: 0; }
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-10px) rotate(0.5deg); }
-  66% { transform: translateY(-4px) rotate(-0.4deg); }
-}
-@keyframes marquee {
-  0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
-}
-@keyframes mask-reveal {
-  0%   { clip-path: inset(0 100% 0 0); }
-  100% { clip-path: inset(0 0 0 0); }
-}
-@keyframes mask-up {
-  0%   { transform: translateY(105%); }
-  100% { transform: translateY(0%); }
-}
-@keyframes draw-line {
-  0%   { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-@keyframes shimmer {
-  0%   { background-position: -200% 50%; }
-  100% { background-position: 200% 50%; }
-}
-@keyframes hue {
-  0%   { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
-}
-@keyframes orbit {
-  0%   { transform: rotate(0deg) translateX(120px) rotate(0deg); }
-  100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
-}
-
-.animate-blink { animation: blink 1s step-end infinite; }
-.animate-float { animation: float 6s ease-in-out infinite; }
-.animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
-.animate-marquee { animation: marquee var(--marquee-duration, 38s) linear infinite; }
-.animate-shimmer {
-  background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 2.4s linear infinite;
-}
-
-/* Pause marquee on hover */
-.marquee-track:hover > .animate-marquee {
-  animation-play-state: paused;
-}
-
-/* ================================================================
-   EDITORIAL TYPOGRAPHY — masthead & numbered marker
-   ================================================================ */
+/* ============================================================================
+   EDITORIAL LABELS + LINKS
+   ============================================================================ */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: var(--text-eyebrow);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink-faint);
   font-weight: 500;
 }
-
-/* Numbered section index — Awwwards-staple */
 .section-index {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--text-eyebrow);
   letter-spacing: 0.18em;
   color: var(--ink-faint);
   font-weight: 500;
+  text-transform: uppercase;
+}
+.data {
+  font-family: var(--font-mono);
+  font-size: var(--text-data);
+  font-weight: 500;
 }
 
-/* Reveal-once mask utility (CSS-only, safe for LCP) */
-.reveal-mask {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-}
-.reveal-mask > span {
-  display: inline-block;
-  animation: mask-up 0.9s var(--ease-signature) both;
+.thesis, .pull-quote { hanging-punctuation: first last; }
+.pull-quote {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.0;
+  text-wrap: balance;
+  font-variation-settings: "opsz" 96;
 }
 
-/* Underline-on-hover link */
 .link-underline {
   position: relative;
   display: inline-block;
@@ -530,573 +361,265 @@ body::before {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -3px;
+  bottom: -2px;
   width: 100%;
-  height: 1px;
+  height: 1.5px;
   background: currentColor;
   transform-origin: right;
   transform: scaleX(0);
-  transition: transform 0.55s var(--ease-signature);
+  transition: transform 0.24s var(--ease-out);
 }
 .link-underline:hover::after,
-.link-underline:focus-visible::after {
-  transform-origin: left;
-  transform: scaleX(1);
-}
+.link-underline:focus-visible::after { transform-origin: left; transform: scaleX(1); }
 
-/* Magnetic CTA target — for Framer transforms */
-.magnetic {
-  display: inline-block;
-  transition: transform 0.4s var(--ease-signature);
-}
-
-/* Buttons: signature primary + ghost. Touch target ≥48px (WCAG 2.5.5). */
+/* ============================================================================
+   BUTTONS — radius --r-sm, 240ms State tier, press scale 0.97
+   ============================================================================ */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   min-height: 3rem;
   padding: 0 1.55rem;
-  border-radius: 0.85rem;
+  border-radius: var(--r-sm);
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.95rem;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
   background: var(--ink);
   color: var(--bg);
-  box-shadow: 0 12px 32px rgba(241, 245, 255, 0.10);
-  transition: transform 0.45s var(--ease-signature), box-shadow 0.45s var(--ease-signature), background 0.3s ease, color 0.3s ease;
+  transition: transform 0.24s var(--ease-out), background 0.24s var(--ease-out),
+              color 0.24s var(--ease-out), box-shadow 0.24s var(--ease-out);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  background: var(--cyan);
-  color: #06080f;
-  box-shadow: var(--shadow-cyan);
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: var(--shadow-glow);
 }
-.btn-primary:focus-visible {
-  outline: 2px solid var(--cyan);
-  outline-offset: 4px;
-}
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   min-height: 3rem;
-  padding: 0 1.3rem;
-  border-radius: 0.85rem;
+  padding: 0 1.45rem;
+  border-radius: var(--r-sm);
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 0.95rem;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
   border: 1px solid var(--line-strong);
   color: var(--ink);
   background: var(--surface);
-  transition: border-color 0.3s ease, transform 0.45s var(--ease-signature), background 0.3s ease;
+  transition: transform 0.24s var(--ease-out), border-color 0.24s var(--ease-out), color 0.24s var(--ease-out);
 }
-.btn-ghost:hover {
-  border-color: var(--cyan);
+.btn-ghost:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent-strong); }
+.btn-ghost:active { transform: scale(0.97); }
+.btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Chips / tags — pill, mono, AA-clamped accent on hover */
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  border-radius: var(--r-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-data);
+  color: var(--ink-muted);
+  transition: border-color 0.18s var(--ease-out), color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+}
+.chip:hover, .chip:focus-visible {
+  border-color: color-mix(in srgb, var(--chip-accent, var(--accent)) 55%, transparent);
+  color: color-mix(in srgb, var(--chip-accent, var(--accent)) 60%, var(--ink));
   transform: translateY(-2px);
 }
-
-/* ================================================================
-   ACCESSIBILITY
-   ================================================================ */
-
-/* Skip-to-content */
-.skip-link {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10000;
-  padding: 12px 20px;
-  background: var(--cyan);
-  color: #06080f;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.875rem;
-  text-decoration: none;
-  border-radius: 0 0 8px 0;
-  transform: translateY(-200%);
-  transition: transform 0.2s ease;
-}
-.skip-link:focus,
-.skip-link:focus-visible {
-  transform: translateY(0);
+[data-theme="dark"] .chip:hover, [data-theme="dark"] .chip:focus-visible {
+  color: var(--chip-accent, var(--accent));
 }
 
-/* Global focus ring */
-:focus-visible {
-  outline: 2px solid var(--cyan);
-  outline-offset: 3px;
-  border-radius: 6px;
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-xs);
+  background: var(--surface-2);
+  padding: 0.1rem 0.35rem;
+  color: var(--ink-faint);
 }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-}
+/* ============================================================================
+   SECTION RHYTHM + CONTAINER
+   ============================================================================ */
+section { position: relative; z-index: 1; }
+.section-y { padding-block: var(--section-y); }
+.section-y-tight { padding-block: var(--section-y-tight); }
 
-/* ================================================================
-   SECTION + LAYOUT BASE — tight, editorial vertical rhythm
-   ================================================================ */
-section {
-  position: relative;
-  z-index: 1;
-}
+.bp-xxl-container { max-width: var(--container-3xl); }
+@media (min-width: 1920px) { .bp-xxl-container { max-width: 1640px; } }
 
-/* Section vertical rhythm — compact editorial cadence. Adjacent sections sit
-   close to each other; their internal headers and content do the breathing. */
-.section-y {
-  padding-block: clamp(2rem, 4.5vw, 4rem);
-}
-.section-y-tight {
-  padding-block: clamp(1.5rem, 3vw, 2.75rem);
-}
-
-/* Hairline divider between sections */
-.divide-section {
+.divide-rule {
   position: relative;
 }
-.divide-section::before {
+.divide-rule::before {
   content: '';
   position: absolute;
-  inset-inline: 0;
-  top: 0;
-  height: 1px;
+  inset-inline: 0; top: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
   pointer-events: none;
 }
 
-/* ================================================================
-   LCP-SAFE TEXT REVEALS — render at full opacity, animate transform only.
-   Used by the hero so the H1 + lede are LCP candidates from first paint.
-   ================================================================ */
-@keyframes text-rise {
-  0%   { transform: translateY(28px); }
-  100% { transform: translateY(0); }
+/* Performance: paint below-fold sections only when near the viewport.
+   Per-section intrinsic size; the pinned reel is excluded (sets its own). */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1800px;
 }
-.text-reveal {
-  display: inline-block;
-  /* Pad the mask so descenders ("g", "p", trailing ".") aren't clipped when
-     the parent uses tight leading. Negative margin balances the layout. */
-  padding-block: 0.18em 0.22em;
-  margin-block: -0.18em -0.22em;
-  overflow: hidden;
-  vertical-align: bottom;
-  line-height: inherit;
-}
-/* Block variant — used when text-reveals need to stack on their own lines.
-   Higher-specificity selector beats Tailwind's `.block` source order. */
-.text-reveal.text-reveal-block,
-.text-reveal-block.text-reveal {
-  display: block;
-}
-.text-reveal > span {
-  display: inline-block;
-  animation: text-rise 0.95s var(--ease-signature) both;
-  will-change: transform;
-}
-.text-reveal-delay-1 > span { animation-delay: 0.10s; }
-.text-reveal-delay-2 > span { animation-delay: 0.22s; }
-.text-reveal-delay-3 > span { animation-delay: 0.34s; }
-.text-reveal-delay-4 > span { animation-delay: 0.46s; }
+@media (min-width: 1024px) { .cv-auto { contain-intrinsic-size: 1px 1400px; } }
 
-/* ================================================================
-   MAGNETIC CURSOR — replaces the older soft glow.
-   Two layered elements:
-     .cursor-dot   — small inner dot, follows pointer 1:1.
-     .cursor-ring  — soft outer ring, lerps behind. Snaps to interactive
-                     targets when they declare themselves with
-                     `data-cursor="target"`.
-   Pure transform animation, GPU-only. JS owns position; CSS owns size +
-   color + transitions.
-   ================================================================ */
+/* ============================================================================
+   KINETIC DEVICES (the seven, and nothing else)
+   ============================================================================ */
+@keyframes char-rise {
+  0%   { opacity: 0; transform: translateY(0.45em); letter-spacing: 0.08em; filter: blur(6px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0); letter-spacing: -0.045em; filter: blur(0); }
+}
+@keyframes mask-up { 0% { transform: translateY(110%); } 100% { transform: translateY(0); } }
+@keyframes marquee { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
+@keyframes pulse-ring { 0% { transform: scale(0.85); opacity: 1; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes draw-line { 0% { transform: scaleY(0); } 100% { transform: scaleY(1); } }
+
+.animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+.animate-marquee { animation: marquee var(--marquee-duration, 40s) linear infinite; }
+.marquee-track:hover > .animate-marquee { animation-play-state: paused; }
+
+/* Hero mega wordmark — device #1: char-by-char rise, once, LCP-safe. */
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.90;
+  font-variation-settings: "opsz" 96;
+}
+.hero-name .char {
+  display: inline-block;
+  white-space: pre;
+  /* The active animation auto-promotes; no permanent will-change (it would
+     hold ~11 compositor layers with a filter hint for the whole session). */
+  animation: char-rise 0.9s var(--ease-out) both;
+}
+
+/* Mask reveal — overflow-clipped line rising once on entry. */
+.reveal-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.reveal-mask > span { display: inline-block; animation: mask-up 0.7s var(--ease-out) both; }
+
+/* Outline display text for the single marquee ribbon (device #4). */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--ink);
+}
+
+/* ============================================================================
+   MAGNETIC CURSOR (device #5) — accent-tinted, never a second hue.
+   ============================================================================ */
 @media (hover: hover) and (pointer: fine) {
-  .cursor-dot,
-  .cursor-ring {
+  .cursor-dot, .cursor-ring {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     pointer-events: none;
-    z-index: 9000;
+    z-index: var(--z-cursor);
     border-radius: 9999px;
     transform: translate3d(-50%, -50%, 0);
-    will-change: transform, width, height, opacity;
+    will-change: transform;
   }
   .cursor-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--cyan);
-    box-shadow: 0 0 12px var(--cyan);
+    width: 6px; height: 6px;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
     transition: opacity 0.2s ease, transform 0.06s linear;
     mix-blend-mode: difference;
   }
   .cursor-ring {
-    width: 32px;
-    height: 32px;
-    border: 1px solid color-mix(in srgb, var(--cyan) 65%, transparent);
-    background: rgba(34, 211, 238, 0.05);
-    backdrop-filter: blur(2px);
-    transition:
-      width 0.45s var(--ease-signature),
-      height 0.45s var(--ease-signature),
-      background 0.45s var(--ease-signature),
-      border-color 0.45s var(--ease-signature),
-      opacity 0.25s ease;
+    width: 34px; height: 34px;
+    border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
+    background: color-mix(in srgb, var(--accent) 6%, transparent);
+    transition: width 0.24s var(--ease-out), height 0.24s var(--ease-out),
+                background 0.24s var(--ease-out), border-color 0.24s var(--ease-out), opacity 0.25s ease;
   }
   .cursor-ring.is-snapped {
-    width: 56px;
-    height: 56px;
-    background: rgba(251, 191, 36, 0.12); /* gold tint when snapped — pop psychology */
-    border-color: color-mix(in srgb, var(--gold) 75%, transparent);
+    width: 60px; height: 60px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 80%, transparent);
   }
-  .cursor-ring.is-pressed {
-    width: 22px;
-    height: 22px;
-  }
-  /* Hide native cursor on interactive elements that have a tracked cursor. */
+  .cursor-ring.is-pressed { width: 24px; height: 24px; }
   [data-cursor="target"] { cursor: none; }
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
   .cursor-dot, .cursor-ring { display: none; }
 }
 
-/* ================================================================
-   CHAPTER RAIL — sticky right-side wayfinding for long scroll sites.
-   The rail must never overlap content. Two breakpoints govern it:
-
-     • >= 1400px  — rail visible as DOTS ONLY (~46px wide). The active dot
-                    is larger + glowing — color/size convey state, no label
-                    needed at this size.
-     • >= 1536px  — hover labels enabled. The right margin is now wide
-                    enough (≥ 168px) that the label can expand without
-                    bleeding into the 1200px content track.
-
-   Below 1400px the rail is hidden entirely; the navbar's active-section
-   indicator carries wayfinding duty there.
-
-   The rail is positioned with calc() to live in the natural margin between
-   the content track and the viewport edge, never overlapping content.
-   ================================================================ */
-@media (min-width: 1400px) {
-  .chapter-rail {
-    --rail-content-track: 1200px;
-    position: fixed;
-    /* Sit in the right margin: half of (viewport - content) minus a small
-       breathing offset, falling back to 16px if the math would push the
-       rail off-screen at narrow widths. */
-    right: max(16px, calc((100vw - var(--rail-content-track)) / 2 - 64px));
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 60;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 12px 8px;
-    border-radius: 24px;
-    background: rgba(11, 15, 29, 0.55);
-    backdrop-filter: blur(14px) saturate(160%);
-    border: 1px solid var(--line);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.45s ease;
-  }
-  .chapter-rail.is-visible {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  [data-theme="light"] .chapter-rail {
-    background: rgba(255, 255, 255, 0.65);
-  }
-}
-
-/* When content widens at 1920+ (bp-xxl-container = 1640px), so does the
-   rail's anchor. */
-@media (min-width: 1920px) {
-  .chapter-rail { --rail-content-track: 1640px; }
-}
-
-/* Below 1400px the rail is hidden — too narrow for it to live outside the
-   content track. Navbar carries wayfinding here. */
-@media (max-width: 1399px) {
-  .chapter-rail { display: none; }
-}
-
-/* Hover labels are gated behind a wider breakpoint. At 1400-1535px the
-   rail stays dot-only; the JS-rendered label spans use this class to
-   enable max-width transitions only when there's room. */
-.chapter-rail [data-rail-label] {
-  max-width: 0;
-  opacity: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: max-width 0.45s var(--ease-signature),
-              opacity 0.3s ease,
-              padding-right 0.4s var(--ease-signature);
-}
-@media (min-width: 1536px) {
-  .chapter-rail .group:hover [data-rail-label],
-  .chapter-rail .group:focus-within [data-rail-label] {
-    max-width: 84px;
-    opacity: 1;
-    padding-right: 4px;
-  }
-}
-
-/* ================================================================
-   VIEW TRANSITIONS — themed circular reveal on toggle.
-   The `--theme-origin-x/y` and `--theme-radius` are set by useTheme()
-   right before invoking startViewTransition().
-   ================================================================ */
+/* ============================================================================
+   THEME VIEW-TRANSITION (device #7) — circular clip from pointer origin
+   ============================================================================ */
 @supports (view-transition-name: x) {
-  /* Disable the default cross-fade so we can do the clip ourselves. */
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-  /* Old DOM (the previous theme) sits underneath. */
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
   ::view-transition-old(root) { z-index: 1; }
   ::view-transition-new(root) { z-index: 2; }
-
-  /* Clip the *new* DOM into a circle that grows from the origin. */
   @keyframes vt-circle-in {
     from { clip-path: circle(0 at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)); }
     to   { clip-path: circle(var(--theme-radius, 1500px) at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)); }
   }
-  ::view-transition-new(root) {
-    animation: vt-circle-in 0.7s var(--ease-signature) both;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-new(root),
-  ::view-transition-old(root) { animation: none !important; }
+  ::view-transition-new(root) { animation: vt-circle-in 0.7s var(--ease-out) both; }
 }
 
-/* ================================================================
-   EDITORIAL MEGA-TYPE — hero name + section pull-quotes
-   ================================================================ */
-
-/* Hero wordmark. Uses min-max clamp so XS through 4K all read confidently
-   without a JS-driven font sizer. The Bricolage opsz axis snaps to 96 at
-   this size — the widest, most decisive grade in the family. */
-.hero-name {
-  font-size: clamp(3.4rem, 11vw, 9.6rem);
-  font-variation-settings: "opsz" 96;
-}
-
-/* Editorial char-by-char reveal for the hero name. Each character starts
-   with a wider letter-spacing and slight Y offset, then settles into place.
-   Pure CSS, runs once on first paint (LCP-safe — the H1 is already laid
-   out, we're animating transform + letter-spacing only). */
-@keyframes char-rise {
-  0% {
-    opacity: 0;
-    transform: translateY(0.45em) rotate(-2deg);
-    letter-spacing: 0.08em;
-    filter: blur(6px);
-  }
-  60% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) rotate(0);
-    letter-spacing: -0.045em;
-    filter: blur(0);
-  }
-}
-.hero-name .char {
-  display: inline-block;
-  white-space: pre;
-  animation: char-rise 1.1s var(--ease-signature) both;
-  will-change: transform, letter-spacing, opacity;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-name .char { animation: none; }
-}
-
-/* Section pull-quote — editorial typographic break that lives between
-   sections to create rhythm. Same family as the hero wordmark; a notch
-   smaller. The reveal is CSS-only via a sibling class on intersection. */
-.pull-quote {
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 0.94;
-  text-wrap: balance;
-  font-size: clamp(2.2rem, 6.5vw, 5.4rem);
-  font-variation-settings: "opsz" 96;
-  color: var(--ink);
-}
-.pull-quote .accent {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--ink-muted);
-  letter-spacing: -0.02em;
-}
-
-/* Surfaces under the hero get a soft top-fade so they meet the hero edge
-   without a hard rule. Enabled by adding `surface-tint` to the section. */
-.surface-tint {
-  position: relative;
-}
-.surface-tint::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 160px;
-  background: linear-gradient(to bottom, var(--bg-elev), transparent);
-  pointer-events: none;
-  opacity: 0.35;
-  z-index: 0;
-}
-.surface-tint > * { position: relative; z-index: 1; }
-
-/* The WebGL hero shader is calibrated for dark BG (cyan/violet flow over
-   near-black). On light theme its `mix-blend-mode: screen` against white
-   does nothing useful and its dark base color introduces visual noise.
-   Hide entirely in light mode — the CSS atmosphere alone is enough. */
+/* Hide the dark-only WebGL layer in light mode. */
 [data-theme="light"] .hero-shader-layer { display: none !important; }
 
-/* Project card category pill. Theme-aware via simple per-theme overrides:
-     - dark: dark ink-translucent bg + accent text (current visual identity)
-     - light: light surface-translucent bg + INK text + accent border/dot
-   Switching the text from accent → ink in light mode guarantees readability
-   across all six project accents (cyan/rose/emerald/violet/lime/orange),
-   some of which are too light for AA against any near-white pill bg. */
-.project-pill {
-  background: var(--project-pill-bg);
-  color: var(--pill-accent);
-  border-color: color-mix(in srgb, var(--pill-accent) 25%, transparent);
-}
-[data-theme="light"] .project-pill {
+/* Reel card category pill — accent owns border/dot; text stays ink (AA on light). */
+.card-pill {
+  background: var(--card-overlay);
   color: var(--ink);
-  border-color: color-mix(in srgb, var(--pill-accent) 50%, transparent);
+  border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 45%, transparent);
 }
 
-/* Performance: paint sections only when near the viewport. Cards that are
-   far down the page no longer cost layout/paint until the user scrolls.
-   Two intrinsic-size hints — desktop sections are tall (work grid is ~2 rows
-   of 600px cards), mobile sections collapse to ~1800px. The estimate doesn't
-   have to be exact; close enough that the scrollbar doesn't jump much when
-   sections paint in. */
-.cv-auto {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 1800px;
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+.skip-link {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 10000;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 0 0 var(--r-sm) 0;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
 }
-@media (min-width: 1024px) {
-  .cv-auto { contain-intrinsic-size: 1px 1400px; }
-}
+.skip-link:focus, .skip-link:focus-visible { transform: translateY(0); }
 
-/* Skill chip hover — pure CSS, no per-chip onMouseEnter handlers (used to
-   be a perf footgun on a list this long). Each card sets `--chip-accent`. */
-.skill-chip:hover,
-.skill-chip:focus-visible {
-  border-color: color-mix(in srgb, var(--chip-accent, var(--cyan)) 55%, transparent);
-  color: var(--chip-accent, var(--cyan));
-}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-/* ================================================================
-   RESPONSIVE BREAKPOINTS — 6 explicit tiers
-   The Tailwind utilities cover most cases; this block is for surgical
-   typography + spacing adjustments where the fluid clamps don't quite
-   land at the extremes. Keep additions minimal — do not re-skin per tier.
-   ----------------------------------------------------------------
-   1. XS  — small phones (portrait)        max-width: 480px
-   2. S   — large phones / small tablets   481–767px
-   3. M   — tablets / phones landscape     768–1023px
-   4. L   — laptops, small desktops        1024–1279px
-   5. XL  — large desktops                 1280–1919px
-   6. XXL — 4K & ultra-wide                ≥ 1920px
-   ================================================================ */
-
-/* 1. XS — small phones (portrait) -------------------------------- */
-@media (max-width: 480px) {
-  html { font-size: 15.5px; }
-
-  /* Tighter hero scroll-padding so anchored sections sit well */
-  html { scroll-padding-top: 80px; }
-
-  /* The 3D phone is already hidden < md (768px). Make sure no leftover
-     phone-stage scaling leaks at this tier. */
-  .phone3d-stage { display: none !important; }
-
-  /* Editorial mega type at this tier — keep big, but rein in line height
-     so the name + lede fit a 360-wide viewport without scroll. */
-  h1 { letter-spacing: -0.04em; }
-
-  /* Section vertical rhythm — slightly tighter on tiny screens. */
-  .section-y { padding-block: clamp(1.5rem, 9vw, 2.5rem); }
-
-  /* Pull-quote padding compresses on XS — no need for huge whitespace
-     between sections on a 320px viewport. */
-  .pull-quote { font-size: clamp(1.85rem, 8.5vw, 2.4rem); }
-
-  /* Hero name — keep visible without wrapping awkwardly on 320px */
-  .hero-name { font-size: clamp(2.8rem, 13vw, 4rem); }
-
-  /* Buttons retain ≥48px height on touch (already enforced by .btn-*).
-     Ensure they don't wrap mid-label on very narrow widths. */
-  .btn-primary, .btn-ghost { white-space: nowrap; }
-}
-
-/* 2. S — large phones / small tablets ---------------------------- */
-@media (min-width: 481px) and (max-width: 767px) {
-  html { font-size: 16px; }
-  html { scroll-padding-top: 88px; }
-  .phone3d-stage { display: none !important; }
-  .section-y { padding-block: clamp(2rem, 7vw, 3rem); }
-  .pull-quote { font-size: clamp(2.1rem, 7vw, 3.4rem); }
-}
-
-/* 3. M — tablets (portrait) / phones landscape ------------------- */
-@media (min-width: 768px) and (max-width: 1023px) {
-  html { scroll-padding-top: 92px; }
-  /* The 3D phone shows here at md scale. Keep a sane minimum height so
-     the hero grid doesn't clip the phone column on portrait tablets. */
-  .phone3d-stage { min-height: 440px; }
-}
-
-/* 4. L — laptops / small desktops -------------------------------- */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  /* Default look, no overrides. */
-}
-
-/* 5. XL — large desktops ----------------------------------------- */
-@media (min-width: 1280px) and (max-width: 1919px) {
-  /* Default look, no overrides. */
-}
-
-/* 6. XXL — 4K & ultra-wide --------------------------------------- */
-@media (min-width: 1920px) {
-  html { font-size: 17.5px; }
-
-  /* Lift the content track so it doesn't strand in the middle of a 4K
-     monitor. The default Container max-width is 1200px; widen it here. */
-  .bp-xxl-container {
-    max-width: 1640px !important;
+/* Reduced motion = the true baseline. Kill transforms/scrub/marquee/cursor;
+   keep opacity/color fades that aid comprehension. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
-
-  /* Section vertical rhythm — generous on big screens. */
-  .section-y { padding-block: clamp(4.5rem, 5vw, 7rem); }
-
-  /* Larger ambient glow so the hero atmosphere fills the wider canvas. */
-  .ambient-glow { filter: blur(110px); }
+  ::view-transition-new(root), ::view-transition-old(root) { animation: none !important; }
 }
 
-/* High-pixel-density tweak — no behavior change, just hint to the
-   browser to use crisp text on retina + 4K. */
-@media (min-resolution: 2dppx) {
-  body { -webkit-font-smoothing: antialiased; }
-}
+/* ============================================================================
+   RESPONSIVE ROOT SIZING
+   ============================================================================ */
+@media (max-width: 480px)  { html { font-size: 15.5px; scroll-padding-top: 5rem; } }
+@media (min-width: 1920px) { html { font-size: 17.5px; } }
